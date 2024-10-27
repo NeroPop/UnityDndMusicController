@@ -5,6 +5,8 @@ using FMODUnity;
 
 public class ActivityManager : MonoBehaviour
 {
+    [Header("References")]
+
     [SerializeField]
     private GameObject ActivityPerameterObject;
 
@@ -12,13 +14,7 @@ public class ActivityManager : MonoBehaviour
     private string variableName;
 
     [SerializeField]
-    private float curValue;
-
-    [SerializeField]
     private StudioEventEmitter studioEventEmitter;
-
-    [SerializeField]
-    private int CurrentActivity;
 
     [Header("Activity Perameter Triggers")]
 
@@ -32,11 +28,11 @@ public class ActivityManager : MonoBehaviour
     private GameObject ActivityTrigger3;
 
     private bool playing = false;
+    private int CurrentActivity;
+    private float curValue;
 
     public void Activity1()
     {
-       // studioEventEmitter.EventInstance.setParameterByName(variableName, 10 / 100);
-
         curValue = 10;
         CurrentActivity = 1;
 
@@ -50,11 +46,13 @@ public class ActivityManager : MonoBehaviour
             studioEventEmitter.gameObject.SetActive(true);
             playing = true;
         }
+        Debug.Log("Parameters set to " + curValue);
+        Debug.Log("Playing Activity track " + CurrentActivity);
+        Debug.Log("Music Playing = " + playing);
     }
 
     public void Activity2()
     {
-        //studioEventEmitter.EventInstance.setParameterByName(variableName, 45 / 100);
         curValue = 45;
         CurrentActivity = 2;
 
@@ -68,11 +66,13 @@ public class ActivityManager : MonoBehaviour
             studioEventEmitter.gameObject.SetActive(true);
             playing = true;
         }
+        Debug.Log("Parameters set to " + curValue);
+        Debug.Log("Playing Activity track " + CurrentActivity);
+        Debug.Log("Music Playing = " + playing);
     }
 
     public void Activity3()
     {
-        //studioEventEmitter.EventInstance.setParameterByName(variableName, 75 / 100);
         curValue = 75;
         CurrentActivity = 3;
 
@@ -86,6 +86,9 @@ public class ActivityManager : MonoBehaviour
             studioEventEmitter.gameObject.SetActive(true);
             playing = true;
         }
+        Debug.Log("Parameters set to " + curValue);
+        Debug.Log("Playing Activity track " + CurrentActivity);
+        Debug.Log("Music Playing = " + playing);
     }
 
     public void Stop()
@@ -96,5 +99,6 @@ public class ActivityManager : MonoBehaviour
             studioEventEmitter.gameObject.SetActive(false);
             playing = false;
         }
+        Debug.Log("Music Playing = " + playing);
     }
 }
