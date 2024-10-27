@@ -55,18 +55,18 @@ public class ActivityManager : MonoBehaviour
         if (!Act1)
         {
             ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
-            Act1 = true;
-            On1.Invoke();
             ActivityButton1.GetComponent<Image>().sprite = ButtonSelectedSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            Act1 = true;
+            Act2 = false;
+            Act3 = false;
             playing = true;
             Playing();
         }
         else
         {
             Act1 = false;
-            Off1.Invoke();
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = false;
             Playing();
@@ -78,18 +78,18 @@ public class ActivityManager : MonoBehaviour
         if (!Act2)
         {
             ActivityTrigger2.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
-            Act2 = true;
-            On2.Invoke();
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonSelectedSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            Act1 = false;
+            Act2 = true;
+            Act3 = false;
             playing = true;
             Playing();
         }
         else
         {
             Act2 = false;
-            Off2.Invoke();
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = false;
             Playing();
@@ -101,18 +101,18 @@ public class ActivityManager : MonoBehaviour
         if (!Act3)
         {
             ActivityTrigger3.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
-            Act3 = true;
-            On3.Invoke();
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonSelectedSprite;
+            Act1 = false;
+            Act2 = false;
+            Act3 = true;
             playing = true;
             Playing();
         }
         else
         {
             Act3 = false;
-            Off3.Invoke();
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = false;
             Playing();
