@@ -28,15 +28,11 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity1()
     {
-
-        ActivityTrigger1.gameObject.SetActive(true);
-        ActivityTrigger2.gameObject.SetActive(false);
-        ActivityTrigger3.gameObject.SetActive(false);
+        ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
 
         if (!playing)
         {
             studioEventEmitter.Play();
-            studioEventEmitter.gameObject.SetActive(true);
             playing = true;
             Debug.Log("Music Playing = " + playing);
         }
@@ -44,15 +40,11 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity2()
     {
-
-        ActivityTrigger1.gameObject.SetActive(false);
-        ActivityTrigger2.gameObject.SetActive(true);
-        ActivityTrigger3.gameObject.SetActive(false);
+        ActivityTrigger2.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
 
         if (!playing)
         {
             studioEventEmitter.Play();
-            studioEventEmitter.gameObject.SetActive(true);
             playing = true;
             Debug.Log("Music Playing = " + playing);
         }
@@ -60,15 +52,11 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity3()
     {
-
-        ActivityTrigger1.gameObject.SetActive(false);
-        ActivityTrigger2.gameObject.SetActive(false);
-        ActivityTrigger3.gameObject.SetActive(true);
+        ActivityTrigger3.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
 
         if (!playing)
         {
             studioEventEmitter.Play();
-            studioEventEmitter.gameObject.SetActive(true);
             playing = true;
             Debug.Log("Music Playing = " + playing);
         }
@@ -79,7 +67,6 @@ public class ActivityManager : MonoBehaviour
         if (playing)
         {
             studioEventEmitter.Stop();
-            studioEventEmitter.gameObject.SetActive(false);
             playing = false;
         }
         Debug.Log("Music Playing = " + playing);
