@@ -46,9 +46,9 @@ public class ActivityManager : MonoBehaviour
 
     private bool playing = false;
 
-    public bool Act1 = false;
-    public bool Act2 = false;
-    public bool Act3 = false;
+    private bool Act1 = false;
+    private bool Act2 = false;
+    private bool Act3 = false;
 
     public void Activity1()
     {
@@ -61,15 +61,22 @@ public class ActivityManager : MonoBehaviour
             Act1 = true;
             Act2 = false;
             Act3 = false;
-            playing = true;
-            Playing();
+
+            if (!playing)
+            {
+                studioEventEmitter.Play();
+                playing = true;
+            }
         }
         else
         {
             Act1 = false;
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
-            playing = false;
-            Playing();
+            if (playing)
+            {
+                studioEventEmitter.Stop();
+                playing = false;
+            }
         }
     }
 
@@ -84,15 +91,23 @@ public class ActivityManager : MonoBehaviour
             Act1 = false;
             Act2 = true;
             Act3 = false;
-            playing = true;
-            Playing();
+
+            if (!playing)
+            {
+                studioEventEmitter.Play();
+                playing = true;
+            }
         }
         else
         {
             Act2 = false;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
-            playing = false;
-            Playing();
+
+            if (playing)
+            {
+                studioEventEmitter.Stop();
+                playing = false;
+            }
         }
     }
 
@@ -107,28 +122,24 @@ public class ActivityManager : MonoBehaviour
             Act1 = false;
             Act2 = false;
             Act3 = true;
-            playing = true;
-            Playing();
+
+            if (!playing)
+            {
+                studioEventEmitter.Play();
+                playing = true;
+            }
         }
         else
         {
             Act3 = false;
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
-            playing = false;
-            Playing();
-        }
-    }
 
-    private void Playing()
-    {
-        if (playing)
-        {
-            studioEventEmitter.Play();     }
-        else
-        {
-            studioEventEmitter.Stop();
+            if (playing)
+            {
+                studioEventEmitter.Stop();
+                playing = false;
+            }
         }
-        Debug.Log("Music Playing = " + playing);
     }
 
     public void Stop()
