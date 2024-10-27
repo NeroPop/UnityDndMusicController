@@ -494,7 +494,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 475349302}
-  - component: {fileID: 475349303}
   - component: {fileID: 475349304}
   m_Layer: 0
   m_Name: ActivityTrigger2
@@ -518,25 +517,6 @@ Transform:
   m_Father: {fileID: 1845278202}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &475349303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475349301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744a208c85da6d04c861d81b992e4ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Emitters:
-  - Target: {fileID: 2031334474}
-    Params:
-    - Name: TestMoodChange
-      Value: 0.45
-  TriggerEvent: 11
 --- !u!114 &475349304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,7 +542,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577877175}
-  - component: {fileID: 577877174}
   - component: {fileID: 577877176}
   m_Layer: 0
   m_Name: ActivityTrigger1
@@ -571,25 +550,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &577877174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 577877173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744a208c85da6d04c861d81b992e4ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Emitters:
-  - Target: {fileID: 2031334474}
-    Params:
-    - Name: TestMoodChange
-      Value: 0.1
-  TriggerEvent: 11
 --- !u!4 &577877175
 Transform:
   m_ObjectHideFlags: 0
@@ -990,7 +950,7 @@ RectTransform:
   - {fileID: 115217810}
   - {fileID: 473448958}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1750,55 +1710,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1588725586
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1588725588}
-  - component: {fileID: 1588725587}
-  m_Layer: 0
-  m_Name: ActivityTriggerglobal
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1588725587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588725586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Parameter: TestMoodChange
-  TriggerEvent: 11
-  Value: 0
---- !u!4 &1588725588
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588725586}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4843281, y: -4.7582226, z: -14.215615}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1807427561
 GameObject:
@@ -1809,7 +1721,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1807427562}
-  - component: {fileID: 1807427563}
   - component: {fileID: 1807427564}
   m_Layer: 0
   m_Name: ActivityTrigger3
@@ -1833,25 +1744,6 @@ Transform:
   m_Father: {fileID: 1845278202}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1807427563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807427561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744a208c85da6d04c861d81b992e4ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Emitters:
-  - Target: {fileID: 2031334474}
-    Params:
-    - Name: TestMoodChange
-      Value: 0.75
-  TriggerEvent: 11
 --- !u!114 &1807427564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1901,7 +1793,7 @@ Transform:
   - {fileID: 475349302}
   - {fileID: 1807427562}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1845278203
 MonoBehaviour:
@@ -1915,11 +1807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9023c6a0c0ff7bc4e97783c1b00ec5cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivityPerameterObject: {fileID: 1588725586}
   variableName: TestMoodChange
-  curValue: 0
   studioEventEmitter: {fileID: 2031334474}
-  CurrentActivity: 0
   ActivityTrigger1: {fileID: 577877173}
   ActivityTrigger2: {fileID: 475349301}
   ActivityTrigger3: {fileID: 1807427561}

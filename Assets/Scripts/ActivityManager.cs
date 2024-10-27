@@ -8,9 +8,6 @@ public class ActivityManager : MonoBehaviour
     [Header("References")]
 
     [SerializeField]
-    private GameObject ActivityPerameterObject;
-
-    [SerializeField]
     private string variableName;
 
     [SerializeField]
