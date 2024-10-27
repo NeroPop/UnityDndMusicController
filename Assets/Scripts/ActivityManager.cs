@@ -25,13 +25,9 @@ public class ActivityManager : MonoBehaviour
     private GameObject ActivityTrigger3;
 
     private bool playing = false;
-    private int CurrentActivity;
-    private float curValue;
 
     public void Activity1()
     {
-        curValue = 10;
-        CurrentActivity = 1;
 
         ActivityTrigger1.gameObject.SetActive(true);
         ActivityTrigger2.gameObject.SetActive(false);
@@ -42,16 +38,12 @@ public class ActivityManager : MonoBehaviour
             studioEventEmitter.Play();
             studioEventEmitter.gameObject.SetActive(true);
             playing = true;
+            Debug.Log("Music Playing = " + playing);
         }
-        Debug.Log("Parameters set to " + curValue);
-        Debug.Log("Playing Activity track " + CurrentActivity);
-        Debug.Log("Music Playing = " + playing);
     }
 
     public void Activity2()
     {
-        curValue = 45;
-        CurrentActivity = 2;
 
         ActivityTrigger1.gameObject.SetActive(false);
         ActivityTrigger2.gameObject.SetActive(true);
@@ -62,16 +54,12 @@ public class ActivityManager : MonoBehaviour
             studioEventEmitter.Play();
             studioEventEmitter.gameObject.SetActive(true);
             playing = true;
+            Debug.Log("Music Playing = " + playing);
         }
-        Debug.Log("Parameters set to " + curValue);
-        Debug.Log("Playing Activity track " + CurrentActivity);
-        Debug.Log("Music Playing = " + playing);
     }
 
     public void Activity3()
     {
-        curValue = 75;
-        CurrentActivity = 3;
 
         ActivityTrigger1.gameObject.SetActive(false);
         ActivityTrigger2.gameObject.SetActive(false);
@@ -82,10 +70,8 @@ public class ActivityManager : MonoBehaviour
             studioEventEmitter.Play();
             studioEventEmitter.gameObject.SetActive(true);
             playing = true;
+            Debug.Log("Music Playing = " + playing);
         }
-        Debug.Log("Parameters set to " + curValue);
-        Debug.Log("Playing Activity track " + CurrentActivity);
-        Debug.Log("Music Playing = " + playing);
     }
 
     public void Stop()
