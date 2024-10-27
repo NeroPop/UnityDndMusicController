@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ActivityManager : MonoBehaviour
 {
@@ -25,33 +26,29 @@ public class ActivityManager : MonoBehaviour
     [SerializeField]
     private GameObject ActivityTrigger3;
 
-    [Header("Activity Enabled")]
+    [Header("Buttons")]
 
     [SerializeField]
-    private UnityEvent On1;
+    private Sprite ButtonDefaultSprite;
 
     [SerializeField]
-    private UnityEvent On2;
+    private Sprite ButtonSelectedSprite;
 
     [SerializeField]
-    private UnityEvent On3;
-
-    [Header("Activity Disabled")]
+    private GameObject ActivityButton1;
 
     [SerializeField]
-    private UnityEvent Off1;
+    private GameObject ActivityButton2;
 
     [SerializeField]
-    private UnityEvent Off2;
+    private GameObject ActivityButton3;
 
-    [SerializeField]
-    private UnityEvent Off3;
 
     private bool playing = false;
 
-    private bool Act1 = false;
-    private bool Act2 = false;
-    private bool Act3 = false;
+    public bool Act1 = false;
+    public bool Act2 = false;
+    public bool Act3 = false;
 
     public void Activity1()
     {
@@ -60,6 +57,9 @@ public class ActivityManager : MonoBehaviour
             ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
             Act1 = true;
             On1.Invoke();
+            ActivityButton1.GetComponent<Image>().sprite = ButtonSelectedSprite;
+            ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = true;
             Playing();
         }
@@ -67,6 +67,7 @@ public class ActivityManager : MonoBehaviour
         {
             Act1 = false;
             Off1.Invoke();
+            ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = false;
             Playing();
         }
@@ -79,6 +80,9 @@ public class ActivityManager : MonoBehaviour
             ActivityTrigger2.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
             Act2 = true;
             On2.Invoke();
+            ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            ActivityButton2.GetComponent<Image>().sprite = ButtonSelectedSprite;
+            ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = true;
             Playing();
         }
@@ -86,7 +90,8 @@ public class ActivityManager : MonoBehaviour
         {
             Act2 = false;
             Off2.Invoke();
-            playing= false;
+            ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            playing = false;
             Playing();
         }
     }
@@ -98,6 +103,9 @@ public class ActivityManager : MonoBehaviour
             ActivityTrigger3.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
             Act3 = true;
             On3.Invoke();
+            ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            ActivityButton3.GetComponent<Image>().sprite = ButtonSelectedSprite;
             playing = true;
             Playing();
         }
@@ -105,7 +113,8 @@ public class ActivityManager : MonoBehaviour
         {
             Act3 = false;
             Off3.Invoke();
-            playing= false;
+            ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
+            playing = false;
             Playing();
         }
     }
