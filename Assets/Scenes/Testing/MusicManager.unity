@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -563,6 +563,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9023c6a0c0ff7bc4e97783c1b00ec5cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivityPerameterObject: {fileID: 577877173}
+  variableName: TestMoodChange
+  minValue: 0
+  maxValue: 1
+  studioEventEmitter: {fileID: 2031334474}
 --- !u!1 &2031334473
 GameObject:
   m_ObjectHideFlags: 0
