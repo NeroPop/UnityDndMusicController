@@ -18,28 +18,13 @@ public class ActivityManager : MonoBehaviour
     [Header("Activity Perameter Triggers")]
 
     [SerializeField]
-    [Tooltip("FMOD Parameter GameObject with the desired Volume variable to change.")]
     private GameObject ActivityTrigger1;
 
     [SerializeField]
-    [Tooltip("Name of the Track 1 volume variable to change. Case sensitive.")]
-    private string Track1VolName;
-
-    [SerializeField]
-    [Tooltip("FMOD Parameter GameObject with the desired Volume variable to change.")]
     private GameObject ActivityTrigger2;
 
     [SerializeField]
-    [Tooltip("Name of the Track 2 volume variable to change. Case sensitive.")]
-    private string Track2VolName;
-
-    [SerializeField]
-    [Tooltip("FMOD Parameter GameObject with the desired Volume variable to change.")]
     private GameObject ActivityTrigger3;
-
-    [SerializeField]
-    [Tooltip("Name of the Track 3 volume variable to change. Case sensitive.")]
-    private string Track3VolName;
 
     [Header("Volumes")]
 
@@ -47,10 +32,22 @@ public class ActivityManager : MonoBehaviour
     private GameObject Track1Vol;
 
     [SerializeField]
+    [Tooltip("Name of the Track 1 volume variable to change. Case sensitive.")]
+    private string Track1VolName;
+
+[SerializeField]
     private GameObject Track2Vol;
 
     [SerializeField]
+    [Tooltip("Name of the Track 2 volume variable to change. Case sensitive.")]
+    private string Track2VolName;
+
+    [SerializeField]
     private GameObject Track3Vol;
+
+    [SerializeField]
+    [Tooltip("Name of the Track 3 volume variable to change. Case sensitive.")]
+    private string Track3VolName;
 
     [Header("Buttons")]
 
@@ -70,7 +67,6 @@ public class ActivityManager : MonoBehaviour
     private GameObject ActivityButton3;
 
     //hidden variables
-
     private bool playing = false;
 
     private bool Act1 = false;
@@ -78,15 +74,64 @@ public class ActivityManager : MonoBehaviour
     private bool Act3 = false;
 
     //fade control
-
+    public float FadeDuration = 5;
+    public bool Fade = true;
     private float CurrentTime;
     public float FadeTime;
-    public bool Fade = true;
+
+    private float Track1CurVolume;
+    private float Track2CurVolume;
+    private float Track3CurVolume;
 
 
     private void Update()
     {
         CurrentTime = CurrentTime + Time.deltaTime;
+
+        if (Act1)
+        {
+            if (CurrentTime < FadeDuration)
+            {
+                FadeTime = CurrentTime / FadeDuration;
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track1VolName, FadeTime);
+                Track1Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
+                //Debug.Log("Fading for " + CurrentTime);
+            }
+            Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+        }
+
+        else if (Act2)
+        {
+            if (CurrentTime < FadeDuration)
+            {
+                FadeTime = CurrentTime;
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track2VolName, FadeTime);
+                Track2Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
+                //Debug.Log("Fading for " + CurrentTime);
+            }
+            Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+        }
+
+        else if (Act3)
+        {
+            if (CurrentTime < FadeDuration)
+            {
+                FadeTime = CurrentTime;
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track3VolName, FadeTime);
+                Track3Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
+                //Debug.Log("Fading for " + CurrentTime);
+            }
+            Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+        }
+
+        else
+        {
+            FadeTime = 0;
+        }
+
     }
 
     public void Activity1()
@@ -101,14 +146,13 @@ public class ActivityManager : MonoBehaviour
             Act2 = false;
             Act3 = false;
 
+            CurrentTime = 0;
+
             if (!playing)
             {
                 studioEventEmitter.Play();
                 playing = true;
             }
-
-            CurrentTime = 0;
-            ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
         }
         else
         {
@@ -133,6 +177,8 @@ public class ActivityManager : MonoBehaviour
             Act1 = false;
             Act2 = true;
             Act3 = false;
+
+            CurrentTime = 0;
 
             if (!playing)
             {
@@ -164,6 +210,8 @@ public class ActivityManager : MonoBehaviour
             Act1 = false;
             Act2 = false;
             Act3 = true;
+
+            CurrentTime = 0;
 
             if (!playing)
             {
