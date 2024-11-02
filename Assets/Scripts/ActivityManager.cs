@@ -69,14 +69,15 @@ public class ActivityManager : MonoBehaviour
     //hidden variables
     private bool playing = false;
 
-    private int Act = 0;
-    private int PrevAct = 0;
+    public int Act = 0;
+    public int PrevAct = 0;
 
     //fade control
     public float FadeDuration = 5;
     public bool Fade = true;
     private float CurrentTime;
-    public float FadeTime;
+    private float FadeTime;
+    private float FadeoutTime;
 
     private float Track1CurVolume;
     private float Track2CurVolume;
@@ -95,8 +96,33 @@ public class ActivityManager : MonoBehaviour
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track1VolName, FadeTime);
                 Track1Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                 FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
+
                 //Debug.Log("Fading for " + CurrentTime);
             }
+
+            if (FadeoutTime > 0)
+            {
+                FadeoutTime = (FadeDuration - CurrentTime);
+
+                if (PrevAct == 2)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track2VolName, FadeoutTime);
+                    Track2Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
+
+                    Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+                }
+
+                if (PrevAct == 3)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track3VolName, FadeoutTime);
+                    Track3Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
+
+                    Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+                }
+            }
+
             Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
         }
 
@@ -104,12 +130,37 @@ public class ActivityManager : MonoBehaviour
         {
             if (CurrentTime < FadeDuration)
             {
-                FadeTime = CurrentTime;
+                FadeTime = CurrentTime / FadeDuration;
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track2VolName, FadeTime);
                 Track2Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                 FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
+
                 //Debug.Log("Fading for " + CurrentTime);
             }
+
+            if (FadeoutTime > 0)
+            {
+                FadeoutTime = (FadeDuration - CurrentTime);
+
+                if (PrevAct == 1)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track1VolName, FadeoutTime);
+                    Track1Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
+
+                    Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+                }
+
+                if (PrevAct == 3)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track3VolName, FadeoutTime);
+                    Track3Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
+
+                    Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+                }
+            }
+
             Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
         }
 
@@ -117,12 +168,37 @@ public class ActivityManager : MonoBehaviour
         {
             if (CurrentTime < FadeDuration)
             {
-                FadeTime = CurrentTime;
+                FadeTime = CurrentTime / FadeDuration;
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track3VolName, FadeTime);
                 Track3Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                 FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
+
                 //Debug.Log("Fading for " + CurrentTime);
             }
+
+            if (FadeoutTime > 0)
+            {
+                FadeoutTime = (FadeDuration - CurrentTime);
+
+                if (PrevAct == 1)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track1VolName, FadeoutTime);
+                    Track1Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
+
+                    Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+                }
+
+                if (PrevAct == 2)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track2VolName, FadeoutTime);
+                    Track2Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
+
+                    Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+                }
+            }
+
             Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
         }
 
@@ -143,8 +219,8 @@ public class ActivityManager : MonoBehaviour
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
             PrevAct = Act;
             Act = 1;
-
             CurrentTime = 0;
+            FadeoutTime = FadeDuration;
 
             if (!playing)
             {
@@ -175,8 +251,8 @@ public class ActivityManager : MonoBehaviour
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
             PrevAct = Act;
             Act = 2;
-
             CurrentTime = 0;
+            FadeoutTime = FadeDuration;
 
             if (!playing)
             {
@@ -206,9 +282,10 @@ public class ActivityManager : MonoBehaviour
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonSelectedSprite;
+            PrevAct = Act;
             Act = 3;
-
             CurrentTime = 0;
+            FadeoutTime = FadeDuration;
 
             if (!playing)
             {
