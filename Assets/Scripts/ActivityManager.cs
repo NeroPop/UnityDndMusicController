@@ -18,13 +18,28 @@ public class ActivityManager : MonoBehaviour
     [Header("Activity Perameter Triggers")]
 
     [SerializeField]
+    [Tooltip("FMOD Parameter GameObject with the desired Volume variable to change.")]
     private GameObject ActivityTrigger1;
 
     [SerializeField]
+    [Tooltip("Name of the Track 1 volume variable to change. Case sensitive.")]
+    private string Track1VolName;
+
+    [SerializeField]
+    [Tooltip("FMOD Parameter GameObject with the desired Volume variable to change.")]
     private GameObject ActivityTrigger2;
 
     [SerializeField]
+    [Tooltip("Name of the Track 2 volume variable to change. Case sensitive.")]
+    private string Track2VolName;
+
+    [SerializeField]
+    [Tooltip("FMOD Parameter GameObject with the desired Volume variable to change.")]
     private GameObject ActivityTrigger3;
+
+    [SerializeField]
+    [Tooltip("Name of the Track 3 volume variable to change. Case sensitive.")]
+    private string Track3VolName;
 
     [Header("Volumes")]
 

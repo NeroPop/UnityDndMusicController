@@ -1703,8 +1703,11 @@ MonoBehaviour:
   variableName: TestMoodChange
   studioEventEmitter: {fileID: 2031334474}
   ActivityTrigger1: {fileID: 577877173}
+  Track1VolName: TestTrack1Vol
   ActivityTrigger2: {fileID: 475349301}
+  Track2VolName: TestTrack2Vol
   ActivityTrigger3: {fileID: 1807427561}
+  Track3VolName: TestTrack3Vol
   Track1Vol: {fileID: 577877173}
   Track2Vol: {fileID: 475349301}
   Track3Vol: {fileID: 1807427561}
