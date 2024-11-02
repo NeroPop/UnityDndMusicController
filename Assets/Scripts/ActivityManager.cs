@@ -66,17 +66,14 @@ public class ActivityManager : MonoBehaviour
     [SerializeField]
     private GameObject ActivityButton3;
 
-    [Header("Debug")]
-
     //hidden variables
-    public bool playing = false;
+    private bool playing = false;
 
-    public int Act = 0;
-    public int PrevAct = 0;
+    private int Act = 0;
+    private int PrevAct = 0;
 
-    //fade control
+    [Header("Fade")]
     public float FadeDuration = 5;
-    public bool Fade = true;
     private float CurrentTime;
     private float FadeTime;
     private float FadeoutTime = 0;
