@@ -66,8 +66,10 @@ public class ActivityManager : MonoBehaviour
     [SerializeField]
     private GameObject ActivityButton3;
 
+    [Header("Debug")]
+
     //hidden variables
-    private bool playing = false;
+    public bool playing = false;
 
     public int Act = 0;
     public int PrevAct = 0;
@@ -77,7 +79,7 @@ public class ActivityManager : MonoBehaviour
     public bool Fade = true;
     private float CurrentTime;
     private float FadeTime;
-    private float FadeoutTime;
+    private float FadeoutTime = 0;
 
     private float Track1CurVolume;
     private float Track2CurVolume;
@@ -102,7 +104,7 @@ public class ActivityManager : MonoBehaviour
 
             if (FadeoutTime > 0)
             {
-                FadeoutTime = (FadeDuration - CurrentTime);
+                FadeoutTime = (1 - (CurrentTime / FadeDuration));
 
                 if (PrevAct == 2)
                 {
@@ -140,7 +142,7 @@ public class ActivityManager : MonoBehaviour
 
             if (FadeoutTime > 0)
             {
-                FadeoutTime = (FadeDuration - CurrentTime);
+                FadeoutTime = (1 - (CurrentTime / FadeDuration));
 
                 if (PrevAct == 1)
                 {
@@ -178,7 +180,7 @@ public class ActivityManager : MonoBehaviour
 
             if (FadeoutTime > 0)
             {
-                FadeoutTime = (FadeDuration - CurrentTime);
+                FadeoutTime = (1 - (CurrentTime / FadeDuration));
 
                 if (PrevAct == 1)
                 {
@@ -202,9 +204,45 @@ public class ActivityManager : MonoBehaviour
             Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
         }
 
-        else
+        else if (Act == 0)
         {
-            FadeTime = 0;
+            if (FadeoutTime > 0)
+            {
+                FadeoutTime = (1 - (CurrentTime / FadeDuration));
+
+                if (PrevAct == 1)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track1VolName, FadeoutTime);
+                    Track1Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
+
+                    Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+                }
+
+                if (PrevAct == 2)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track2VolName, FadeoutTime);
+                    Track2Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
+
+                    Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+                }
+
+                if (PrevAct == 3)
+                {
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track3VolName, FadeoutTime);
+                    Track3Vol.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+                    FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
+
+                    Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+                }
+            }
+
+            else if (FadeoutTime <= 0)
+            {
+                studioEventEmitter.Stop();
+                playing = false;
+            }
         }
 
     }
@@ -235,8 +273,8 @@ public class ActivityManager : MonoBehaviour
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             if (playing)
             {
-                studioEventEmitter.Stop();
-                playing = false;
+                FadeoutTime = FadeDuration;
+                CurrentTime = 0;
             }
         }
     }
@@ -268,8 +306,8 @@ public class ActivityManager : MonoBehaviour
 
             if (playing)
             {
-                studioEventEmitter.Stop();
-                playing = false;
+                FadeoutTime = FadeDuration;
+                CurrentTime = 0;
             }
         }
     }
@@ -301,13 +339,13 @@ public class ActivityManager : MonoBehaviour
 
             if (playing)
             {
-                studioEventEmitter.Stop();
-                playing = false;
+                FadeoutTime = FadeDuration;
+                CurrentTime = 0;
             }
         }
     }
 
-    public void Stop()
+   /* public void Stop()
     {
         PrevAct = Act;
         Act = 0;
@@ -317,5 +355,5 @@ public class ActivityManager : MonoBehaviour
             playing = false;
         }
         Debug.Log("Music Playing = " + playing);
-    }
+    }*/
 }

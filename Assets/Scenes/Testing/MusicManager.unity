@@ -1717,9 +1717,11 @@ MonoBehaviour:
   ActivityButton1: {fileID: 1029570496}
   ActivityButton2: {fileID: 1181298794}
   ActivityButton3: {fileID: 115217809}
+  playing: 0
+  Act: 0
+  PrevAct: 0
   FadeDuration: 5
   Fade: 1
-  FadeTime: 0
 --- !u!1 &2031334473
 GameObject:
   m_ObjectHideFlags: 0
