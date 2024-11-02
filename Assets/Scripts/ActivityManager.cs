@@ -69,9 +69,8 @@ public class ActivityManager : MonoBehaviour
     //hidden variables
     private bool playing = false;
 
-    private bool Act1 = false;
-    private bool Act2 = false;
-    private bool Act3 = false;
+    private int Act = 0;
+    private int PrevAct = 0;
 
     //fade control
     public float FadeDuration = 5;
@@ -88,7 +87,7 @@ public class ActivityManager : MonoBehaviour
     {
         CurrentTime = CurrentTime + Time.deltaTime;
 
-        if (Act1)
+        if (Act == 1)
         {
             if (CurrentTime < FadeDuration)
             {
@@ -101,7 +100,7 @@ public class ActivityManager : MonoBehaviour
             Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
         }
 
-        else if (Act2)
+        else if (Act == 2)
         {
             if (CurrentTime < FadeDuration)
             {
@@ -114,7 +113,7 @@ public class ActivityManager : MonoBehaviour
             Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
         }
 
-        else if (Act3)
+        else if (Act == 3)
         {
             if (CurrentTime < FadeDuration)
             {
@@ -136,15 +135,14 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity1()
     {
-        if (!Act1)
+        if (Act != 1)
         {
-            ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+            //ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
             ActivityButton1.GetComponent<Image>().sprite = ButtonSelectedSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
-            Act1 = true;
-            Act2 = false;
-            Act3 = false;
+            PrevAct = Act;
+            Act = 1;
 
             CurrentTime = 0;
 
@@ -156,7 +154,8 @@ public class ActivityManager : MonoBehaviour
         }
         else
         {
-            Act1 = false;
+            PrevAct = Act;
+            Act = 0;
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             if (playing)
             {
@@ -168,15 +167,14 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity2()
     {
-        if (!Act2)
+        if (Act != 2)
         {
-            ActivityTrigger2.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+            //ActivityTrigger2.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonSelectedSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
-            Act1 = false;
-            Act2 = true;
-            Act3 = false;
+            PrevAct = Act;
+            Act = 2;
 
             CurrentTime = 0;
 
@@ -188,7 +186,8 @@ public class ActivityManager : MonoBehaviour
         }
         else
         {
-            Act2 = false;
+            PrevAct = Act;
+            Act = 0;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
 
             if (playing)
@@ -201,15 +200,13 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity3()
     {
-        if (!Act3)
+        if (Act != 3)
         {
-            ActivityTrigger3.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+            //ActivityTrigger3.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
             ActivityButton1.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonSelectedSprite;
-            Act1 = false;
-            Act2 = false;
-            Act3 = true;
+            Act = 3;
 
             CurrentTime = 0;
 
@@ -221,7 +218,8 @@ public class ActivityManager : MonoBehaviour
         }
         else
         {
-            Act3 = false;
+            PrevAct = Act;
+            Act = 0;
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
 
             if (playing)
@@ -234,6 +232,8 @@ public class ActivityManager : MonoBehaviour
 
     public void Stop()
     {
+        PrevAct = Act;
+        Act = 0;
         if (playing)
         {
             studioEventEmitter.Stop();
