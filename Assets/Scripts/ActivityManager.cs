@@ -26,6 +26,17 @@ public class ActivityManager : MonoBehaviour
     [SerializeField]
     private GameObject ActivityTrigger3;
 
+    [Header("Volumes")]
+
+    [SerializeField]
+    private GameObject Track1Vol;
+
+    [SerializeField]
+    private GameObject Track2Vol;
+
+    [SerializeField]
+    private GameObject Track3Vol;
+
     [Header("Buttons")]
 
     [SerializeField]
@@ -43,12 +54,25 @@ public class ActivityManager : MonoBehaviour
     [SerializeField]
     private GameObject ActivityButton3;
 
+    //hidden variables
 
     private bool playing = false;
 
     private bool Act1 = false;
     private bool Act2 = false;
     private bool Act3 = false;
+
+    //fade control
+
+    private float CurrentTime;
+    public float FadeTime;
+    public bool Fade = true;
+
+
+    private void Update()
+    {
+        CurrentTime = CurrentTime + Time.deltaTime;
+    }
 
     public void Activity1()
     {
@@ -67,6 +91,9 @@ public class ActivityManager : MonoBehaviour
                 studioEventEmitter.Play();
                 playing = true;
             }
+
+            CurrentTime = 0;
+            ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
         }
         else
         {
