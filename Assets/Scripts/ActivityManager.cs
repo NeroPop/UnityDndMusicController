@@ -64,13 +64,18 @@ public class ActivityManager : MonoBehaviour
 
     private void Update()
     {
+        //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
 
         if (Act == 1)
         {
+            //checks if the music should be fading in or not.
             if (CurrentTime < FadeDuration)
             {
+                //FadeTime sets the volume between 0-1, going up as time gets closer to fade duration.
                 FadeTime = CurrentTime / FadeDuration;
+
+                //Sets the activity volume to FadeTime then triggers it and sets Track1CurVolume to whatever the current volume is.
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track1VolName, FadeTime);
                 TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                 FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
@@ -79,8 +84,10 @@ public class ActivityManager : MonoBehaviour
 
             if (FadeoutTime > 0)
             {
+                //Sets FadeoutTime to the opposite of that of Fadetime, also taking the current fade time into account.
                 FadeoutTime = (CurFadeTime - (CurrentTime / FadeDuration));
 
+                //checks which previous activity to fade out and then fades it out.
                 if (PrevAct == 2)
                 {
                     FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track2VolName, FadeoutTime);
@@ -103,6 +110,7 @@ public class ActivityManager : MonoBehaviour
             //Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
         }
 
+        //if you clicked activity 2 or 3 the same thing happens but relative to that activity.
         else if (Act == 2)
         {
             if (CurrentTime < FadeDuration)
@@ -177,6 +185,7 @@ public class ActivityManager : MonoBehaviour
             //Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
         }
 
+        //if you just click off an activity, it only fades out and doesn't fade in.
         else if (Act == 0)
         {
             if (FadeoutTime > 0)
@@ -222,14 +231,19 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity1()
     {
+        //checks if you weren't already on activity 1.
         if (Act != 1)
         {
-            //ActivityTrigger1.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
+            //Changes the button sprites to match the new selection.
             ActivityButton1.GetComponent<Image>().sprite = ButtonSelectedSprite;
             ActivityButton2.GetComponent<Image>().sprite = ButtonDefaultSprite;
             ActivityButton3.GetComponent<Image>().sprite = ButtonDefaultSprite;
+
+            //saves the previous Activity and then sets the current activity as 1
             PrevAct = Act;
             Act = 1;
+
+            //resets the fading times
             CurrentTime = 0;
             FadeoutTime = FadeDuration;
 
@@ -247,13 +261,14 @@ public class ActivityManager : MonoBehaviour
                 CurFadeTime = Track3CurVolume;
             }
 
-
+            //starts playing the music if itisn't already playing.
             if (!playing)
             {
                 studioEventEmitter.Play();
                 playing = true;
             }
         }
+        //if you were already on activity 1 then it fades out the music and resets the button image
         else
         {
             PrevAct = Act;
@@ -360,16 +375,4 @@ public class ActivityManager : MonoBehaviour
             }
         }
     }
-
-   /* public void Stop()
-    {
-        PrevAct = Act;
-        Act = 0;
-        if (playing)
-        {
-            studioEventEmitter.Stop();
-            playing = false;
-        }
-        Debug.Log("Music Playing = " + playing);
-    }*/
 }
