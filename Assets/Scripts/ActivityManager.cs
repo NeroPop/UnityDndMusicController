@@ -87,7 +87,7 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
 
-                    Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+                    //Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
                 }
 
                 if (PrevAct == 3)
@@ -96,11 +96,11 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
 
-                    Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+                    //Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
                 }
             }
 
-            Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+            //Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
         }
 
         else if (Act == 2)
@@ -111,8 +111,6 @@ public class ActivityManager : MonoBehaviour
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName(Track2VolName, FadeTime);
                 TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                 FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
-
-                //Debug.Log("Fading for " + CurrentTime);
             }
 
             if (FadeoutTime > 0)
@@ -125,7 +123,7 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
 
-                    Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+                    //Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
                 }
 
                 if (PrevAct == 3)
@@ -134,11 +132,11 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
 
-                    Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+                    //Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
                 }
             }
 
-            Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+            //Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
         }
 
         else if (Act == 3)
@@ -163,7 +161,7 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
 
-                    Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+                    //Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
                 }
 
                 if (PrevAct == 2)
@@ -172,11 +170,11 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
 
-                    Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+                    //Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
                 }
             }
 
-            Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+            //Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
         }
 
         else if (Act == 0)
@@ -191,7 +189,7 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track1VolName, out Track1CurVolume);
 
-                    Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
+                    //Debug.Log("Current Track 1 Volume = " + Track1CurVolume);
                 }
 
                 if (PrevAct == 2)
@@ -200,7 +198,7 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track2VolName, out Track2CurVolume);
 
-                    Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
+                    //Debug.Log("Current Track 2 Volume = " + Track2CurVolume);
                 }
 
                 if (PrevAct == 3)
@@ -209,7 +207,7 @@ public class ActivityManager : MonoBehaviour
                     TrackTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
                     FMODUnity.RuntimeManager.StudioSystem.getParameterByName(Track3VolName, out Track3CurVolume);
 
-                    Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
+                    //Debug.Log("Current Track 3 Volume = " + Track3CurVolume);
                 }
             }
 
