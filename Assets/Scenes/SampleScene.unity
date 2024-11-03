@@ -570,7 +570,7 @@ MonoBehaviour:
       Data2: 1211831227
       Data3: 1359384733
       Data4: 2026365839
-    Path: event:/Test Event 2
+    Path: event:/Test/Test Event 2
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 12
