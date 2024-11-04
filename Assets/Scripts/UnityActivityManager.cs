@@ -56,11 +56,17 @@ public class UnityActivityManager : MonoBehaviour
 
     public void TriggerActivity(int ActivityNumber)
     {
+        if (FadeoutVolume > 0 && PrevAct > 0)
+        {
+            //sets the old previous activity volume to 0.
+            ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(0) * 20);
+        }
+
         PrevAct = Act;
         PreVolumeLevel = VolumeLevel;
 
         //Runs if the button hasn't already been pressed
-        if (Act != ActivityNumber)
+        if (!playing)
         {
             //sets the current activity
             Act = ActivityNumber;
@@ -113,7 +119,7 @@ public class UnityActivityManager : MonoBehaviour
                 ActivityMixers[Act - 1].audioMixer.SetFloat(MixerVolNames[Act-1], Mathf.Log10(VolumeLevel) * 20);
             }
 
-            if (FadeoutVolume > 0)
+            if (FadeoutVolume > 0 && PrevAct > 0)
             {
                 //Sets FadeoutVolume to the opposite of that of VolumeLevel, also taking the current fade time into account.
                 FadeoutVolume = (CurFadeTime - (CurrentTime / FadeDuration));
