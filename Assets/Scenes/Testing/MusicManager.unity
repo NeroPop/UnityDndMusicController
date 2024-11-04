@@ -1772,6 +1772,7 @@ GameObject:
   - component: {fileID: 1845278202}
   - component: {fileID: 1845278204}
   - component: {fileID: 1845278203}
+  - component: {fileID: 1845278205}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -1834,6 +1835,21 @@ MonoBehaviour:
   PerameterTrigger: {fileID: 577877173}
   ActivityVolName: ActivityVolume
   ActivityCurVolume: 0
+--- !u!114 &1845278205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845278201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f197c86f13ef94747861654f627a2876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  studioEventEmitter: {fileID: 0}
+  PerameterTrigger: {fileID: 0}
+  OneShotVarName: 
 --- !u!1 &1946755653
 GameObject:
   m_ObjectHideFlags: 0
