@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -49,7 +50,7 @@ public class UnityActivityManager : MonoBehaviour
     public float FadeDuration = 5;
     private float VolumeLevel;
     private float PreVolumeLevel;
-    private float FadeoutVolume = 0;
+    public float FadeoutVolume = 0;
     private float CurFadeTime;
 
 
@@ -87,6 +88,10 @@ public class UnityActivityManager : MonoBehaviour
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = false;
             Act = 0;
+
+            CurrentTime = 0;
+            FadeoutVolume = FadeDuration;
+            CurFadeTime = PreVolumeLevel;
         }
     }
 
@@ -108,6 +113,18 @@ public class UnityActivityManager : MonoBehaviour
                 ActivityMixers[Act - 1].audioMixer.SetFloat(MixerVolNames[Act-1], Mathf.Log10(VolumeLevel) * 20);
             }
 
+            if (FadeoutVolume > 0)
+            {
+                //Sets FadeoutVolume to the opposite of that of VolumeLevel, also taking the current fade time into account.
+                FadeoutVolume = (CurFadeTime - (CurrentTime / FadeDuration));
+
+                //sets the previous activity volume to FadeoutVolume which decreases over time.
+                ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
+            }
+        }
+
+        else if (Act == 0)
+        {
             if (FadeoutVolume > 0)
             {
                 //Sets FadeoutVolume to the opposite of that of VolumeLevel, also taking the current fade time into account.
