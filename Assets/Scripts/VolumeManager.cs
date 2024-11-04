@@ -6,8 +6,7 @@ using FMODUnity;
 
 public class VolumeManager : MonoBehaviour
 {
-    [SerializeField]
-    private Slider ActivityVolumeSlider;
+    [Header("FMOD References")]
 
     [SerializeField]
     private GameObject PerameterTrigger;
@@ -15,15 +14,40 @@ public class VolumeManager : MonoBehaviour
     [SerializeField]
     private string ActivityVolName;
 
+    [SerializeField]
+    private string OneshotVolName;
+
+    [Header("UI Elements")]
+
+    [SerializeField]
+    private Slider ActivityVolumeSlider;
+
+    [SerializeField]
+    private Slider OneshotVolumeSlider;
+
+    [Header("Debug")]
+
     private float ActivityVolume;
+    private float OneshotVolume;
+
     public float ActivityCurVolume;
+    public float OneshotCurVolume;
 
     public void ActivityVolumeChange()
     {
         ActivityVolume = ActivityVolumeSlider.value;
 
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName(ActivityVolName, ActivityVolume);
-        PerameterTrigger.GetComponent<FMODUnity.StudioGlobalParameterTrigger>().TriggerParameters();
-        FMODUnity.RuntimeManager.StudioSystem.getParameterByName(ActivityVolName, out ActivityCurVolume);
+        RuntimeManager.StudioSystem.setParameterByName(ActivityVolName, ActivityVolume);
+        PerameterTrigger.GetComponent<StudioGlobalParameterTrigger>().TriggerParameters();
+        RuntimeManager.StudioSystem.getParameterByName(ActivityVolName, out ActivityCurVolume);
+    }
+
+    public void OneshotVolumeChange()
+    {
+        OneshotVolume = OneshotVolumeSlider.value;
+
+        RuntimeManager.StudioSystem.setParameterByName(OneshotVolName, OneshotVolume);
+        PerameterTrigger.GetComponent<StudioGlobalParameterTrigger>().TriggerParameters();
+        RuntimeManager.StudioSystem.getParameterByName(OneshotVolName, out OneshotCurVolume);
     }
 }
