@@ -66,7 +66,7 @@ public class UnityActivityManager : MonoBehaviour
         PreVolumeLevel = VolumeLevel;
 
         //Runs if the button hasn't already been pressed
-        if (!playing)
+        if (ActivityNumber != Act)
         {
             //sets the current activity
             Act = ActivityNumber;
