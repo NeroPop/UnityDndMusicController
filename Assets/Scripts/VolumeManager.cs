@@ -30,8 +30,8 @@ public class VolumeManager : MonoBehaviour
     private float ActivityVolume;
     private float OneshotVolume;
 
-    public float ActivityCurVolume;
-    public float OneshotCurVolume;
+    private float ActivityCurVolume;
+    private float OneshotCurVolume;
 
     public void ActivityVolumeChange()
     {
@@ -39,6 +39,7 @@ public class VolumeManager : MonoBehaviour
 
         RuntimeManager.StudioSystem.setParameterByName(ActivityVolName, ActivityVolume);
         PerameterTrigger.GetComponent<StudioGlobalParameterTrigger>().TriggerParameters();
+
         RuntimeManager.StudioSystem.getParameterByName(ActivityVolName, out ActivityCurVolume);
     }
 
@@ -48,6 +49,7 @@ public class VolumeManager : MonoBehaviour
 
         RuntimeManager.StudioSystem.setParameterByName(OneshotVolName, OneshotVolume);
         PerameterTrigger.GetComponent<StudioGlobalParameterTrigger>().TriggerParameters();
+
         RuntimeManager.StudioSystem.getParameterByName(OneshotVolName, out OneshotCurVolume);
     }
 }
