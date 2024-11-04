@@ -3068,7 +3068,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 577877175}
   m_Father: {fileID: 0}
@@ -3114,8 +3114,6 @@ MonoBehaviour:
   OneshotVolName: OneShotVolume
   ActivityVolumeSlider: {fileID: 1946755655}
   OneshotVolumeSlider: {fileID: 53132043}
-  ActivityCurVolume: 0
-  OneshotCurVolume: 0
 --- !u!114 &1845278205
 MonoBehaviour:
   m_ObjectHideFlags: 0
