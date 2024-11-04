@@ -1,14 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class UnityActivityManager : MonoBehaviour
 {
+    [Header("Audio Sources")]
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    private AudioSource ExploreAudio;
+
+    [SerializeField]
+    private AudioSource CombatAudio;
+
+    [SerializeField]
+    private AudioSource VictoryAudio;
+
+    [Header("Audio Mixers")]
+
+    public AudioMixerGroup ExploreMixer;
+
+    public AudioMixerGroup CombatMixer;
+
+    public AudioMixerGroup VictoryMixer;
 }

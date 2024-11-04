@@ -1424,7 +1424,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 1612057635a8a41438f784ccc9ac69fa, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1584,7 +1584,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185425646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9023c6a0c0ff7bc4e97783c1b00ec5cb, type: 3}
   m_Name: 
@@ -1612,6 +1612,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62357115cabce9b42bd31f5217df8336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExploreAudio: {fileID: 359771514}
+  CombatAudio: {fileID: 368679910}
+  VictoryAudio: {fileID: 1066537511}
+  ExploreMixer: {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
+  CombatMixer: {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
+  VictoryMixer: {fileID: -486800320227940255, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
 --- !u!1 &1244961666
 GameObject:
   m_ObjectHideFlags: 0
