@@ -22,6 +22,8 @@ public class UnityActivityManager : MonoBehaviour
 
     public AudioMixerGroup[] ActivityMixers;
 
+    public string[] MixerVolNames;
+
     [Header("Buttons")]
 
     [SerializeField]
@@ -45,7 +47,7 @@ public class UnityActivityManager : MonoBehaviour
 
     public float CurrentTime;
     public float FadeDuration = 5;
-    private float FadeTime;
+    private float VolumeLevel;
     private float FadeoutTime = 0;
     private float CurFadeTime;
 
@@ -61,6 +63,9 @@ public class UnityActivityManager : MonoBehaviour
             Act = ActivityNumber;
             playing = true;
 
+            //Fade stuff
+            CurrentTime = 0;
+
             //changes the button sprites
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
 
@@ -69,6 +74,7 @@ public class UnityActivityManager : MonoBehaviour
             {
                 ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
             }
+            Debug.Log("Playing activity " + ActivityNumber);
         }
 
         //Runs if the button has already been pressed
@@ -85,9 +91,18 @@ public class UnityActivityManager : MonoBehaviour
         //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
 
+        //checks if activity is playing or not
         if (Act > 0)
         {
+            //checks if the music should be fading in or not.
+            if (CurrentTime < FadeDuration)
+            {
+                //VolumeLevel sets the volume between 0-1, going up as time gets closer to fade duration.
+                VolumeLevel = CurrentTime / FadeDuration;
 
+                //Sets the activity volume to FadeTime
+                ActivityMixers[Act - 1].audioMixer.SetFloat(MixerVolNames[Act-1], Mathf.Log10(VolumeLevel) * 20);
+            }
         }
     }
 }

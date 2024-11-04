@@ -507,7 +507,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   m_audioClip: {fileID: 8300000, guid: e020133fbeeff594a9624338109f1610, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -635,7 +635,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   m_audioClip: {fileID: 8300000, guid: d73c29688efa8aa409c8187e3dc6f361, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1421,10 +1421,10 @@ AudioSource:
   m_GameObject: {fileID: 1066537509}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
+  OutputAudioMixerGroup: {fileID: -486800320227940255, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 1612057635a8a41438f784ccc9ac69fa, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1595,6 +1595,10 @@ MonoBehaviour:
   - {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   - {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   - {fileID: -486800320227940255, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
+  MixerVolNames:
+  - ExploreVol
+  - CombatVol
+  - VictoryVol
   ButtonDefaultSprite: {fileID: 21300000, guid: 397ed8a53e5a6f846880b0e87f1e3de5, type: 3}
   ButtonSelectedSprite: {fileID: 21300000, guid: 89d99e8b3d3d0e04aaa61ac1a8cf8505, type: 3}
   ActivityButtons:
@@ -1603,6 +1607,8 @@ MonoBehaviour:
   - {fileID: 1342605325}
   Act: 0
   PrevAct: 0
+  CurrentTime: 0
+  FadeDuration: 5
 --- !u!1 &1244961666
 GameObject:
   m_ObjectHideFlags: 0
