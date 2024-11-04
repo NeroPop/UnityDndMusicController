@@ -63,7 +63,12 @@ public class UnityActivityManager : MonoBehaviour
 
             //changes the button sprites
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
-            ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
+
+            //ensures the erray isn't out of bounds
+            if (PrevAct > 0)
+            {
+                ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
+            }
         }
 
         //Runs if the button has already been pressed
@@ -71,6 +76,7 @@ public class UnityActivityManager : MonoBehaviour
         {
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
             playing = false;
+            Act = 0;
         }
     }
 
@@ -78,5 +84,10 @@ public class UnityActivityManager : MonoBehaviour
     {
         //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
+
+        if (Act > 0)
+        {
+
+        }
     }
 }
