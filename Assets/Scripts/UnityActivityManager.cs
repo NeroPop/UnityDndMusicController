@@ -8,17 +8,6 @@ using UnityEngine.UI;
 
 public class UnityActivityManager : MonoBehaviour
 {
-    [Header("Audio Sources")]
-
-    [SerializeField]
-    private AudioSource ExploreAudio;
-
-    [SerializeField]
-    private AudioSource CombatAudio;
-
-    [SerializeField]
-    private AudioSource VictoryAudio;
-
     [Header("Audio Mixers")]
 
     public AudioMixerGroup[] ActivityMixers;
@@ -28,29 +17,26 @@ public class UnityActivityManager : MonoBehaviour
     [Header("Buttons")]
 
     [SerializeField]
+    private GameObject[] ActivityButtons;
+
+    [SerializeField]
     private Sprite ButtonDefaultSprite;
 
     [SerializeField]
     private Sprite ButtonSelectedSprite;
 
-    [SerializeField]
-    private GameObject[] ActivityButtons;
-
-    //[Header("Fade")]
-    //public float FadeDuration = 5;
+    [Header("Fade")]
+    public float FadeDuration = 5;
 
     [Header("Debugging")]
 
-    private bool playing = false;
-
     public int Act = 0;
-    public int PrevAct;
+    private int PrevAct;
 
-    public float CurrentTime;
-    public float FadeDuration = 5;
+    private float CurrentTime;
     private float VolumeLevel;
     private float PreVolumeLevel;
-    public float FadeoutVolume = 0;
+    private float FadeoutVolume = 0;
     private float CurFadeTime;
 
 
@@ -70,7 +56,6 @@ public class UnityActivityManager : MonoBehaviour
         {
             //sets the current activity
             Act = ActivityNumber;
-            playing = true;
 
             //Resets fading
             CurrentTime = 0;
@@ -92,7 +77,6 @@ public class UnityActivityManager : MonoBehaviour
         else
         {
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            playing = false;
             Act = 0;
 
             CurrentTime = 0;
