@@ -27,6 +27,6 @@ public class OneShotManager : MonoBehaviour
         PerameterTrigger.GetComponent<StudioGlobalParameterTrigger>().TriggerParameters();
         studioEventEmitter.Play();
         RuntimeManager.StudioSystem.getParameterByName(OneShotPeramName, out CurOneshot);
-        Debug.Log("Playing OneShot " + CurOneshot);
+        //Debug.Log("Playing OneShot " + CurOneshot);
     }
 }
