@@ -84,7 +84,7 @@ public class UnityActivityManager : MonoBehaviour
             {
                 ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
             }
-            Debug.Log("Playing activity " + ActivityNumber);
+            //Debug.Log("Playing activity " + ActivityNumber);
         }
 
         //Runs if the button has already been pressed
@@ -104,13 +104,6 @@ public class UnityActivityManager : MonoBehaviour
         //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
         FadeTime = FadeTime + Time.deltaTime;
-
-        //sets the old fading out to continue fading out.
-        /*if (FadeoutOldTracks)
-        {
-            RemainingVol = OldPreVolumeLevel - (FadeTime / FadeDuration);
-            ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
-        }*/
 
         //checks if activity is playing or not
         if (Act > 0)
