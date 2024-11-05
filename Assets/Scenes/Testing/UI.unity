@@ -2313,6 +2313,8 @@ MonoBehaviour:
   - {fileID: 1029570496}
   - {fileID: 1181298794}
   - {fileID: 115217809}
+  ButtonDefaultSprite: {fileID: 21300000, guid: 73be10c0bca77b84fab5d8c4ccf1f1e4, type: 3}
+  ButtonSelectedSprite: {fileID: 21300000, guid: b05469342337a8548939c82f93c4766a, type: 3}
   FadeDuration: 5
   Act: 0
   FadeoutVolume: 0
