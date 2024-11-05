@@ -129,6 +129,8 @@ AudioMixerController:
     name: CombatVol
   - guid: 2982f3c3cc0536345a0945c688f1629f
     name: ExploreVol
+  - guid: 694ce009382a6c94bba45cd3f45f4c66
+    name: MasterVol
   - guid: 06631a3b70bfd3e4187821c0bad4b736
     name: OneshotVol
   - guid: 9f525d8bcc37dfd4f8e78c6176fd467d

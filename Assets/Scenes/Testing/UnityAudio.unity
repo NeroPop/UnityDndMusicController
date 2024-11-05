@@ -245,7 +245,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1185425647}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: OneshotVolumeChange
         m_Mode: 1
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1185425649}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
         m_MethodName: playOneShot
         m_Mode: 3
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1185425649}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
         m_MethodName: playOneShot
         m_Mode: 3
@@ -1517,9 +1517,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1185425648}
-  - component: {fileID: 1185425647}
+  - component: {fileID: 1185425652}
   - component: {fileID: 1185425651}
-  - component: {fileID: 1185425649}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -1527,23 +1526,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1185425647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1185425646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d0bd8b9d54f914f94e80447f5ad44e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PerameterTrigger: {fileID: 85803910}
-  ActivityVolName: ActivityVolume
-  OneshotVolName: OneShotVolume
-  ActivityVolumeSlider: {fileID: 2127792291}
-  OneshotVolumeSlider: {fileID: 147623561}
 --- !u!4 &1185425648
 Transform:
   m_ObjectHideFlags: 0
@@ -1560,22 +1542,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1185425649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1185425646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f197c86f13ef94747861654f627a2876, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  studioEventEmitter: {fileID: 0}
-  PerameterTrigger: {fileID: 85803910}
-  OneShotPeramName: PlayOneShot
-  CurOneshot: 0
 --- !u!114 &1185425651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1609,6 +1575,26 @@ MonoBehaviour:
   FadeoutVolume: 0
   RemainingVol: 0
   CurFadeTime: 0
+--- !u!114 &1185425652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185425646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ee9f430741ead40ab4feb9c2108881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivityVolumeSlider: {fileID: 2127792291}
+  OneshotVolumeSlider: {fileID: 147623561}
+  MasterMixer: {fileID: 24300002, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
+  MasterVolName: MasterVol
+  ActivitiesMixer: {fileID: -7797428869274095553, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
+  ActivitiesVolName: ActivityVol
+  OneshotsMixer: {fileID: -7518525217841771320, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
+  OneshotsVolName: OneshotVol
 --- !u!1 &1244961666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3127,7 +3113,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1185425649}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
         m_MethodName: playOneShot
         m_Mode: 3
@@ -3550,7 +3536,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1185425647}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ActivityVolumeChange
         m_Mode: 1
