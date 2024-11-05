@@ -1,4 +1,3 @@
-using FMODUnity;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -42,5 +41,11 @@ public class VolumeManager : MonoBehaviour
     {
         ActivityVolume = ActivityVolumeSlider.value;
         ActivitiesMixer.audioMixer.SetFloat(ActivitiesVolName, Mathf.Log10(ActivityVolume) * 20);
+    }
+
+    public void OneshotVolumeChange()
+    {
+        OneshotVolume = OneshotVolumeSlider.value;
+        OneshotsMixer.audioMixer.SetFloat(OneshotsVolName, Mathf.Log10(OneshotVolume) * 20);
     }
 }
