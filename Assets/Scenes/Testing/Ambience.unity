@@ -2600,14 +2600,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
-        m_MethodName: playOneShot
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: PlayAmbientAudio
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3770,14 +3770,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
-        m_MethodName: playOneShot
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: PlayAmbientAudio
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4510,6 +4510,11 @@ MonoBehaviour:
   - {fileID: 1017437802}
   - {fileID: 951451183}
   - {fileID: 1537157225}
+  FadeDuration: 5
+  CurAmbient: 0
+  CurrentTime: 0
+  VolumeLevel: 0
+  FadeIn: 0
 --- !u!1 &1180488876
 GameObject:
   m_ObjectHideFlags: 0
@@ -6883,14 +6888,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
-        m_MethodName: playOneShot
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: PlayAmbientAudio
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
