@@ -1588,9 +1588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62357115cabce9b42bd31f5217df8336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExploreAudio: {fileID: 359771514}
-  CombatAudio: {fileID: 368679910}
-  VictoryAudio: {fileID: 1066537511}
   ActivityMixers:
   - {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   - {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
@@ -1599,16 +1596,19 @@ MonoBehaviour:
   - ExploreVol
   - CombatVol
   - VictoryVol
-  ButtonDefaultSprite: {fileID: 21300000, guid: 397ed8a53e5a6f846880b0e87f1e3de5, type: 3}
-  ButtonSelectedSprite: {fileID: 21300000, guid: 89d99e8b3d3d0e04aaa61ac1a8cf8505, type: 3}
   ActivityButtons:
   - {fileID: 1796660149}
   - {fileID: 1297364182}
   - {fileID: 1342605325}
+  ButtonDefaultSprite: {fileID: 21300000, guid: 397ed8a53e5a6f846880b0e87f1e3de5, type: 3}
+  ButtonSelectedSprite: {fileID: 21300000, guid: 89d99e8b3d3d0e04aaa61ac1a8cf8505, type: 3}
+  FadeDuration: 10
   Act: 0
-  PrevAct: 0
   CurrentTime: 0
-  FadeDuration: 5
+  FadeTime: 0
+  FadeoutVolume: 0
+  RemainingVol: 0
+  CurFadeTime: 0
 --- !u!1 &1244961666
 GameObject:
   m_ObjectHideFlags: 0
