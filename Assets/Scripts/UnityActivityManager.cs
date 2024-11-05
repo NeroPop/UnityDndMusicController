@@ -127,7 +127,7 @@ public class UnityActivityManager : MonoBehaviour
 
                 //Sets the activity volume to VolumeLevel
                 ActivityMixers[Act - 1].audioMixer.SetFloat(MixerVolNames[Act - 1], Mathf.Log10(VolumeLevel) * 20);
-                Debug.Log("Fading in Activity " + Act + " Current Volume is " + VolumeLevel);
+                //Debug.Log("Fading in Activity " + Act + " Current Volume is " + VolumeLevel);
             }
 
             //Music Fades out.
@@ -138,7 +138,7 @@ public class UnityActivityManager : MonoBehaviour
 
                 //sets the previous activity volume to FadeoutVolume which decreases over time.
                 ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
-                Debug.Log("Fading out Activity " + PrevAct + " Current Volume is " + FadeoutVolume);
+                //Debug.Log("Fading out Activity " + PrevAct + " Current Volume is " + FadeoutVolume);
             }
 
             //Music continues to fade out if it didnt finish
