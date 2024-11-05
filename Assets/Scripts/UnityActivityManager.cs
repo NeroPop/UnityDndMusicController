@@ -57,9 +57,9 @@ public class UnityActivityManager : MonoBehaviour
             //sets the old previous activity volume to decrease.
             FadingAct = PrevAct;
             RemainingVol = FadeoutVolume;
+            OldCurFadeTime = FadeoutVolume;
             OldPreVolumeLevel = PreVolumeLevel;
             FadeTime = 0;
-            OldCurFadeTime = OldPreVolumeLevel;
         }
 
         PrevAct = Act;
@@ -101,6 +101,8 @@ public class UnityActivityManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log("Activity 1's Current Volume is " + VolumeLevel);
+
         //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
         FadeTime = FadeTime + Time.deltaTime;
