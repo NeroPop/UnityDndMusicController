@@ -1,22 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
-using FMODUnity;
 
 public class VolumeManager : MonoBehaviour
 {
-    [Header("FMOD References")]
-
-    [SerializeField]
-    private GameObject PerameterTrigger;
-
-    [SerializeField]
-    private string ActivityVolName;
-
-    [SerializeField]
-    private string OneshotVolName;
-
     [Header("UI Elements")]
 
     [SerializeField]
@@ -25,8 +12,26 @@ public class VolumeManager : MonoBehaviour
     [SerializeField]
     private Slider OneshotVolumeSlider;
 
+    [Header("Volume Mixers")]
+
+    [SerializeField]
+    private AudioMixerGroup MasterMixer;
+    [SerializeField]
+    private string MasterVolName;
+
+    [SerializeField]
+    private AudioMixerGroup ActivitiesMixer;
+    [SerializeField]
+    private string ActivitiesVolName;
+
+    [SerializeField]
+    private AudioMixerGroup OneshotsMixer;
+    [SerializeField]
+    private string OneshotsVolName;
+
     [Header("Debug")]
 
+    private float MasterVolume;
     private float ActivityVolume;
     private float OneshotVolume;
 
@@ -36,20 +41,17 @@ public class VolumeManager : MonoBehaviour
     public void ActivityVolumeChange()
     {
         ActivityVolume = ActivityVolumeSlider.value;
-
-        RuntimeManager.StudioSystem.setParameterByName(ActivityVolName, ActivityVolume);
-        PerameterTrigger.GetComponent<StudioGlobalParameterTrigger>().TriggerParameters();
-
-        RuntimeManager.StudioSystem.getParameterByName(ActivityVolName, out ActivityCurVolume);
+        ActivitiesMixer.audioMixer.SetFloat(ActivitiesVolName, Mathf.Log10(ActivityVolume) * 20);
     }
 
     public void OneshotVolumeChange()
     {
         OneshotVolume = OneshotVolumeSlider.value;
+        OneshotsMixer.audioMixer.SetFloat(OneshotsVolName, Mathf.Log10(OneshotVolume) * 20);
+    }
 
-        RuntimeManager.StudioSystem.setParameterByName(OneshotVolName, OneshotVolume);
-        PerameterTrigger.GetComponent<StudioGlobalParameterTrigger>().TriggerParameters();
-
-        RuntimeManager.StudioSystem.getParameterByName(OneshotVolName, out OneshotCurVolume);
+    public void MasterVolumeChange()
+    {
+        //Insert Master Volume Slider code here if we need it.
     }
 }
