@@ -1184,14 +1184,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1185425653}
         m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
         m_MethodName: playOneShot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1382,14 +1382,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1185425653}
         m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
         m_MethodName: playOneShot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1865,6 +1865,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c6a7de427d54f41bb7e19f56401d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OneshotAudioSources:
+  - {fileID: 1867964755}
+  - {fileID: 987435926}
+  - {fileID: 687775716}
 --- !u!1 &1244961666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3417,14 +3421,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1185425653}
         m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
         m_MethodName: playOneShot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
