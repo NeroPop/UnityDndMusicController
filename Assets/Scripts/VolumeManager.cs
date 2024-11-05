@@ -31,6 +31,7 @@ public class VolumeManager : MonoBehaviour
 
     [Header("Debug")]
 
+    private float MasterVolume;
     private float ActivityVolume;
     private float OneshotVolume;
 
@@ -47,5 +48,10 @@ public class VolumeManager : MonoBehaviour
     {
         OneshotVolume = OneshotVolumeSlider.value;
         OneshotsMixer.audioMixer.SetFloat(OneshotsVolName, Mathf.Log10(OneshotVolume) * 20);
+    }
+
+    public void MasterVolumeChange()
+    {
+        //Insert Master Volume Slider code here if we need it.
     }
 }
