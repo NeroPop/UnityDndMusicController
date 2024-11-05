@@ -41,6 +41,6 @@ public class VolumeManager : MonoBehaviour
     public void ActivityVolumeChange()
     {
         ActivityVolume = ActivityVolumeSlider.value;
-        ActivitiesMixer.audioMixer.SetFloat(ActivitiesVolName, ActivityVolume);
+        ActivitiesMixer.audioMixer.SetFloat(ActivitiesVolName, Mathf.Log10(ActivityVolume) * 20);
     }
 }

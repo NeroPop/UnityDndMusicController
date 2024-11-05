@@ -1568,7 +1568,7 @@ MonoBehaviour:
   - {fileID: 1342605325}
   ButtonDefaultSprite: {fileID: 21300000, guid: 397ed8a53e5a6f846880b0e87f1e3de5, type: 3}
   ButtonSelectedSprite: {fileID: 21300000, guid: 89d99e8b3d3d0e04aaa61ac1a8cf8505, type: 3}
-  FadeDuration: 10
+  FadeDuration: 5
   Act: 0
   CurrentTime: 0
   FadeTime: 0
@@ -3529,14 +3529,14 @@ MonoBehaviour:
   m_FillRect: {fileID: 643861750}
   m_HandleRect: {fileID: 1397120443}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1185425652}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ActivityVolumeChange
         m_Mode: 1
