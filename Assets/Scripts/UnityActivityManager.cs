@@ -121,21 +121,27 @@ public class UnityActivityManager : MonoBehaviour
             //Music Fades out.
             if (FadeoutVolume > 0 && PrevAct > 0)
             {
-                //Sets FadeoutVolume to the opposite of that of VolumeLevel, also taking the current fade time into account.
-                FadeoutVolume = CurFadeTime - (CurrentTime / FadeDuration);
+                if (PrevAct != Act) //Checks that the current ativity isn't the same as before.
+                {
+                    //Sets FadeoutVolume to the opposite of that of VolumeLevel, also taking the current fade time into account.
+                    FadeoutVolume = CurFadeTime - (CurrentTime / FadeDuration);
 
-                //sets the previous activity volume to FadeoutVolume which decreases over time.
-                ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
-                //Debug.Log("Fading out Activity " + PrevAct + " Current Volume is " + FadeoutVolume);
+                    //sets the previous activity volume to FadeoutVolume which decreases over time.
+                    ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
+                    //Debug.Log("Fading out Activity " + PrevAct + " Current Volume is " + FadeoutVolume);
+                }
             }
 
             //Music continues to fade out if it didnt finish
             if (RemainingVol > 0 && FadingAct  > 0)
             {
-                RemainingVol = OldCurFadeTime - (CurrentTime / FadeDuration);
+                if (FadingAct != Act) //Checks that the current activity isn't the same as the fading activity.
+                {
+                    RemainingVol = OldCurFadeTime - (CurrentTime / FadeDuration);
 
-                //fades out the old previous activity
-                ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
+                    //fades out the old previous activity
+                    ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
+                }
             }
         }
 
@@ -153,10 +159,13 @@ public class UnityActivityManager : MonoBehaviour
             //Music continues to fade out if it didnt finish
             if (RemainingVol > 0 && FadingAct > 0)
             {
-                RemainingVol = OldCurFadeTime - (CurrentTime / FadeDuration);
+                if (FadingAct != Act)
+                {
+                    RemainingVol = OldCurFadeTime - (CurrentTime / FadeDuration);
 
-                //fades out the old previous activity
-                ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
+                    //fades out the old previous activity
+                    ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
+                }
             }
         }
     }

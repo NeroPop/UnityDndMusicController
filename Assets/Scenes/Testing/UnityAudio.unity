@@ -1797,11 +1797,7 @@ MonoBehaviour:
   ButtonSelectedSprite: {fileID: 21300000, guid: 89d99e8b3d3d0e04aaa61ac1a8cf8505, type: 3}
   FadeDuration: 5
   Act: 0
-  CurrentTime: 0
-  FadeTime: 0
   FadeoutVolume: 0
-  RemainingVol: 0
-  CurFadeTime: 0
 --- !u!114 &1185425652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2981,7 +2977,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.9254902, b: 0.8538681, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
