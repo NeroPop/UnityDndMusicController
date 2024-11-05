@@ -15,12 +15,6 @@ public class UnityActivityManager : MonoBehaviour
     [SerializeField]
     private GameObject[] ActivityButtons;
 
-    [SerializeField]
-    private Sprite ButtonDefaultSprite;
-
-    [SerializeField]
-    private Sprite ButtonSelectedSprite;
-
     [Header("Fade")]
     public float FadeDuration = 5;
 
@@ -74,21 +68,12 @@ public class UnityActivityManager : MonoBehaviour
             FadeoutVolume = PreVolumeLevel;
             CurFadeTime = PreVolumeLevel;
 
-            //changes the button sprites
-            ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
-
-            //ensures the erray isn't out of bounds
-            if (PrevAct > 0)
-            {
-                ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            }
             //Debug.Log("Playing activity " + ActivityNumber);
         }
 
         //Runs if the button has already been pressed
         else
         {
-            ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
             Act = 0;
 
             CurrentTime = 0;
