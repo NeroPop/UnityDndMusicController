@@ -7,7 +7,7 @@ public class AmbientController : MonoBehaviour
     [SerializeField]
     private GameObject MusicManager;
 
-    public float FadeDuration = 5;
+    private float FadeDuration;
 
     private float CurrentTime;
     private float FadeInVolume;

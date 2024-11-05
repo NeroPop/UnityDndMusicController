@@ -3573,11 +3573,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 1149623166}
   FadeDuration: 5
-  CurrentTime: 0
-  FadeInVolume: 0
-  FadeOutVolume: 0
-  CurrentVolume: 0
-  FadeIn: 0
 --- !u!1 &1017437800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,11 +3716,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 1149623166}
   FadeDuration: 5
-  CurrentTime: 0
-  FadeInVolume: 0
-  FadeOutVolume: 0
-  CurrentVolume: 0
-  FadeIn: 0
 --- !u!1 &1018079436
 GameObject:
   m_ObjectHideFlags: 0
@@ -4547,16 +4537,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmbientAudioSources:
-  - {fileID: 1017437802}
-  - {fileID: 951451183}
-  - {fileID: 1537157225}
+  - {fileID: 1017437800}
+  - {fileID: 951451181}
+  - {fileID: 1537157223}
   FadeDuration: 5
-  CurAmbient: 0
-  CurrentTime: 0
-  CurVolume: 0
-  FadeInVolume: 0
-  FadeOutVolume: 0
-  FadeIn: 0
 --- !u!1 &1180488876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,11 +5818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 1149623166}
   FadeDuration: 5
-  CurrentTime: 0
-  FadeInVolume: 0
-  FadeOutVolume: 0
-  CurrentVolume: 0
-  FadeIn: 0
 --- !u!1 &1553827734
 GameObject:
   m_ObjectHideFlags: 0
