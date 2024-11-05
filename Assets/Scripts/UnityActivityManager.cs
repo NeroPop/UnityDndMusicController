@@ -26,22 +26,21 @@ public class UnityActivityManager : MonoBehaviour
 
     [Header("Debugging")]
 
-    public int Act = 0;
-    private int PrevAct;
-    private int FadingAct;
+    public int Act = 0;     //Act is the current activity number. 0 means no activity is playing.
+    private int PrevAct;    //PrevAct is the previous activity number that was playing.
+    private int FadingAct;  //FadingAct is the old previous activity if it hasn't finished fading yet.
 
-    public float CurrentTime;
-    public float FadeTime;
+    private float CurrentTime;  //This is the current amount of time the music has been fading for.
 
-    private float VolumeLevel;
-    private float PreVolumeLevel;
-    private float OldPreVolumeLevel;
+    private float VolumeLevel;      //VolumeLevel is the level at which the current activity's volume is set. (usually increases from 0-1 when you select an activity.)
+    private float PreVolumeLevel;   //PreVolumeLevel is the Volume Level of the previous activity
+    private float OldPreVolumeLevel;//OldPreVolumeLevel is the volume level of the previous previous activity (used if swtched rapidly)
 
-    public float FadeoutVolume = 0;
-    public float RemainingVol;
+    public float FadeoutVolume = 0; //FadeoutVolume is the opposite of VolumeLevel and is used to fade out activities.
+    private float RemainingVol;     //This is the remaining volume level if it hadn't finished fading when switching activities again.
 
-    public float CurFadeTime;
-    private float OldCurFadeTime;
+    private float CurFadeTime;      //the amount the previous activity had faded, aka its volume level.
+    private float OldCurFadeTime;   //The previous CurFadeTime remaining if it switches again whilst still fading.
 
 
     public void TriggerActivity(int ActivityNumber)
@@ -59,7 +58,6 @@ public class UnityActivityManager : MonoBehaviour
             RemainingVol = FadeoutVolume;
             OldCurFadeTime = FadeoutVolume;
             OldPreVolumeLevel = PreVolumeLevel;
-            FadeTime = 0;
         }
 
         PrevAct = Act;
@@ -105,7 +103,6 @@ public class UnityActivityManager : MonoBehaviour
 
         //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
-        FadeTime = FadeTime + Time.deltaTime;
 
         //checks if activity is playing or not
         if (Act > 0)
