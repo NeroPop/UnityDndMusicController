@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 public class customAudioClipLoader : MonoBehaviour
 {
-    public enum SeekDirection { Forward, Backward }
+    //public enum SeekDirection { Forward, Backward }
 
     public List<AudioClip> clips = new List<AudioClip>();
 
@@ -17,27 +17,27 @@ public class customAudioClipLoader : MonoBehaviour
 
     private FileInfo[] soundFiles;
     private List<string> validExtensions = new List<string> { ".ogg", ".wav" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
-    private string absolutePath = "./Activities"; // relative path to where the app is running - change this to "./music" in your case
+    public string absolutePath = "./Activities"; // relative path to where the app is running - change this to "./music" in your case
 
     void Start()
     {
         //being able to test in unity
-        if (Application.isEditor) absolutePath = "Assets/";
+        if (Application.isEditor) absolutePath = "Assets/CustomAudio";
 
         ReloadSounds();
     }
 
 
-    void Seek(SeekDirection d)
-    {
-        if (d == SeekDirection.Forward)
-            currentIndex = (currentIndex + 1) % clips.Count;
-        else
-        {
-            currentIndex--;
-            if (currentIndex < 0) currentIndex = clips.Count - 1;
-        }
-    }
+    //void Seek(SeekDirection d)
+    //{
+    //    if (d == SeekDirection.Forward)
+    //        currentIndex = (currentIndex + 1) % clips.Count;
+    //    else
+    //    {
+    //        currentIndex--;
+    //        if (currentIndex < 0) currentIndex = clips.Count - 1;
+    //    }
+    //}
 
     void ReloadSounds()
     {

@@ -10,8 +10,6 @@ public class CustomAudioSetter : MonoBehaviour
 
     public void LoadClips()
     {
-        print("Loaded");
-
         int actLeanth = GetComponent<customAudioClipLoader>().clips.Count;
         for (int i = 0; i < actLeanth; i++)
         {
@@ -21,11 +19,5 @@ public class CustomAudioSetter : MonoBehaviour
 
 
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -4656,6 +4656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips: []
   currentIndex: 0
+  absolutePath: ./Activities
 --- !u!1 &1180488876
 GameObject:
   m_ObjectHideFlags: 0
