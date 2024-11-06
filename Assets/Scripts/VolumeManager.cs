@@ -10,6 +10,9 @@ public class VolumeManager : MonoBehaviour
     private Slider ActivityVolumeSlider;
 
     [SerializeField]
+    private Slider AmbienceVolumeSlider;
+
+    [SerializeField]
     private Slider OneshotVolumeSlider;
 
     [Header("Volume Mixers")]
@@ -25,6 +28,11 @@ public class VolumeManager : MonoBehaviour
     private string ActivitiesVolName;
 
     [SerializeField]
+    private AudioMixerGroup AmbienceMixer;
+    [SerializeField]
+    private string AmbienceVolName;
+
+    [SerializeField]
     private AudioMixerGroup OneshotsMixer;
     [SerializeField]
     private string OneshotsVolName;
@@ -33,10 +41,8 @@ public class VolumeManager : MonoBehaviour
 
     private float MasterVolume;
     private float ActivityVolume;
+    private float AmbienceVolume;
     private float OneshotVolume;
-
-    private float ActivityCurVolume;
-    private float OneshotCurVolume;
 
     public void ActivityVolumeChange()
     {
@@ -50,8 +56,9 @@ public class VolumeManager : MonoBehaviour
         OneshotsMixer.audioMixer.SetFloat(OneshotsVolName, Mathf.Log10(OneshotVolume) * 20);
     }
 
-    public void MasterVolumeChange()
+    public void AmbienceVolumeChange()
     {
-        //Insert Master Volume Slider code here if we need it.
+        AmbienceVolume = AmbienceVolumeSlider.value;
+        AmbienceMixer.audioMixer.SetFloat(AmbienceVolName, Mathf.Log10(AmbienceVolume) * 20);
     }
 }

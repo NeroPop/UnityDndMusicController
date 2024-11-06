@@ -139,6 +139,8 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: e122ea856814aff4b86e6290dbe1ddbb
     name: ActivityVol
+  - guid: ee2f0baef39d26240abb99eb7c57adb0
+    name: AmbienceVol
   - guid: 145fe7437f41b8f4fa7a85556637040a
     name: CombatVol
   - guid: 2982f3c3cc0536345a0945c688f1629f
