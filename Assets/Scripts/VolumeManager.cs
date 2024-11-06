@@ -6,7 +6,7 @@ public class VolumeManager : MonoBehaviour
 {
     [Header("UI Elements")]
 
-    //[SerializeField]
+    [SerializeField]
     private Slider MasterVolumeSlider;
 
     [SerializeField]
