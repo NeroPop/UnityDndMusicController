@@ -411,14 +411,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
-        m_MethodName: playOneShot
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: PlayAmbientAudio
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3353,7 +3353,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bottle Smash
+  m_text: Wind
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3572,7 +3572,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 1149623166}
-  FadeDuration: 5
 --- !u!1 &1017437800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,7 +3714,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 1149623166}
-  FadeDuration: 5
 --- !u!1 &1018079436
 GameObject:
   m_ObjectHideFlags: 0
@@ -4171,7 +4169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Door Open
+  m_text: Bells
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4599,7 +4597,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bottle Smash
+  m_text: Wind
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5242,14 +5240,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 951451184}
-        m_TargetAssemblyTypeName: AmbientController, Assembly-CSharp
-        m_MethodName: TriggerAmbient
-        m_Mode: 1
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: PlayAmbientAudio
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5350,7 +5348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Disk Bounce
+  m_text: Bubbling
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5817,7 +5815,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 1149623166}
-  FadeDuration: 5
 --- !u!1 &1553827734
 GameObject:
   m_ObjectHideFlags: 0
@@ -5952,7 +5949,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bottle Smash
+  m_text: Wind
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
