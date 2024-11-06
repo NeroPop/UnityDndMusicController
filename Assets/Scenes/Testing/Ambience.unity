@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 35475966}
   - component: {fileID: 35475965}
   - component: {fileID: 35475964}
+  - component: {fileID: 35475967}
   m_Layer: 5
   m_Name: Button Ambient3 (1)
   m_TagString: Untagged
@@ -423,18 +424,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1149623171}
-        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
-        m_MethodName: ButtonToggle
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &35475965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +462,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35475962}
   m_CullTransparentMesh: 1
+--- !u!114 &35475967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35475962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e28b568f619e0f478e761950dc2d5ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonDefaultSprite: {fileID: 21300000, guid: 73be10c0bca77b84fab5d8c4ccf1f1e4, type: 3}
+  ButtonSelectedSprite: {fileID: 21300000, guid: b05469342337a8548939c82f93c4766a, type: 3}
 --- !u!1 &48876838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,6 +2543,7 @@ GameObject:
   - component: {fileID: 606502291}
   - component: {fileID: 606502290}
   - component: {fileID: 606502289}
+  - component: {fileID: 606502292}
   m_Layer: 5
   m_Name: Button Ambient1
   m_TagString: Untagged
@@ -2624,18 +2628,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1149623171}
-        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
-        m_MethodName: ButtonToggle
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &606502290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,6 +2666,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606502287}
   m_CullTransparentMesh: 1
+--- !u!114 &606502292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606502287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e28b568f619e0f478e761950dc2d5ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonDefaultSprite: {fileID: 21300000, guid: 73be10c0bca77b84fab5d8c4ccf1f1e4, type: 3}
+  ButtonSelectedSprite: {fileID: 21300000, guid: b05469342337a8548939c82f93c4766a, type: 3}
 --- !u!1 &660531146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3750,6 +3756,7 @@ GameObject:
   - component: {fileID: 1018079440}
   - component: {fileID: 1018079439}
   - component: {fileID: 1018079438}
+  - component: {fileID: 1018079441}
   m_Layer: 5
   m_Name: Button Ambient2
   m_TagString: Untagged
@@ -3834,18 +3841,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1149623171}
-        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
-        m_MethodName: ButtonToggle
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1018079439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3884,6 +3879,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018079436}
   m_CullTransparentMesh: 1
+--- !u!114 &1018079441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018079436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e28b568f619e0f478e761950dc2d5ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonDefaultSprite: {fileID: 21300000, guid: 73be10c0bca77b84fab5d8c4ccf1f1e4, type: 3}
+  ButtonSelectedSprite: {fileID: 21300000, guid: b05469342337a8548939c82f93c4766a, type: 3}
 --- !u!1 &1019864953
 GameObject:
   m_ObjectHideFlags: 0
@@ -4468,7 +4477,6 @@ GameObject:
   - component: {fileID: 1149623168}
   - component: {fileID: 1149623171}
   - component: {fileID: 1149623167}
-  - component: {fileID: 1149623172}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -4578,20 +4586,14 @@ MonoBehaviour:
   - {fileID: 1017437800}
   - {fileID: 951451181}
   - {fileID: 1537157223}
+  AmbientButtons:
+  - {fileID: 606502287}
+  - {fileID: 1018079436}
+  - {fileID: 1947071156}
+  - {fileID: 35475962}
+  - {fileID: 1403126618}
   FadeDuration: 5
   Pressed: 0
---- !u!114 &1149623172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1149623166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e28b568f619e0f478e761950dc2d5ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1180488876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5221,6 +5223,7 @@ GameObject:
   - component: {fileID: 1403126622}
   - component: {fileID: 1403126621}
   - component: {fileID: 1403126620}
+  - component: {fileID: 1403126623}
   m_Layer: 5
   m_Name: Button Ambient3 (2)
   m_TagString: Untagged
@@ -5305,18 +5308,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1149623171}
-        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
-        m_MethodName: PlayAmbientAudio
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1403126621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5355,6 +5346,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403126618}
   m_CullTransparentMesh: 1
+--- !u!114 &1403126623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403126618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e28b568f619e0f478e761950dc2d5ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonDefaultSprite: {fileID: 21300000, guid: 73be10c0bca77b84fab5d8c4ccf1f1e4, type: 3}
+  ButtonSelectedSprite: {fileID: 21300000, guid: b05469342337a8548939c82f93c4766a, type: 3}
 --- !u!1 &1423225133
 GameObject:
   m_ObjectHideFlags: 0
@@ -6919,6 +6924,7 @@ GameObject:
   - component: {fileID: 1947071160}
   - component: {fileID: 1947071159}
   - component: {fileID: 1947071158}
+  - component: {fileID: 1947071161}
   m_Layer: 5
   m_Name: Button Ambient3
   m_TagString: Untagged
@@ -7003,18 +7009,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1149623171}
-        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
-        m_MethodName: ButtonToggle
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1947071159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7053,6 +7047,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947071156}
   m_CullTransparentMesh: 1
+--- !u!114 &1947071161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947071156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e28b568f619e0f478e761950dc2d5ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonDefaultSprite: {fileID: 21300000, guid: 73be10c0bca77b84fab5d8c4ccf1f1e4, type: 3}
+  ButtonSelectedSprite: {fileID: 21300000, guid: b05469342337a8548939c82f93c4766a, type: 3}
 --- !u!1 &2049928918
 GameObject:
   m_ObjectHideFlags: 0
