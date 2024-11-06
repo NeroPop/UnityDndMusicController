@@ -27,14 +27,12 @@ public class AmbientController : MonoBehaviour
         if (!FadeIn) //triggers if fading in
         {
             FadeIn = true;
-            Debug.Log("Fading In");
         }
 
         else if (FadeIn) //triggers if fading out
         {
             FadeOutVolume = CurrentVolume;
             FadeIn = false;
-            Debug.Log("Fading Out");
         }
 
         CurrentTime = 0;

@@ -13,7 +13,6 @@ public class AmbienceManager : MonoBehaviour
     public float FadeDuration = 5;
 
     private int Amb;
-    public bool Pressed = false;
 
     public void ToggleAmbientAudio(int AmbientButton)
     {
