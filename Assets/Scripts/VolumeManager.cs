@@ -7,6 +7,9 @@ public class VolumeManager : MonoBehaviour
     [Header("UI Elements")]
 
     [SerializeField]
+    private Slider MasterVolumeSlider;
+
+    [SerializeField]
     private Slider ActivityVolumeSlider;
 
     [SerializeField]
@@ -60,5 +63,11 @@ public class VolumeManager : MonoBehaviour
     {
         AmbienceVolume = AmbienceVolumeSlider.value;
         AmbienceMixer.audioMixer.SetFloat(AmbienceVolName, Mathf.Log10(AmbienceVolume) * 40);
+    }
+
+    public void MasterVolumeChange()
+    {
+        MasterVolume = MasterVolumeSlider.value;
+        MasterMixer.audioMixer.SetFloat(MasterVolName, Mathf.Log10(MasterVolume) * 40);
     }
 }
