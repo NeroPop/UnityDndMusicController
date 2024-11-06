@@ -47,18 +47,18 @@ public class VolumeManager : MonoBehaviour
     public void ActivityVolumeChange()
     {
         ActivityVolume = ActivityVolumeSlider.value;
-        ActivitiesMixer.audioMixer.SetFloat(ActivitiesVolName, Mathf.Log10(ActivityVolume) * 20);
+        ActivitiesMixer.audioMixer.SetFloat(ActivitiesVolName, Mathf.Log10(ActivityVolume) * 40);
     }
 
     public void OneshotVolumeChange()
     {
         OneshotVolume = OneshotVolumeSlider.value;
-        OneshotsMixer.audioMixer.SetFloat(OneshotsVolName, Mathf.Log10(OneshotVolume) * 20);
+        OneshotsMixer.audioMixer.SetFloat(OneshotsVolName, Mathf.Log10(OneshotVolume) * 40);
     }
 
     public void AmbienceVolumeChange()
     {
         AmbienceVolume = AmbienceVolumeSlider.value;
-        AmbienceMixer.audioMixer.SetFloat(AmbienceVolName, Mathf.Log10(AmbienceVolume) * 20);
+        AmbienceMixer.audioMixer.SetFloat(AmbienceVolName, Mathf.Log10(AmbienceVolume) * 40);
     }
 }
