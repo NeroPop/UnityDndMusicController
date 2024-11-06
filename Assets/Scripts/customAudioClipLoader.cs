@@ -17,7 +17,7 @@ public class customAudioClipLoader : MonoBehaviour
 
     private FileInfo[] soundFiles;
     private List<string> validExtensions = new List<string> { ".ogg", ".wav" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
-    private string absolutePath = "./"; // relative path to where the app is running - change this to "./music" in your case
+    private string absolutePath = "./Activities"; // relative path to where the app is running - change this to "./music" in your case
 
     void Start()
     {
@@ -72,5 +72,7 @@ public class customAudioClipLoader : MonoBehaviour
         print("done loading");
         clip.name = Path.GetFileName(path);
         clips.Add(clip);
+
+        GetComponent<CustomAudioSetter>().LoadClips();
     }
 }
