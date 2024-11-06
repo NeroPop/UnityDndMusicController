@@ -418,7 +418,19 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: ButtonToggle
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2612,6 +2624,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: ButtonToggle
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &606502290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3810,6 +3834,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: ButtonToggle
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1018079439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4539,6 +4575,7 @@ MonoBehaviour:
   - {fileID: 951451181}
   - {fileID: 1537157223}
   FadeDuration: 5
+  Pressed: 0
 --- !u!1 &1180488876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5247,7 +5284,19 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: PlayAmbientAudio
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6233,7 +6282,7 @@ GameObject:
   - component: {fileID: 1709049509}
   - component: {fileID: 1709049510}
   m_Layer: 5
-  m_Name: Slider Oneshot Volume
+  m_Name: Slider Ambient Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6929,6 +6978,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1149623171}
         m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
         m_MethodName: PlayAmbientAudio
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149623171}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: ButtonToggle
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
