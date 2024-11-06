@@ -15,7 +15,7 @@ public class AmbienceManager : MonoBehaviour
     private int Amb;
     public bool Pressed = false;
 
-    public void PlayAmbientAudio(int AmbientButton)
+    public void ToggleAmbientAudio(int AmbientButton)
     {
         //Ensures the button always plays a sound even if there's more buttons than sound.
         if (AmbientButton >= AmbientAudioSources.Length)
