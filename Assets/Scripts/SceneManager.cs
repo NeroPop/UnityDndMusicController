@@ -4,9 +4,32 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject[] Scenes;
+    public GameObject SceneSelectUI;
+
+    public int CurScene;
+    public int PrevScene;
+
+    private void Start()
     {
-        
+        CurScene = 0;
+        Scenes[CurScene].SetActive(true);
+        SceneSelectUI.SetActive(false);
+    }
+    public void ChangeScene(int SelScene)
+    {
+        PrevScene = CurScene;
+        CurScene = SelScene;
+
+        if (PrevScene != CurScene)
+        {
+            Scenes[PrevScene].SetActive(false);
+            Scenes[CurScene].SetActive(true);
+            SceneSelectUI.SetActive(false);
+        }
+        else if (PrevScene == CurScene)
+        {
+            SceneSelectUI.SetActive(false);
+        }
     }
 }
