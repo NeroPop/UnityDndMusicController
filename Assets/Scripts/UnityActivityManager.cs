@@ -46,11 +46,9 @@ public class UnityActivityManager : MonoBehaviour
     private int MixerInt = 0;
     private bool SceneChange = false;
 
-    public void NewScene()
+    public void NewScene() //triggered when a new scene is selected
     {
-       // ActivityMixers[].audioMixer.SetFloat(MixerVolNames[], Mathf.Log10(0) * 20);
-
-        if (Act > 0)
+        if (Act > 0) //Resets the scene if it was left on
         {
             ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
 
@@ -123,17 +121,17 @@ public class UnityActivityManager : MonoBehaviour
         //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
 
-        if (SceneChange)
+        if (SceneChange) //if scene change is triggered it sets all the audio mixers to 0.
         {
             ActivityMixers[MixerInt].audioMixer.SetFloat(MixerVolNames[MixerInt], Mathf.Log10(0) * 20);
             MixerInt = MixerInt + 1;
-            Debug.Log("Setting Mixer " + MixerInt);
+            //Debug.Log("Setting Mixer " + MixerInt);
 
             if (MixerInt > ActivityMixers.Length - 1)
             {
                 SceneChange = false;
                 MixerInt = 0;
-                Debug.Log("All audio is now 0");
+                //Debug.Log("All audio is now 0");
             }
         }
         //checks if activity is playing or not
