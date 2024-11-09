@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -42,7 +43,25 @@ public class UnityActivityManager : MonoBehaviour
     private float CurFadeTime;      //the amount the previous activity had faded, aka its volume level.
     private float OldCurFadeTime;   //The previous CurFadeTime remaining if it switches again whilst still fading.
 
+    private int MixerInt = 0;
+    private bool SceneChange = false;
 
+    public void NewScene()
+    {
+       // ActivityMixers[].audioMixer.SetFloat(MixerVolNames[], Mathf.Log10(0) * 20);
+
+        if (Act > 0)
+        {
+            ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
+
+            SceneChange = true;
+        }
+        else if (Act == 0)
+        {
+            SceneChange = true;
+        }
+        Act = 0;
+    }
     public void TriggerActivity(int ActivityNumber)
     {
         if (RemainingVol > 0 && FadingAct > 0)
@@ -104,6 +123,19 @@ public class UnityActivityManager : MonoBehaviour
         //sets current time and is used to measure how long the fades have been going on for.
         CurrentTime = CurrentTime + Time.deltaTime;
 
+        if (SceneChange)
+        {
+            ActivityMixers[MixerInt].audioMixer.SetFloat(MixerVolNames[MixerInt], Mathf.Log10(0) * 20);
+            MixerInt = MixerInt + 1;
+            Debug.Log("Setting Mixer " + MixerInt);
+
+            if (MixerInt > ActivityMixers.Length - 1)
+            {
+                SceneChange = false;
+                MixerInt = 0;
+                Debug.Log("All audio is now 0");
+            }
+        }
         //checks if activity is playing or not
         if (Act > 0)
         {
