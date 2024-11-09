@@ -18,7 +18,7 @@ public class customAudioClipLoader : MonoBehaviour
     private FileInfo[] soundFiles;
     private List<string> validExtensions = new List<string> { ".ogg", ".wav" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
     public string absolutePath = "./Activities"; // relative path to where the app is running - change this to "./music" in your case
-    public string Scene; //Loads the files for that particular scene (only works in editor atm)
+    [HideInInspector] public string Scene; //Loads the files for that particular scene (only works in editor atm)
 
     void Start()
     {
