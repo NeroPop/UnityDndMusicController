@@ -1,11 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SceneController : MonoBehaviour
 {
-    public GameObject MusicManager;
+    [SerializeField]
+    private GameObject MusicManager;
 
+    [SerializeField]
+    private TMP_Text SceneTitle;
+
+    public string SceneName;
+
+    private void Start()
+    {
+        MusicManager.GetComponent<customAudioClipLoader>().Scene = SceneName;
+        SceneTitle.text = SceneName;
+    }
     public void ActivateScene()
     {
         MusicManager.GetComponent<UnityActivityManager>().NewScene();

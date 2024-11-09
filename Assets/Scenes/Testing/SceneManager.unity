@@ -12965,6 +12965,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 213258796}
+  SceneTitle: {fileID: 706629382}
+  SceneName: Scene2
 --- !u!1 &1163447962
 GameObject:
   m_ObjectHideFlags: 0
@@ -17024,6 +17026,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 1529136725}
+  SceneTitle: {fileID: 1753129526}
+  SceneName: Scene1
 --- !u!1 &1427061061
 GameObject:
   m_ObjectHideFlags: 0
@@ -18465,7 +18469,7 @@ MonoBehaviour:
   clips: []
   currentIndex: 0
   absolutePath: ./Activities
-  Scene: Scene1
+  Scene: 
 --- !u!114 &1529136728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20578,6 +20582,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicManager: {fileID: 208430033}
+  SceneTitle: {fileID: 1018240989}
+  SceneName: Scene3
 --- !u!1 &1703991314
 GameObject:
   m_ObjectHideFlags: 0
