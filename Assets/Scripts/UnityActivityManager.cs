@@ -45,6 +45,7 @@ public class UnityActivityManager : MonoBehaviour
 
     private int MixerInt = 0;
     private bool SceneChange = false;
+    private bool ActSelected = false;
 
     public void NewScene() //triggered when a new scene is selected
     {

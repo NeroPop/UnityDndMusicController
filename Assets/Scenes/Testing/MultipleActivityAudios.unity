@@ -8163,12 +8163,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 52b226d58b47d7145831cb31b0bd4feb, type: 3}
   - {fileID: 8300000, guid: 446fb2f7f7666d8429952b7b326aeb54, type: 3}
   - {fileID: 8300000, guid: 86287241f6e57a04185fb74b24f33aa8, type: 3}
-  DisplayName: {fileID: 8070777380944690237}
-  DisplayTime: {fileID: 1131377535826639477}
-  DisplayRemaining: {fileID: 3803467160039710189}
-  AudioSlider: {fileID: 2981835659839775873}
-  PauseButton: {fileID: 2815740715064099999}
-  ResumeButton: {fileID: 1767852811708887994}
+  DisplayName: {fileID: 0}
+  DisplayTime: {fileID: 0}
+  DisplayRemaining: {fileID: 0}
+  AudioSlider: {fileID: 0}
+  PauseButton: {fileID: 0}
+  ResumeButton: {fileID: 0}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -12929,12 +12929,12 @@ GameObject:
   - component: {fileID: 1064535232}
   - component: {fileID: 1064535233}
   m_Layer: 5
-  m_Name: Player Controlls
+  m_Name: Activity Player Controlls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1064535232
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12977,6 +12977,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Activity: {fileID: 643261461}
+  CurrentSong: {fileID: 8070777380944690237}
+  CurrentTime: {fileID: 1131377535826639477}
+  RemainingTime: {fileID: 3803467160039710189}
+  AudioSlider: {fileID: 2981835659839775873}
+  Skip: {fileID: 7358919797113497439}
+  Back: {fileID: 9216689521205784258}
+  Pause: {fileID: 8144451972326754269}
+  Resume: {fileID: 7262786090180500358}
+  ShuffleOff: {fileID: 5331114814530078017}
+  ShuffleOn: {fileID: 5517142834561874601}
+  SliderEventTrigger: {fileID: 0}
 --- !u!1 &1070631381
 GameObject:
   m_ObjectHideFlags: 0
@@ -15278,6 +15290,7 @@ GameObject:
   - component: {fileID: 1188178911}
   - component: {fileID: 1188178910}
   - component: {fileID: 1188178909}
+  - component: {fileID: 1188178913}
   m_Layer: 5
   m_Name: Button Activity1
   m_TagString: Untagged
@@ -15337,6 +15350,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1188178913}
+        m_TargetAssemblyTypeName: UIActivityPlayerToggle, Assembly-CSharp
+        m_MethodName: ToggleActivity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -15401,6 +15426,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1188178913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188178908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf89cc4f5b6c154095b86fde01e3421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivityPlayerControllsUI: {fileID: 1064535231}
 --- !u!1 &1193732894
 GameObject:
   m_ObjectHideFlags: 0
@@ -26256,7 +26294,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 11, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26277,18 +26315,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 643261464}
-          m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
-          m_MethodName: OnPointerDown
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 3178859782831865145}
           m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
           m_MethodName: set_enabled
@@ -26439,7 +26465,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -27082,19 +27108,7 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 643261464}
-        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
-        m_MethodName: OnSliderValueChanged
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!222 &3004107762494493601
 CanvasRenderer:
   m_ObjectHideFlags: 0
