@@ -81,4 +81,16 @@ public class UIActivitySetup : MonoBehaviour
             ActSelected = false;
         }
     }
+
+    public void ActivityOn()
+    {
+        ActivityPlayerControls.SetActive(true);
+        ActSelected = true;
+    }
+
+    public void ActivityOff()
+    {
+        ActivityPlayerControls.SetActive(false);
+        ActSelected = false;
+    }
 }
