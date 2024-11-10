@@ -12,6 +12,8 @@ public class UIActivitySetup : MonoBehaviour
     public GameObject Activity;
 
     [Header("UI References")]
+    public GameObject ActivityPlayerControls;
+
     public TMP_Text CurrentSong;
     public TMP_Text CurrentTime;
     public TMP_Text RemainingTime;
@@ -24,6 +26,7 @@ public class UIActivitySetup : MonoBehaviour
     public Button ShuffleOn;
 
     public EventTrigger SliderEventTrigger;
+    public bool ActSelected = false;
 
     void Start()
     {
@@ -57,5 +60,22 @@ public class UIActivitySetup : MonoBehaviour
         Resume.onClick.AddListener(Activity.GetComponent<MusicController>().Resume);
         ShuffleOff.onClick.AddListener(Activity.GetComponent<MusicController>().ToggleShuffle);
         ShuffleOn.onClick.AddListener(Activity.GetComponent<MusicController>().ToggleShuffle);
+
+        //Hides the Activity Controls
+        ActSelected = false;
+        ActivityPlayerControls.SetActive(false);
+    }
+    public void ToggleActivity()
+    {
+        if (!ActSelected)
+        {
+            ActivityPlayerControls.SetActive(true);
+            ActSelected = true;
+        }
+        else if (ActSelected)
+        {
+            ActivityPlayerControls.SetActive(false);
+            ActSelected = false;
+        }
     }
 }
