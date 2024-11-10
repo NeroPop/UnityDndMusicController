@@ -8159,7 +8159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tracks: []
+  Tracks:
+  - {fileID: 8300000, guid: 52b226d58b47d7145831cb31b0bd4feb, type: 3}
+  - {fileID: 8300000, guid: 446fb2f7f7666d8429952b7b326aeb54, type: 3}
+  - {fileID: 8300000, guid: 86287241f6e57a04185fb74b24f33aa8, type: 3}
   DisplayName: {fileID: 8070777380944690237}
   DisplayTime: {fileID: 1131377535826639477}
   DisplayRemaining: {fileID: 3803467160039710189}
@@ -12924,6 +12927,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1064535232}
+  - component: {fileID: 1064535233}
   m_Layer: 5
   m_Name: Player Controlls
   m_TagString: Untagged
@@ -12961,6 +12965,18 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1064535233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064535231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1070631381
 GameObject:
   m_ObjectHideFlags: 0
@@ -19512,7 +19528,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500074696}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af72aec5d8f18541ab8554585bee22d, type: 3}
   m_Name: 
@@ -25066,7 +25082,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1995108448}
   - component: {fileID: 1995108449}
-  - component: {fileID: 1995108450}
   m_Layer: 0
   m_Name: SFX Combat
   m_TagString: Untagged
@@ -25185,34 +25200,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1995108450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995108447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tracks: []
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
-  TrackNumber: 1
-  CurrentTime: 0
-  TrackLength: 0
-  Shuffle: 0
-  Paused: 0
-  isDragging: 0
-  ResetDial:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2002917808
 GameObject:
   m_ObjectHideFlags: 0
@@ -26059,7 +26046,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2130932234}
   - component: {fileID: 2130932235}
-  - component: {fileID: 2130932236}
   m_Layer: 0
   m_Name: SFX Victory
   m_TagString: Untagged
@@ -26178,34 +26164,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2130932236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130932233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tracks: []
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
-  TrackNumber: 1
-  CurrentTime: 0
-  TrackLength: 0
-  Shuffle: 0
-  Paused: 0
-  isDragging: 0
-  ResetDial:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2133433773
 GameObject:
   m_ObjectHideFlags: 0
@@ -26319,8 +26277,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+        - m_Target: {fileID: 643261464}
+          m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
           m_MethodName: OnPointerDown
           m_Mode: 1
           m_Arguments:
@@ -26347,8 +26305,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+        - m_Target: {fileID: 643261464}
+          m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
           m_MethodName: OnPointerUp
           m_Mode: 1
           m_Arguments:
@@ -27125,8 +27083,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 643261464}
+        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: OnSliderValueChanged
         m_Mode: 4
         m_Arguments:
@@ -27336,8 +27294,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -27471,7 +27429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 0}
+  m_AnchoredPosition: {x: 25.75, y: 0}
   m_SizeDelta: {x: 25, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5024072304266525523
@@ -27567,7 +27525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 200.5, y: 0}
+  m_AnchoredPosition: {x: 196, y: 0}
   m_SizeDelta: {x: 25, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &5174422620459788916
@@ -27723,8 +27681,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 643261464}
+        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
         m_Arguments:
@@ -27911,8 +27869,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 643261464}
+        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
         m_Arguments:
@@ -28304,8 +28262,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 643261464}
+        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -28405,8 +28363,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 643261464}
+        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Skip
         m_Mode: 1
         m_Arguments:
@@ -28570,8 +28528,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 643261464}
+        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
@@ -28776,8 +28734,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 119.2, y: 0}
-  m_SizeDelta: {x: 140, y: 20}
+  m_AnchoredPosition: {x: 115, y: 0}
+  m_SizeDelta: {x: 130, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &9012719942993881930
 RectTransform:
@@ -28860,8 +28818,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 643261464}
+        m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
         m_Arguments:
