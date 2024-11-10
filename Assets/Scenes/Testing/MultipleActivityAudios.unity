@@ -8160,12 +8160,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tracks: []
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
+  DisplayName: {fileID: 8070777380944690237}
+  DisplayTime: {fileID: 1131377535826639477}
+  DisplayRemaining: {fileID: 3803467160039710189}
+  AudioSlider: {fileID: 2981835659839775873}
+  PauseButton: {fileID: 2815740715064099999}
+  ResumeButton: {fileID: 1767852811708887994}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
