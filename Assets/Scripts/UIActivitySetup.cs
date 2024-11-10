@@ -18,6 +18,7 @@ public class UIActivitySetup : MonoBehaviour
     public TMP_Text CurrentTime;
     public TMP_Text RemainingTime;
     public Slider AudioSlider;
+    public EventTrigger SliderEventTrigger;
     public Button Skip;
     public Button Back;
     public Button Pause;
@@ -25,8 +26,7 @@ public class UIActivitySetup : MonoBehaviour
     public Button ShuffleOff;
     public Button ShuffleOn;
 
-    public EventTrigger SliderEventTrigger;
-    public bool ActSelected = false;
+    private bool ActSelected = false;
 
     void Start()
     {
@@ -64,6 +64,9 @@ public class UIActivitySetup : MonoBehaviour
         //Hides the Activity Controls
         ActSelected = false;
         ActivityPlayerControls.SetActive(false);
+
+        //Starts the song
+        Activity.GetComponent<MusicController>().PlaySong();
     }
     public void ToggleActivity()
     {
