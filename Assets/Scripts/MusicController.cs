@@ -276,10 +276,12 @@ public class MusicController : MonoBehaviour
         StartCoroutine(Playing());
         Paused = false;
         audio.UnPause();
+        audio.time = CurrentTime;
 
         //Switches the pause & resume buttons for UX
         PauseButton.SetActive(true);
         ResumeButton.SetActive(false);
+        Debug.Log("Resume at " + CurrentTime.ToString("F2"));
     }
 
     private void Shuffled()
