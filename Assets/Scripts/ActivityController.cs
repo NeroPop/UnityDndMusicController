@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(AudioSource))]
 
 public class ReadOnlyAttribute : PropertyAttribute { }
-public class MusicController : MonoBehaviour
+public class ActivityController : MonoBehaviour
 {
     [Header("Soundtrack Audio")]
 

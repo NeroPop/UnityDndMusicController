@@ -31,42 +31,42 @@ public class UIActivitySetup : MonoBehaviour
     void Start()
     {
         //Sets up Activity references
-        Activity.GetComponent<MusicController>().DisplayName = CurrentSong;
-        Activity.GetComponent<MusicController>().DisplayTime = CurrentTime;
-        Activity.GetComponent<MusicController>().DisplayRemaining = RemainingTime;
-        Activity.GetComponent<MusicController>().AudioSlider = AudioSlider;
-        Activity.GetComponent<MusicController>().PauseButton = Pause.gameObject;
-        Activity.GetComponent<MusicController>().ResumeButton = Resume.gameObject;
+        Activity.GetComponent<ActivityController>().DisplayName = CurrentSong;
+        Activity.GetComponent<ActivityController>().DisplayTime = CurrentTime;
+        Activity.GetComponent<ActivityController>().DisplayRemaining = RemainingTime;
+        Activity.GetComponent<ActivityController>().AudioSlider = AudioSlider;
+        Activity.GetComponent<ActivityController>().PauseButton = Pause.gameObject;
+        Activity.GetComponent<ActivityController>().ResumeButton = Resume.gameObject;
 
         //Sets up Audio Slider References
         SliderEventTrigger = AudioSlider.GetComponent<EventTrigger>();
 
-        AudioSlider.onValueChanged.AddListener(Activity.GetComponent<MusicController>().OnSliderValueChanged);
+        AudioSlider.onValueChanged.AddListener(Activity.GetComponent<ActivityController>().OnSliderValueChanged);
 
         EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
         pointerDownEntry.eventID = EventTriggerType.PointerDown;
-        pointerDownEntry.callback.AddListener((eventData) => { Activity.GetComponent<MusicController>().OnPointerDown(); });
+        pointerDownEntry.callback.AddListener((eventData) => { Activity.GetComponent<ActivityController>().OnPointerDown(); });
         SliderEventTrigger.triggers.Add(pointerDownEntry);
 
         EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
         pointerUpEntry.eventID= EventTriggerType.PointerUp;
-        pointerUpEntry.callback.AddListener((eventData) => { Activity.GetComponent<MusicController>().OnPointerUp(); });
+        pointerUpEntry.callback.AddListener((eventData) => { Activity.GetComponent<ActivityController>().OnPointerUp(); });
         SliderEventTrigger.triggers.Add(pointerUpEntry);
 
         //Sets up references for buttons
-        Skip.onClick.AddListener(Activity.GetComponent<MusicController>().Skip);
-        Back.onClick.AddListener(Activity.GetComponent<MusicController>().Back);
-        Pause.onClick.AddListener(Activity.GetComponent<MusicController>().Pause);
-        Resume.onClick.AddListener(Activity.GetComponent<MusicController>().Resume);
-        ShuffleOff.onClick.AddListener(Activity.GetComponent<MusicController>().ToggleShuffle);
-        ShuffleOn.onClick.AddListener(Activity.GetComponent<MusicController>().ToggleShuffle);
+        Skip.onClick.AddListener(Activity.GetComponent<ActivityController>().Skip);
+        Back.onClick.AddListener(Activity.GetComponent<ActivityController>().Back);
+        Pause.onClick.AddListener(Activity.GetComponent<ActivityController>().Pause);
+        Resume.onClick.AddListener(Activity.GetComponent<ActivityController>().Resume);
+        ShuffleOff.onClick.AddListener(Activity.GetComponent<ActivityController>().ToggleShuffle);
+        ShuffleOn.onClick.AddListener(Activity.GetComponent<ActivityController>().ToggleShuffle);
 
         //Hides the Activity Controls
         ActSelected = false;
         ActivityPlayerControls.SetActive(false);
 
         //Starts the song
-        Activity.GetComponent<MusicController>().PlaySong();
+        Activity.GetComponent<ActivityController>().PlaySong();
     }
     public void ToggleActivity()
     {
