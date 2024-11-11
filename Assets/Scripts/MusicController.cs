@@ -14,8 +14,7 @@ public class MusicController : MonoBehaviour
     [Header("Soundtrack Audio")]
 
     //List of all the audio tracks
-    [SerializeField]
-    private AudioClip[] Tracks;
+    public AudioClip[] Tracks;
 
     [Header("Display Elements")]
 
