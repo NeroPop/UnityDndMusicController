@@ -55,7 +55,8 @@ public class UnityActivityManager : MonoBehaviour
         if (Act > 0) //Resets the scene if it was left on
         {
             ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff();
+            GetComponent<UIActivitySetup>().ActivityOff();
+            Debug.Log("Set activity off, activity " + Act);
 
             SceneChange = true;
         }
@@ -96,15 +97,15 @@ public class UnityActivityManager : MonoBehaviour
             FadeoutVolume = PreVolumeLevel;
             CurFadeTime = PreVolumeLevel;
 
-            //changes the button sprites
+            //changes the UI sprites
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOn();
+            GetComponent<UIActivitySetup>().ActivityOn(Act -1);
+            Debug.Log("Set activity on, activity " + Act);
 
             //ensures the erray isn't out of bounds
             if (PrevAct > 0)
             {
                 ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-                ActivityButtons[PrevAct - 1].GetComponent<UIActivitySetup>().ActivityOff();
             }
             //Debug.Log("Playing activity " + ActivityNumber);
         }
@@ -113,7 +114,8 @@ public class UnityActivityManager : MonoBehaviour
         else
         {
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff();
+            GetComponent<UIActivitySetup>().ActivityOff();
+            Debug.Log("Set activity off, activity " + Act);
             Act = 0;
 
             CurrentTime = 0;
@@ -206,5 +208,15 @@ public class UnityActivityManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PointerDown()
+    {
+        Activities[Act -1].GetComponent<ActivityController>().OnPointerDown();
+    }
+
+    public void PointerUp()
+    {
+        Activities[Act - 1].GetComponent<ActivityController>().OnPointerUp();
     }
 }

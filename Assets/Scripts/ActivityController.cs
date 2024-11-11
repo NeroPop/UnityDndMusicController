@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(AudioSource))]
 
 public class ReadOnlyAttribute : PropertyAttribute { }
-public class MusicController : MonoBehaviour
+public class ActivityController : MonoBehaviour
 {
     [Header("Music Manager")]
     public GameObject MusicManager;
@@ -252,6 +252,7 @@ public class MusicController : MonoBehaviour
         isDragging = true;
         AudioSlider.wholeNumbers = true;
         Pause();
+        Debug.Log("Is Dragging");
     }
 
     public void OnPointerUp()
@@ -260,6 +261,7 @@ public class MusicController : MonoBehaviour
         isDragging = false;
         AudioSlider.wholeNumbers = false;
         Resume();
+        Debug.Log("Is Not Dragging");
     }
 
     public void Pause()
@@ -338,6 +340,7 @@ public class MusicController : MonoBehaviour
             displayseconds = CurrentTime;
             displayminutes = ((int)displayseconds) / 60;
             displayseconds = displayseconds - (displayminutes * 60);
+            Debug.Log("Slider Value changed");
         }
     }
 

@@ -40,32 +40,32 @@ public class UIActivitySetup : MonoBehaviour
         //Sets up Audio Slider References
         SliderEventTrigger = AudioSlider.GetComponent<EventTrigger>();
 
-        AudioSlider.onValueChanged.AddListener(Activity[Act].GetComponent<MusicController>().OnSliderValueChanged);
+        AudioSlider.onValueChanged.AddListener(Activity[Act].GetComponent<ActivityController>().OnSliderValueChanged);
 
         EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
         pointerDownEntry.eventID = EventTriggerType.PointerDown;
-        pointerDownEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<MusicController>().OnPointerDown(); });
+        pointerDownEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<ActivityController>().OnPointerDown(); });
         SliderEventTrigger.triggers.Add(pointerDownEntry);
 
         EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
         pointerUpEntry.eventID= EventTriggerType.PointerUp;
-        pointerUpEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<MusicController>().OnPointerUp(); });
+        pointerUpEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<ActivityController>().OnPointerUp(); });
         SliderEventTrigger.triggers.Add(pointerUpEntry);
 
         //Sets up references for buttons
-        Skip.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Skip);
-        Back.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Back);
-        Pause.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Pause);
-        Resume.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Resume);
-        ShuffleOff.onClick.AddListener(Activity[Act].GetComponent<MusicController>().ToggleShuffle);
-        ShuffleOn.onClick.AddListener(Activity[Act].GetComponent<MusicController>().ToggleShuffle);
+        Skip.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Skip);
+        Back.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Back);
+        Pause.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Pause);
+        Resume.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Resume);
+        ShuffleOff.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().ToggleShuffle);
+        ShuffleOn.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().ToggleShuffle);
 
         //Hides the Activity Controls
         ActSelected = false;
         ActivityPlayerControls.SetActive(false);
 
         //Starts the song
-        Activity[Act].GetComponent<MusicController>().PlaySong();
+        Activity[Act].GetComponent<ActivityController>().PlaySong();
 
         //sets up every activity
         Act = 0;
@@ -75,9 +75,35 @@ public class UIActivitySetup : MonoBehaviour
     {
         if (!ActSelected)
         {
+            //Sets the player to be active
             ActivityPlayerControls.SetActive(true);
             InactivePlayer.SetActive(false);
             ActSelected = true;
+
+            //Sets up Audio Slider References
+            SliderEventTrigger = AudioSlider.GetComponent<EventTrigger>();
+
+            AudioSlider.onValueChanged.AddListener(Activity[Act].GetComponent<ActivityController>().OnSliderValueChanged);
+
+            EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
+            pointerDownEntry.eventID = EventTriggerType.PointerDown;
+            pointerDownEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<ActivityController>().OnPointerDown(); });
+            SliderEventTrigger.triggers.Add(pointerDownEntry);
+
+            EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
+            pointerUpEntry.eventID = EventTriggerType.PointerUp;
+            pointerUpEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<ActivityController>().OnPointerUp(); });
+            SliderEventTrigger.triggers.Add(pointerUpEntry);
+
+            //Sets up references for buttons
+            Skip.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Skip);
+            Back.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Back);
+            Pause.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Pause);
+            Resume.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Resume);
+            ShuffleOff.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().ToggleShuffle);
+            ShuffleOn.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().ToggleShuffle);
+
+            Activity[Act].GetComponent<ActivityController>().PlaySong();
         }
         else if (ActSelected)
         {
@@ -87,15 +113,46 @@ public class UIActivitySetup : MonoBehaviour
         }
     }
 
-    public void ActivityOn()
+    public void ActivityOn(int Act)
     {
+        //Sets the player to be active
         ActivityPlayerControls.SetActive(true);
+        InactivePlayer.SetActive(false);
         ActSelected = true;
+
+        //Sets up Audio Slider References
+        SliderEventTrigger = AudioSlider.GetComponent<EventTrigger>();
+
+        AudioSlider.onValueChanged.AddListener(Activity[Act].GetComponent<ActivityController>().OnSliderValueChanged);
+
+        EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
+        pointerDownEntry.eventID = EventTriggerType.PointerDown;
+        pointerDownEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<ActivityController>().OnPointerDown(); });
+        SliderEventTrigger.triggers.Add(pointerDownEntry);
+
+        EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
+        pointerUpEntry.eventID = EventTriggerType.PointerUp;
+        pointerUpEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<ActivityController>().OnPointerUp(); });
+        SliderEventTrigger.triggers.Add(pointerUpEntry);
+
+        //Sets up references for buttons
+        Skip.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Skip);
+        Back.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Back);
+        Pause.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Pause);
+        Resume.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().Resume);
+        ShuffleOff.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().ToggleShuffle);
+        ShuffleOn.onClick.AddListener(Activity[Act].GetComponent<ActivityController>().ToggleShuffle);
+
+        Activity[Act].GetComponent<ActivityController>().PlaySong();
+        Debug.Log("Activity On UI change with activity " + Act);
     }
 
     public void ActivityOff()
     {
+        //Sets the player to be inactive
         ActivityPlayerControls.SetActive(false);
+        InactivePlayer.SetActive(true);
         ActSelected = false;
+        Debug.Log("Activity Off UI change with activity " + Act);
     }
 }
