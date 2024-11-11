@@ -219,4 +219,15 @@ public class UnityActivityManager : MonoBehaviour
     {
         Activities[Act - 1].GetComponent<ActivityController>().OnPointerUp();
     }
+
+    //Method to get the index of a specific object in this array
+    public int GetIndexOfActivities(GameObject obj)
+    {
+        for (int i = 0; i < Activities.Length; i++)
+        {
+            if (Activities[i] == obj)
+                return i;
+        }
+        return -1; // Return -1 if object not found
+    }
 }

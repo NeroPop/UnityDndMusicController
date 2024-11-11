@@ -124,6 +124,7 @@ public class UIActivitySetup : MonoBehaviour
         SliderEventTrigger = AudioSlider.GetComponent<EventTrigger>();
 
         AudioSlider.onValueChanged.AddListener(Activity[Act].GetComponent<ActivityController>().OnSliderValueChanged);
+        AudioSlider.onValueChanged.AddListener(delegate { SliderValueChanged(); });
 
         EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
         pointerDownEntry.eventID = EventTriggerType.PointerDown;
@@ -154,5 +155,10 @@ public class UIActivitySetup : MonoBehaviour
         InactivePlayer.SetActive(true);
         ActSelected = false;
         Debug.Log("Activity Off UI change with activity " + Act);
+    }
+
+    private void SliderValueChanged()
+    {
+        Debug.Log("Slider value now " + AudioSlider.value);
     }
 }

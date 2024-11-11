@@ -32,6 +32,9 @@ public class ActivityController : MonoBehaviour
 
     [Header("Music Information")]
 
+    public int Activity;
+    public int CurActivity;
+
     //Displays the music informaiton in the inspector. All either read only or private
     [ReadOnly]
     [SerializeField]
@@ -74,6 +77,17 @@ public class ActivityController : MonoBehaviour
     public event Action<float> OnUpdate;
     private void Start()
     {
+        //Works out which activity it is
+        Activity = MusicManager.GetComponent<UnityActivityManager>().GetIndexOfActivities(this.gameObject);
+
+        //Automatically gets and ads UI Elements
+        DisplayName = MusicManager.GetComponent<UIActivitySetup>().CurrentSong;
+        DisplayTime = MusicManager.GetComponent<UIActivitySetup>().CurrentTime;
+        DisplayRemaining = MusicManager.GetComponent<UIActivitySetup>().RemainingTime;
+        AudioSlider = MusicManager.GetComponent<UIActivitySetup>().AudioSlider;
+        PauseButton = MusicManager.GetComponent<UIActivitySetup>().Pause.gameObject;
+        ResumeButton = MusicManager.GetComponent<UIActivitySetup>().Resume.gameObject;
+
         //Starts playing the first song.
         //If it's shuffled then the track is random, if not then it sets the track to 1
         if (!Shuffle)
@@ -90,42 +104,37 @@ public class ActivityController : MonoBehaviour
 
         // Add listeners to handle the slider events
         AudioSlider.onValueChanged.AddListener(OnSliderValueChanged);
-
-        //Automatically gets and ads UI Elements
-        DisplayName = MusicManager.GetComponent<UIActivitySetup>().CurrentSong;
-        DisplayTime = MusicManager.GetComponent<UIActivitySetup>().CurrentTime;
-        DisplayRemaining = MusicManager.GetComponent<UIActivitySetup>().RemainingTime;
-        AudioSlider = MusicManager.GetComponent<UIActivitySetup>().AudioSlider;
-        PauseButton = MusicManager.GetComponent<UIActivitySetup>().Pause.gameObject;
-        ResumeButton = MusicManager.GetComponent<UIActivitySetup>().Resume.gameObject;
     }
 
     private void Update()
     {
-        //Get's a reference for the AudioSource
-        AudioSource audio = GetComponent<AudioSource>();
-
-        //Figures out the track length of the audio clip
-        TrackLength = audio.clip.length;
-
-        //checks if the music is paused
-        if (!Paused)
+        if (CurActivity == Activity)
         {
-            //Adds 1 second to current time every second
-            OnUpdate?.Invoke(Time.deltaTime);
-            CurrentTime += Time.deltaTime;
+            //Get's a reference for the AudioSource
+            AudioSource audio = GetComponent<AudioSource>();
 
-            //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
-            if (!isDragging)
+            //Figures out the track length of the audio clip
+            TrackLength = audio.clip.length;
+
+            //checks if the music is paused
+            if (!Paused)
             {
-                //AudioSlider.value = CurrentTime;
-                TimePercent = (CurrentTime / TrackLength) * 100;
+                //Adds 1 second to current time every second
+                OnUpdate?.Invoke(Time.deltaTime);
+                CurrentTime += Time.deltaTime;
+
+                //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
+                if (!isDragging)
+                {
+                    //AudioSlider.value = CurrentTime;
+                    TimePercent = (CurrentTime / TrackLength) * 100;
+                }
             }
+            //Displays the current and remaining times
+            DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
+            DisplayTime.text = FormatTime(CurrentTime);
+            AudioSlider.value = CurrentTime;
         }
-        //Displays the current and remaining times
-        DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
-        DisplayTime.text = FormatTime(CurrentTime);
-        AudioSlider.value = CurrentTime;
     }
 
     IEnumerator Playing()
@@ -372,5 +381,30 @@ public class ActivityController : MonoBehaviour
         int minutes = Mathf.FloorToInt(time / 60);
         int seconds = Mathf.FloorToInt(time % 60);
         return $"{minutes:00}:{seconds:00}";
+    }
+
+    public void ActivityEnabled()
+    {
+        //Automatically gets and ads UI Elements
+        DisplayName = MusicManager.GetComponent<UIActivitySetup>().CurrentSong;
+        DisplayTime = MusicManager.GetComponent<UIActivitySetup>().CurrentTime;
+        DisplayRemaining = MusicManager.GetComponent<UIActivitySetup>().RemainingTime;
+        AudioSlider = MusicManager.GetComponent<UIActivitySetup>().AudioSlider;
+        PauseButton = MusicManager.GetComponent<UIActivitySetup>().Pause.gameObject;
+        ResumeButton = MusicManager.GetComponent<UIActivitySetup>().Resume.gameObject;
+
+        //Starts playing the first song.
+        //If it's shuffled then the track is random, if not then it sets the track to 1
+        if (!Shuffle)
+        {
+            TrackNumber = 0;
+            PlaySong();
+        }
+
+        else if (Shuffle)
+        {
+            TrackNumber = Random.Range(0, Tracks.Length);
+            PlaySong();
+        }
     }
 }

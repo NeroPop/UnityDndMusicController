@@ -314,6 +314,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 0}
   PauseButton: {fileID: 0}
   ResumeButton: {fileID: 0}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -4639,6 +4641,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 0}
   PauseButton: {fileID: 0}
   ResumeButton: {fileID: 0}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -5523,6 +5527,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 0}
   PauseButton: {fileID: 0}
   ResumeButton: {fileID: 0}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -14682,6 +14688,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 2120346027}
   PauseButton: {fileID: 135699382}
   ResumeButton: {fileID: 174128998}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -30278,6 +30286,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 0}
   PauseButton: {fileID: 0}
   ResumeButton: {fileID: 0}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -30913,6 +30923,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 0}
   PauseButton: {fileID: 0}
   ResumeButton: {fileID: 0}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -41590,6 +41602,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 2120346027}
   PauseButton: {fileID: 135699382}
   ResumeButton: {fileID: 174128998}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -44364,6 +44378,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 0}
   PauseButton: {fileID: 0}
   ResumeButton: {fileID: 0}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -44751,6 +44767,8 @@ MonoBehaviour:
   AudioSlider: {fileID: 2120346027}
   PauseButton: {fileID: 135699382}
   ResumeButton: {fileID: 174128998}
+  Activity: 0
+  CurActivity: 0
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
