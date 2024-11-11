@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class UnityActivityManager : MonoBehaviour
 {
+    [Header("Activities")]
+    public GameObject[] Activities;
+
     [Header("Audio Mixers")]
 
     public AudioMixerGroup[] ActivityMixers;

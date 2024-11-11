@@ -11,6 +11,9 @@ using Random = UnityEngine.Random;
 public class ReadOnlyAttribute : PropertyAttribute { }
 public class MusicController : MonoBehaviour
 {
+    [Header("Music Manager")]
+    public GameObject MusicManager;
+
     [Header("Soundtrack Audio")]
 
     //List of all the audio tracks
@@ -87,6 +90,14 @@ public class MusicController : MonoBehaviour
 
         // Add listeners to handle the slider events
         AudioSlider.onValueChanged.AddListener(OnSliderValueChanged);
+
+        //Automatically gets and ads UI Elements
+        DisplayName = MusicManager.GetComponent<UIActivitySetup>().CurrentSong;
+        DisplayTime = MusicManager.GetComponent<UIActivitySetup>().CurrentTime;
+        DisplayRemaining = MusicManager.GetComponent<UIActivitySetup>().RemainingTime;
+        AudioSlider = MusicManager.GetComponent<UIActivitySetup>().AudioSlider;
+        PauseButton = MusicManager.GetComponent<UIActivitySetup>().Pause.gameObject;
+        ResumeButton = MusicManager.GetComponent<UIActivitySetup>().Resume.gameObject;
     }
 
     private void Update()

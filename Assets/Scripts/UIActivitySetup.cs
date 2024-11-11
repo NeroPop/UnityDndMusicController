@@ -9,10 +9,11 @@ using Unity.VisualScripting;
 public class UIActivitySetup : MonoBehaviour
 {
     [Header("Activity")]
-    public GameObject Activity;
+    public GameObject[] Activity;
 
     [Header("UI References")]
     public GameObject ActivityPlayerControls;
+    public GameObject InactivePlayer;
 
     public TMP_Text CurrentSong;
     public TMP_Text CurrentTime;
@@ -27,57 +28,61 @@ public class UIActivitySetup : MonoBehaviour
     public Button ShuffleOn;
 
     private bool ActSelected = false;
+    public int Act;
+
+    private bool Started;
 
     void Start()
     {
-        //Sets up Activity references
-        Activity.GetComponent<MusicController>().DisplayName = CurrentSong;
-        Activity.GetComponent<MusicController>().DisplayTime = CurrentTime;
-        Activity.GetComponent<MusicController>().DisplayRemaining = RemainingTime;
-        Activity.GetComponent<MusicController>().AudioSlider = AudioSlider;
-        Activity.GetComponent<MusicController>().PauseButton = Pause.gameObject;
-        Activity.GetComponent<MusicController>().ResumeButton = Resume.gameObject;
+        //Sets up the list of activities
+        Activity = GetComponent<UnityActivityManager>().Activities;
 
         //Sets up Audio Slider References
         SliderEventTrigger = AudioSlider.GetComponent<EventTrigger>();
 
-        AudioSlider.onValueChanged.AddListener(Activity.GetComponent<MusicController>().OnSliderValueChanged);
+        AudioSlider.onValueChanged.AddListener(Activity[Act].GetComponent<MusicController>().OnSliderValueChanged);
 
         EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
         pointerDownEntry.eventID = EventTriggerType.PointerDown;
-        pointerDownEntry.callback.AddListener((eventData) => { Activity.GetComponent<MusicController>().OnPointerDown(); });
+        pointerDownEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<MusicController>().OnPointerDown(); });
         SliderEventTrigger.triggers.Add(pointerDownEntry);
 
         EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
         pointerUpEntry.eventID= EventTriggerType.PointerUp;
-        pointerUpEntry.callback.AddListener((eventData) => { Activity.GetComponent<MusicController>().OnPointerUp(); });
+        pointerUpEntry.callback.AddListener((eventData) => { Activity[Act].GetComponent<MusicController>().OnPointerUp(); });
         SliderEventTrigger.triggers.Add(pointerUpEntry);
 
         //Sets up references for buttons
-        Skip.onClick.AddListener(Activity.GetComponent<MusicController>().Skip);
-        Back.onClick.AddListener(Activity.GetComponent<MusicController>().Back);
-        Pause.onClick.AddListener(Activity.GetComponent<MusicController>().Pause);
-        Resume.onClick.AddListener(Activity.GetComponent<MusicController>().Resume);
-        ShuffleOff.onClick.AddListener(Activity.GetComponent<MusicController>().ToggleShuffle);
-        ShuffleOn.onClick.AddListener(Activity.GetComponent<MusicController>().ToggleShuffle);
+        Skip.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Skip);
+        Back.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Back);
+        Pause.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Pause);
+        Resume.onClick.AddListener(Activity[Act].GetComponent<MusicController>().Resume);
+        ShuffleOff.onClick.AddListener(Activity[Act].GetComponent<MusicController>().ToggleShuffle);
+        ShuffleOn.onClick.AddListener(Activity[Act].GetComponent<MusicController>().ToggleShuffle);
 
         //Hides the Activity Controls
         ActSelected = false;
         ActivityPlayerControls.SetActive(false);
 
         //Starts the song
-        Activity.GetComponent<MusicController>().PlaySong();
+        Activity[Act].GetComponent<MusicController>().PlaySong();
+
+        //sets up every activity
+        Act = 0;
+        Started = true;
     }
-    public void ToggleActivity()
+    public void ToggleActivity(int Act)
     {
         if (!ActSelected)
         {
             ActivityPlayerControls.SetActive(true);
+            InactivePlayer.SetActive(false);
             ActSelected = true;
         }
         else if (ActSelected)
         {
             ActivityPlayerControls.SetActive(false);
+            InactivePlayer.SetActive(true);
             ActSelected = false;
         }
     }

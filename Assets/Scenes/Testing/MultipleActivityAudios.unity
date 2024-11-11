@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 0}
   Tracks:
   - {fileID: 8300000, guid: 52b226d58b47d7145831cb31b0bd4feb, type: 3}
   - {fileID: 8300000, guid: 446fb2f7f7666d8429952b7b326aeb54, type: 3}
@@ -2071,8 +2072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Activity: {fileID: 2126069994}
+  Activity: []
   ActivityPlayerControls: {fileID: 1192368403}
+  InactivePlayer: {fileID: 0}
   CurrentSong: {fileID: 1272366507}
   CurrentTime: {fileID: 2095857597}
   RemainingTime: {fileID: 2124893426}
@@ -2084,6 +2086,7 @@ MonoBehaviour:
   Resume: {fileID: 1231152580}
   ShuffleOff: {fileID: 579690723}
   ShuffleOn: {fileID: 1520368662}
+  Act: 0
 --- !u!114 &74045155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4637,6 +4640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 0}
   Tracks:
   - {fileID: 8300000, guid: 1a0bbfe31338fe74da4f3ca3db5fe509, type: 3}
   - {fileID: 8300000, guid: a03e85b39caa45c49ba2b21f192fb819, type: 3}
@@ -5532,6 +5536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 0}
   Tracks:
   - {fileID: 8300000, guid: 1a0bbfe31338fe74da4f3ca3db5fe509, type: 3}
   - {fileID: 8300000, guid: a03e85b39caa45c49ba2b21f192fb819, type: 3}
@@ -14702,16 +14707,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 1500074696}
   Tracks:
   - {fileID: 8300000, guid: 1a0bbfe31338fe74da4f3ca3db5fe509, type: 3}
   - {fileID: 8300000, guid: a03e85b39caa45c49ba2b21f192fb819, type: 3}
   - {fileID: 8300000, guid: 7df883b4b73b8e945b63a71670ed757a, type: 3}
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
+  DisplayName: {fileID: 1893306085}
+  DisplayTime: {fileID: 668099021}
+  DisplayRemaining: {fileID: 1579266422}
+  AudioSlider: {fileID: 2120346027}
+  PauseButton: {fileID: 135699382}
+  ResumeButton: {fileID: 174128998}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -15296,8 +15302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Activity: {fileID: 2415831}
+  Activity: []
   ActivityPlayerControls: {fileID: 1546059188}
+  InactivePlayer: {fileID: 0}
   CurrentSong: {fileID: 1843501458}
   CurrentTime: {fileID: 575868202}
   RemainingTime: {fileID: 1582040694}
@@ -15309,6 +15316,7 @@ MonoBehaviour:
   Resume: {fileID: 558907743}
   ShuffleOff: {fileID: 1498119587}
   ShuffleOn: {fileID: 1947752802}
+  Act: 0
 --- !u!114 &657553417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20428,8 +20436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Activity: {fileID: 152070988}
+  Activity: []
   ActivityPlayerControls: {fileID: 781041411}
+  InactivePlayer: {fileID: 0}
   CurrentSong: {fileID: 1174371317}
   CurrentTime: {fileID: 1414144971}
   RemainingTime: {fileID: 2089919678}
@@ -20441,6 +20450,7 @@ MonoBehaviour:
   Resume: {fileID: 167279818}
   ShuffleOff: {fileID: 1384905347}
   ShuffleOn: {fileID: 967535456}
+  Act: 0
 --- !u!114 &976584659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21064,6 +21074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62357115cabce9b42bd31f5217df8336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Activities: []
   ActivityMixers:
   - {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   - {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
@@ -24459,8 +24470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Activity: {fileID: 1455378477}
+  Activity: []
   ActivityPlayerControls: {fileID: 327153860}
+  InactivePlayer: {fileID: 0}
   CurrentSong: {fileID: 779141181}
   CurrentTime: {fileID: 967915954}
   RemainingTime: {fileID: 763612606}
@@ -24472,6 +24484,7 @@ MonoBehaviour:
   Resume: {fileID: 482131466}
   ShuffleOff: {fileID: 1930876828}
   ShuffleOn: {fileID: 13202398}
+  Act: 0
 --- !u!114 &1155341966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25381,7 +25394,6 @@ GameObject:
   - component: {fileID: 1188178911}
   - component: {fileID: 1188178910}
   - component: {fileID: 1188178909}
-  - component: {fileID: 1188178914}
   m_Layer: 5
   m_Name: Button Activity1
   m_TagString: Untagged
@@ -25504,31 +25516,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1188178914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1188178908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Activity: {fileID: 643261461}
-  ActivityPlayerControls: {fileID: 17044985}
-  CurrentSong: {fileID: 1893306085}
-  CurrentTime: {fileID: 668099021}
-  RemainingTime: {fileID: 1579266422}
-  AudioSlider: {fileID: 2120346027}
-  SliderEventTrigger: {fileID: 2120346026}
-  Skip: {fileID: 532041920}
-  Back: {fileID: 1697993885}
-  Pause: {fileID: 135699383}
-  Resume: {fileID: 174129000}
-  ShuffleOff: {fileID: 1161357726}
-  ShuffleOn: {fileID: 794217517}
 --- !u!1 &1189539030
 GameObject:
   m_ObjectHideFlags: 0
@@ -30340,6 +30327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 0}
   Tracks:
   - {fileID: 8300000, guid: 2387505b4732b6445b5749ee4dfe7843, type: 3}
   - {fileID: 8300000, guid: 50bceab4bb40f4b4e8d0373b432adfca, type: 3}
@@ -30974,6 +30962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 0}
   Tracks:
   - {fileID: 8300000, guid: 52b226d58b47d7145831cb31b0bd4feb, type: 3}
   - {fileID: 8300000, guid: 446fb2f7f7666d8429952b7b326aeb54, type: 3}
@@ -31945,6 +31934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1500074699}
   - component: {fileID: 1500074697}
+  - component: {fileID: 1500074704}
   - component: {fileID: 1500074701}
   - component: {fileID: 1500074700}
   - component: {fileID: 1500074698}
@@ -32050,6 +32040,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62357115cabce9b42bd31f5217df8336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Activities:
+  - {fileID: 643261461}
+  - {fileID: 1995108447}
+  - {fileID: 2130932233}
   ActivityMixers:
   - {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   - {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
@@ -32099,6 +32093,33 @@ MonoBehaviour:
   currentIndex: 0
   absolutePath: ./Activities
   Scene: 
+--- !u!114 &1500074704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500074696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Activity: []
+  ActivityPlayerControls: {fileID: 17044985}
+  InactivePlayer: {fileID: 1064535231}
+  CurrentSong: {fileID: 1893306085}
+  CurrentTime: {fileID: 668099021}
+  RemainingTime: {fileID: 1579266422}
+  AudioSlider: {fileID: 2120346027}
+  SliderEventTrigger: {fileID: 2120346026}
+  Skip: {fileID: 532041920}
+  Back: {fileID: 1697993885}
+  Pause: {fileID: 135699383}
+  Resume: {fileID: 174129000}
+  ShuffleOff: {fileID: 1161357726}
+  ShuffleOn: {fileID: 794217517}
+  Act: 0
 --- !u!1 &1502473857
 GameObject:
   m_ObjectHideFlags: 0
@@ -33500,8 +33521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Activity: {fileID: 1398272477}
+  Activity: []
   ActivityPlayerControls: {fileID: 1175488537}
+  InactivePlayer: {fileID: 0}
   CurrentSong: {fileID: 1525895671}
   CurrentTime: {fileID: 323645071}
   RemainingTime: {fileID: 1394815439}
@@ -33513,6 +33535,7 @@ MonoBehaviour:
   Resume: {fileID: 250596680}
   ShuffleOff: {fileID: 2000312208}
   ShuffleOn: {fileID: 107919447}
+  Act: 0
 --- !u!114 &1529367294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35842,6 +35865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62357115cabce9b42bd31f5217df8336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Activities: []
   ActivityMixers:
   - {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
   - {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
@@ -39856,7 +39880,6 @@ GameObject:
   - component: {fileID: 1880319663}
   - component: {fileID: 1880319662}
   - component: {fileID: 1880319661}
-  - component: {fileID: 1880319664}
   m_Layer: 5
   m_Name: Button Activity3
   m_TagString: Untagged
@@ -39979,31 +40002,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880319659}
   m_CullTransparentMesh: 1
---- !u!114 &1880319664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880319659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Activity: {fileID: 2130932233}
-  ActivityPlayerControls: {fileID: 17044985}
-  CurrentSong: {fileID: 1893306085}
-  CurrentTime: {fileID: 668099021}
-  RemainingTime: {fileID: 1579266422}
-  AudioSlider: {fileID: 2120346027}
-  SliderEventTrigger: {fileID: 2120346026}
-  Skip: {fileID: 532041920}
-  Back: {fileID: 1697993885}
-  Pause: {fileID: 135699383}
-  Resume: {fileID: 174129000}
-  ShuffleOff: {fileID: 1161357726}
-  ShuffleOn: {fileID: 794217517}
 --- !u!1 &1893306083
 GameObject:
   m_ObjectHideFlags: 0
@@ -41650,16 +41648,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 1500074696}
   Tracks:
   - {fileID: 8300000, guid: 52b226d58b47d7145831cb31b0bd4feb, type: 3}
   - {fileID: 8300000, guid: 446fb2f7f7666d8429952b7b326aeb54, type: 3}
   - {fileID: 8300000, guid: 86287241f6e57a04185fb74b24f33aa8, type: 3}
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
+  DisplayName: {fileID: 1893306085}
+  DisplayTime: {fileID: 668099021}
+  DisplayRemaining: {fileID: 1579266422}
+  AudioSlider: {fileID: 2120346027}
+  PauseButton: {fileID: 135699382}
+  ResumeButton: {fileID: 174128998}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -42406,8 +42405,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Activity: {fileID: 176567759}
+  Activity: []
   ActivityPlayerControls: {fileID: 1559502880}
+  InactivePlayer: {fileID: 0}
   CurrentSong: {fileID: 1706817170}
   CurrentTime: {fileID: 1868011825}
   RemainingTime: {fileID: 488779506}
@@ -42419,6 +42419,7 @@ MonoBehaviour:
   Resume: {fileID: 106654338}
   ShuffleOff: {fileID: 1424155908}
   ShuffleOn: {fileID: 943162139}
+  Act: 0
 --- !u!114 &2060053555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44014,7 +44015,6 @@ GameObject:
   - component: {fileID: 2122704062}
   - component: {fileID: 2122704061}
   - component: {fileID: 2122704060}
-  - component: {fileID: 2122704064}
   m_Layer: 5
   m_Name: Button Activity2
   m_TagString: Untagged
@@ -44137,31 +44137,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2122704064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122704059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Activity: {fileID: 1995108447}
-  ActivityPlayerControls: {fileID: 17044985}
-  CurrentSong: {fileID: 1893306085}
-  CurrentTime: {fileID: 668099021}
-  RemainingTime: {fileID: 1579266422}
-  AudioSlider: {fileID: 2120346027}
-  SliderEventTrigger: {fileID: 2120346026}
-  Skip: {fileID: 532041920}
-  Back: {fileID: 1697993885}
-  Pause: {fileID: 135699383}
-  Resume: {fileID: 174129000}
-  ShuffleOff: {fileID: 1161357726}
-  ShuffleOn: {fileID: 794217517}
 --- !u!1 &2124893423
 GameObject:
   m_ObjectHideFlags: 0
@@ -44423,6 +44398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 0}
   Tracks:
   - {fileID: 8300000, guid: 2387505b4732b6445b5749ee4dfe7843, type: 3}
   - {fileID: 8300000, guid: 50bceab4bb40f4b4e8d0373b432adfca, type: 3}
@@ -44809,16 +44785,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicManager: {fileID: 1500074696}
   Tracks:
   - {fileID: 8300000, guid: 2387505b4732b6445b5749ee4dfe7843, type: 3}
   - {fileID: 8300000, guid: 50bceab4bb40f4b4e8d0373b432adfca, type: 3}
   - {fileID: 8300000, guid: 3cd76d6af5189f64d927e23daa97290f, type: 3}
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
+  DisplayName: {fileID: 1893306085}
+  DisplayTime: {fileID: 668099021}
+  DisplayRemaining: {fileID: 1579266422}
+  AudioSlider: {fileID: 2120346027}
+  PauseButton: {fileID: 135699382}
+  ResumeButton: {fileID: 174128998}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
