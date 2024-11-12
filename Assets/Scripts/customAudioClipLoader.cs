@@ -22,6 +22,8 @@ public class customAudioClipLoader : MonoBehaviour
     
     private int loadedFildCounter;
 
+    
+
     void Start()
     {
         //being able to test in unity
@@ -84,6 +86,30 @@ public class customAudioClipLoader : MonoBehaviour
 
     void allCLipsLoaded()
     {
-        GetComponent<CustomAudioSetter>().LoadClips();
+        customAudioSetter();
+    }
+
+    //--------------------------------------------------------------------------------
+
+    [Header("Audio Setter")]
+    [SerializeField] private GameObject activityParent;
+    [SerializeField] private List<GameObject> activities = new List<GameObject>();
+
+    [SerializeField] AudioSource[] activitiesSources;
+
+    void customAudioSetter()
+    {
+        foreach (Transform child in activityParent.transform)
+        {
+            activities.Add(child.gameObject);
+        }
+
+        int actLeanth = clips.Count;
+        for (int i = 0; i < actLeanth; i++)
+        {
+            activities[0].GetComponent<ActivityController>().Tracks.Add(clips[i]);
+            activities[0].GetComponent<ActivityController>().loadCustomTrack();
+        }
+        activityParent.GetComponent<ActivityController>().loadCustomTrack();
     }
 }
