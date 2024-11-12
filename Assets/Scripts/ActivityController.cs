@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(AudioSource))]
 
@@ -14,7 +15,8 @@ public class ActivityController : MonoBehaviour
     [Header("Soundtrack Audio")]
 
     //List of all the audio tracks
-    public AudioClip[] Tracks;
+    //public AudioClip[] Tracks;
+    public List<AudioClip> Tracks = new List<AudioClip>();
 
     [Header("Display Elements")]
 
@@ -81,7 +83,7 @@ public class ActivityController : MonoBehaviour
 
         else if (Shuffle)
         {
-            TrackNumber = Random.Range(0, Tracks.Length);
+            TrackNumber = Random.Range(0, Tracks.Count);
             PlaySong();
         }
 
@@ -142,7 +144,7 @@ public class ActivityController : MonoBehaviour
                  {
                     //Sets the previous track as the current track before setting the current track to the next one and calling the PlaySong function
                      PrevTrack = TrackNumber;
-                     TrackNumber = (TrackNumber + 1) % Tracks.Length;
+                     TrackNumber = (TrackNumber + 1) % Tracks.Count;
                      PlaySong();
                      StopCoroutine(Playing());
                  }
@@ -168,7 +170,7 @@ public class ActivityController : MonoBehaviour
         AudioSource audio = GetComponent<AudioSource>();
 
         //Sets the track number to the last track if the current track number is somehow below 0
-        if (TrackNumber < 0 || TrackNumber >= Tracks.Length) return;
+        if (TrackNumber < 0 || TrackNumber >= Tracks.Count) return;
 
         //Sets the audio clip as whatever the current track number is
         audio.clip = Tracks[TrackNumber];
@@ -201,6 +203,12 @@ public class ActivityController : MonoBehaviour
         }
     }
 
+    public void loadCustomTrack()
+    {
+        TrackNumber = 0;
+        PlaySong();
+    }
+
     public void Skip()
     {
         StopCoroutine(Playing());
@@ -209,7 +217,7 @@ public class ActivityController : MonoBehaviour
         //If shuffled, it calls the shuffle function, if not shuffled it increases the track number and then plays the next song
         if (!Shuffle)
         {
-            TrackNumber = (TrackNumber + 1) % Tracks.Length;
+            TrackNumber = (TrackNumber + 1) % Tracks.Count;
             PlaySong();
         }
 
@@ -230,7 +238,7 @@ public class ActivityController : MonoBehaviour
         }
         else
         {
-            TrackNumber = (TrackNumber - 1 + Tracks.Length) % Tracks.Length;
+            TrackNumber = (TrackNumber - 1 + Tracks.Count) % Tracks.Count;
         }
         PlaySong();
     }
@@ -291,7 +299,7 @@ public class ActivityController : MonoBehaviour
         do
         {
             //randomises the next track from the tracks list
-            TrackNumber = Random.Range(0, Tracks.Length);
+            TrackNumber = Random.Range(0, Tracks.Count);
         } while (TrackNumber == PrevTrack);
 
         //plays the random song

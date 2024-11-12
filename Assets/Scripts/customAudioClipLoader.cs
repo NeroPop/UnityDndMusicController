@@ -19,6 +19,8 @@ public class customAudioClipLoader : MonoBehaviour
     private List<string> validExtensions = new List<string> { ".ogg", ".wav" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
     public string absolutePath = "./Activities"; // relative path to where the app is running - change this to "./music" in your case
     [HideInInspector] public string Scene; //Loads the files for that particular scene (only works in editor atm)
+    
+    private int loadedFildCounter;
 
     void Start()
     {
@@ -74,6 +76,14 @@ public class customAudioClipLoader : MonoBehaviour
         clip.name = Path.GetFileName(path);
         clips.Add(clip);
 
+ 
+        loadedFildCounter++; //counts the number of sound files loaded and compares it to the total number of files in the folder. Once all clips are loaded it triggers the allClipsLoaded Method.
+        if (loadedFildCounter >= soundFiles.Length)
+            allCLipsLoaded();
+    }
+
+    void allCLipsLoaded()
+    {
         GetComponent<CustomAudioSetter>().LoadClips();
     }
 }
