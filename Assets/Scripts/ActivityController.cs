@@ -126,7 +126,7 @@ public class ActivityController : MonoBehaviour
         audio.Play();
          
         //Sends a message to the console about what track is playing, how long it is and what time it's playing from.
-        Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
+       // Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
 
         //Waits until the end of the song
         yield return new WaitForSeconds(audio.clip.length - CurrentTime);
@@ -260,7 +260,7 @@ public class ActivityController : MonoBehaviour
         StopCoroutine(Playing());
         Paused = true;
         audio.Pause();
-        Debug.Log("Paused at " + CurrentTime.ToString("F2"));
+        //Debug.Log("Paused at " + CurrentTime.ToString("F2"));
 
         //Switches the pause & resume buttons for UX
         PauseButton.SetActive(false);
@@ -281,7 +281,7 @@ public class ActivityController : MonoBehaviour
         //Switches the pause & resume buttons for UX
         PauseButton.SetActive(true);
         ResumeButton.SetActive(false);
-        Debug.Log("Resume at " + CurrentTime.ToString("F2"));
+       // Debug.Log("Resume at " + CurrentTime.ToString("F2"));
     }
 
     private void Shuffled()
