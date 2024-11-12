@@ -29,46 +29,51 @@ public class UIActivitySetup : MonoBehaviour
 
     private bool ActSelected = false;
 
+    private ActivityController ActivityController;
+
     void Start()
     {
+        ActivityController = Activity.GetComponent<ActivityController>();
+
         //Sets up Activity references
-        Activity.GetComponent<ActivityController>().DisplayName = CurrentSong;
-        Activity.GetComponent<ActivityController>().DisplayTime = CurrentTime;
-        Activity.GetComponent<ActivityController>().DisplayRemaining = RemainingTime;
-        Activity.GetComponent<ActivityController>().AudioSlider = AudioSlider;
-        Activity.GetComponent<ActivityController>().PauseButton = Pause.gameObject;
-        Activity.GetComponent<ActivityController>().ResumeButton = Resume.gameObject;
+        ActivityController.DisplayName = CurrentSong;
+        ActivityController.DisplayTime = CurrentTime;
+        ActivityController.DisplayRemaining = RemainingTime;
+        ActivityController.AudioSlider = AudioSlider;
+        ActivityController.PauseButton = Pause.gameObject;
+        ActivityController.ResumeButton = Resume.gameObject;
 
         //Sets up Audio Slider References
         SliderEventTrigger = AudioSlider.GetComponent<EventTrigger>();
 
-        AudioSlider.onValueChanged.AddListener(Activity.GetComponent<ActivityController>().OnSliderValueChanged);
+        AudioSlider.onValueChanged.AddListener(ActivityController.OnSliderValueChanged);
 
         EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
         pointerDownEntry.eventID = EventTriggerType.PointerDown;
-        pointerDownEntry.callback.AddListener((eventData) => { Activity.GetComponent<ActivityController>().OnPointerDown(); });
+        pointerDownEntry.callback.AddListener((eventData) => { ActivityController.OnPointerDown(); });
         SliderEventTrigger.triggers.Add(pointerDownEntry);
 
         EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
         pointerUpEntry.eventID= EventTriggerType.PointerUp;
-        pointerUpEntry.callback.AddListener((eventData) => { Activity.GetComponent<ActivityController>().OnPointerUp(); });
+        pointerUpEntry.callback.AddListener((eventData) => { ActivityController.OnPointerUp(); });
         SliderEventTrigger.triggers.Add(pointerUpEntry);
 
         //Sets up references for buttons
-        Skip.onClick.AddListener(Activity.GetComponent<ActivityController>().Skip);
-        Back.onClick.AddListener(Activity.GetComponent<ActivityController>().Back);
-        Pause.onClick.AddListener(Activity.GetComponent<ActivityController>().Pause);
-        Resume.onClick.AddListener(Activity.GetComponent<ActivityController>().Resume);
-        ShuffleOff.onClick.AddListener(Activity.GetComponent<ActivityController>().ToggleShuffle);
-        ShuffleOn.onClick.AddListener(Activity.GetComponent<ActivityController>().ToggleShuffle);
+        Skip.onClick.AddListener(ActivityController.Skip);
+        Back.onClick.AddListener(ActivityController.Back);
+        Pause.onClick.AddListener(ActivityController.Pause);
+        Resume.onClick.AddListener(ActivityController.Resume);
+        ShuffleOff.onClick.AddListener(ActivityController.ToggleShuffle);
+        ShuffleOn.onClick.AddListener(ActivityController.ToggleShuffle);
 
         //Hides the Activity Controls
         ActSelected = false;
         ActivityPlayerControls.SetActive(false);
         DisabledPlayerControls.SetActive(true);
+        ActivityController.ActSelected = ActSelected;
 
         //Starts the song
-        Activity.GetComponent<ActivityController>().PlaySong();
+        ActivityController.PlaySong();
     }
     public void ToggleActivity()
     {
@@ -77,12 +82,14 @@ public class UIActivitySetup : MonoBehaviour
             ActivityPlayerControls.SetActive(true);
             DisabledPlayerControls.SetActive(false);
             ActSelected = true;
+            ActivityController.ActSelected = ActSelected;
         }
         else if (ActSelected)
         {
             ActivityPlayerControls.SetActive(false);
             DisabledPlayerControls.SetActive(true);
             ActSelected = false;
+            ActivityController.ActSelected = ActSelected;
         }
     }
 
@@ -91,12 +98,15 @@ public class UIActivitySetup : MonoBehaviour
         ActivityPlayerControls.SetActive(true);
         DisabledPlayerControls.SetActive(false);
         ActSelected = true;
+        ActivityController.ActSelected = ActSelected;
+
     }
 
     public void ActivityOff(bool Inactive)
     {
         ActivityPlayerControls.SetActive(false);
         ActSelected = false;
+        ActivityController.ActSelected = ActSelected;
         if (Inactive)
         {
             DisabledPlayerControls.SetActive(true);
