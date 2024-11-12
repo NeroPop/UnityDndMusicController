@@ -13,6 +13,7 @@ public class UIActivitySetup : MonoBehaviour
 
     [Header("UI References")]
     public GameObject ActivityPlayerControls;
+    public GameObject DisabledPlayerControls;
 
     public TMP_Text CurrentSong;
     public TMP_Text CurrentTime;
@@ -64,6 +65,7 @@ public class UIActivitySetup : MonoBehaviour
         //Hides the Activity Controls
         ActSelected = false;
         ActivityPlayerControls.SetActive(false);
+        DisabledPlayerControls.SetActive(true);
 
         //Starts the song
         Activity.GetComponent<ActivityController>().PlaySong();
@@ -73,11 +75,13 @@ public class UIActivitySetup : MonoBehaviour
         if (!ActSelected)
         {
             ActivityPlayerControls.SetActive(true);
+            DisabledPlayerControls.SetActive(false);
             ActSelected = true;
         }
         else if (ActSelected)
         {
             ActivityPlayerControls.SetActive(false);
+            DisabledPlayerControls.SetActive(true);
             ActSelected = false;
         }
     }
@@ -85,12 +89,17 @@ public class UIActivitySetup : MonoBehaviour
     public void ActivityOn()
     {
         ActivityPlayerControls.SetActive(true);
+        DisabledPlayerControls.SetActive(false);
         ActSelected = true;
     }
 
-    public void ActivityOff()
+    public void ActivityOff(bool Inactive)
     {
         ActivityPlayerControls.SetActive(false);
         ActSelected = false;
+        if (Inactive)
+        {
+            DisabledPlayerControls.SetActive(true);
+        }
     }
 }

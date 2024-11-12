@@ -52,7 +52,7 @@ public class UnityActivityManager : MonoBehaviour
         if (Act > 0) //Resets the scene if it was left on
         {
             ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff();
+            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
 
             SceneChange = true;
         }
@@ -101,7 +101,7 @@ public class UnityActivityManager : MonoBehaviour
             if (PrevAct > 0)
             {
                 ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-                ActivityButtons[PrevAct - 1].GetComponent<UIActivitySetup>().ActivityOff();
+                ActivityButtons[PrevAct - 1].GetComponent<UIActivitySetup>().ActivityOff(false);
             }
             //Debug.Log("Playing activity " + ActivityNumber);
         }
@@ -110,7 +110,7 @@ public class UnityActivityManager : MonoBehaviour
         else
         {
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff();
+            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
             Act = 0;
 
             CurrentTime = 0;
