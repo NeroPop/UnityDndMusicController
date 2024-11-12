@@ -26,8 +26,6 @@ public class CustomAudioSetter : MonoBehaviour
         {
             activities[0].GetComponent<ActivityController>().Tracks.Add(GetComponent<customAudioClipLoader>().clips[i]);
             activities[0].GetComponent<ActivityController>().loadCustomTrack();
-            activities[0].GetComponent<AudioSource>().Stop();
-            activities[0].GetComponent<AudioSource>().Play();
         }
     }
 }
