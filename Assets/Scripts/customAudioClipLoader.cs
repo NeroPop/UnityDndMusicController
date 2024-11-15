@@ -25,7 +25,10 @@ public class customAudioClipLoader : MonoBehaviour
     
 
     [SerializeField] private int activtiyNum;
-    private int curantFile;
+    private int curantFile = 0;
+
+    private int fileIndex = 0;
+
 
     void Start()
     {
@@ -48,16 +51,10 @@ public class customAudioClipLoader : MonoBehaviour
         }
 
         
-
-        for (int i = 0;i < activtiyNum; i++)
-        {
-            absolutePath = "Assets/CustomAudio/" + Scene + "/" + i;
-            ReloadSounds();
-            
-        }
-
-        
+        nextFile();
     }
+
+
 
 
     //void Seek(SeekDirection d)
@@ -71,9 +68,12 @@ public class customAudioClipLoader : MonoBehaviour
     //    }
     //}
 
+
+    
+
     void ReloadSounds()
     {
-        clips.Clear();
+        
 
         // get all valid files
         var info = new DirectoryInfo(absolutePath);
@@ -92,6 +92,8 @@ public class customAudioClipLoader : MonoBehaviour
         // Alternatively, you could go fileName.SubString(fileName.LastIndexOf('.') + 1); that way you don't need the '.' when you add your extensions
     }
 
+    
+
     IEnumerator LoadFile(string path)
     {
         WWW www = new WWW("file://" + path);
@@ -108,7 +110,13 @@ public class customAudioClipLoader : MonoBehaviour
  
         loadedFildCounter++; //counts the number of sound files loaded and compares it to the total number of files in the folder. Once all clips are loaded it triggers the allClipsLoaded Method.
         if (loadedFildCounter >= soundFiles.Length)
+        {
+            print("Sound Files Leanth: " + soundFiles.Length);
             allCLipsLoaded();
+        }
+           
+
+       
     }
 
     void allCLipsLoaded()
@@ -124,18 +132,37 @@ public class customAudioClipLoader : MonoBehaviour
 
     [SerializeField] AudioSource[] activitiesSources;
 
+
+    void nextFile()
+    {
+
+        if (fileIndex < activtiyNum)
+        {
+            if (fileIndex > 0)
+                curantFile++;
+            loadedFildCounter = 0;
+            clips.Clear();
+            absolutePath = "Assets/CustomAudio/" + Scene + "/" + curantFile;
+            ReloadSounds();
+            fileIndex++;
+        }
+
+    }
+
     void customAudioSetter()
     {
         
         int actLeanth = clips.Count; //gets the number of clips to be used in for loop
+        print("ActLeanth: " + actLeanth);
         activities[curantFile].GetComponent<ActivityController>().Tracks.Clear();
         for (int i = 0; i < actLeanth; i++)
         {
             activities[curantFile].GetComponent<ActivityController>().Tracks.Add(clips[i]);
+            print("Clip: " + clips[i]);
 
         }
-            
         activities[curantFile].GetComponent<ActivityController>().loadCustomTrack();
-        curantFile++;
+        //curantFile++;
+        nextFile();
     }
 }

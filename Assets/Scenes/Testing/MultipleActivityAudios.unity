@@ -4072,6 +4072,7 @@ MonoBehaviour:
   currentIndex: 0
   absolutePath: ./Activities
   Scene: 
+  activtiyNum: 0
   activityParent: {fileID: 0}
   activities: []
   activitiesSources: []
@@ -38771,6 +38772,7 @@ MonoBehaviour:
   currentIndex: 0
   absolutePath: ./Activities
   Scene: 
+  activtiyNum: 0
   activityParent: {fileID: 1250034052}
   activities: []
   activitiesSources: []
@@ -52946,6 +52948,7 @@ MonoBehaviour:
   currentIndex: 0
   absolutePath: ./Activities
   Scene: 
+  activtiyNum: 0
   activityParent: {fileID: 0}
   activities: []
   activitiesSources: []
