@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -21,15 +22,41 @@ public class customAudioClipLoader : MonoBehaviour
     [HideInInspector] public string Scene; //Loads the files for that particular scene (only works in editor atm)
     
     private int loadedFildCounter;
-
     
+
+    [SerializeField] private int activtiyNum;
+    private int curantFile;
 
     void Start()
     {
+        //Adds every activity to the activites list based on the number of children under activityParent
+        foreach (Transform child in activityParent.transform)
+        {
+            activities.Add(child.gameObject);
+        }
+
         //being able to test in unity
         if (Application.isEditor) absolutePath = "Assets/CustomAudio/" + Scene;
 
-        ReloadSounds();
+        DirectoryInfo dir = new DirectoryInfo(absolutePath);
+        DirectoryInfo[] info = dir.GetDirectories("*.*");
+        int count = dir.GetDirectories().Length;
+        for (int i = 0; i < count; i++)
+        {
+            Debug.Log("Found Directory: " + info[i]);
+            activtiyNum++;
+        }
+
+        
+
+        for (int i = 0;i < activtiyNum; i++)
+        {
+            absolutePath = "Assets/CustomAudio/" + Scene + "/" + i;
+            ReloadSounds();
+            
+        }
+
+        
     }
 
 
@@ -99,17 +126,16 @@ public class customAudioClipLoader : MonoBehaviour
 
     void customAudioSetter()
     {
-        foreach (Transform child in activityParent.transform)
-        {
-            activities.Add(child.gameObject);
-        }
-
-        int actLeanth = clips.Count;
+        
+        int actLeanth = clips.Count; //gets the number of clips to be used in for loop
+        activities[curantFile].GetComponent<ActivityController>().Tracks.Clear();
         for (int i = 0; i < actLeanth; i++)
         {
-            activities[0].GetComponent<ActivityController>().Tracks.Add(clips[i]);
-            activities[0].GetComponent<ActivityController>().loadCustomTrack();
+            activities[curantFile].GetComponent<ActivityController>().Tracks.Add(clips[i]);
+
         }
-        activityParent.GetComponent<ActivityController>().loadCustomTrack();
+            
+        activities[curantFile].GetComponent<ActivityController>().loadCustomTrack();
+        curantFile++;
     }
 }
