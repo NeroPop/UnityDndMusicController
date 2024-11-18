@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class NewSceneGenerator : MonoBehaviour
 {
@@ -30,15 +28,30 @@ public class NewSceneGenerator : MonoBehaviour
     [SerializeField]
     private int NewSceneInt;
 
+    private SceneManager SceneManager;
+
+    private void Start()
+    {
+        SceneManager = GetComponent<SceneManager>();
+    }
+
     public void NewScene()
     {
+        NewSceneInt = NewSceneInt + 1;
+
+        //sets the scene name to the written text
         NewSceneName = SceneNameInput.text;
 
         // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
+
+        newSceneButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+           SceneManager.ChangeScene(NewSceneInt);
+        });
+
         //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
-
-       //newSceneButton.name = NewSceneName; not sure this is necessary (changes the button name in unity hierarchy)
+       //newSceneButton.name = NewSceneName; not sure this is necessary (changes the button name in unity hierarchy
     }
 }

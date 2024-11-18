@@ -9,6 +9,7 @@ public class SceneManager : MonoBehaviour
 
     public int CurScene;
     public int PrevScene;
+    public int NewSceneInt;
 
     private void Start()
     {
