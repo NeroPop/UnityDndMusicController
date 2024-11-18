@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2125031727089031036}
   - component: {fileID: 1134470333514359209}
   - component: {fileID: 5797993529939119426}
+  - component: {fileID: 4997123701821644943}
   m_Layer: 5
   m_Name: Button Scene
   m_TagString: Untagged
@@ -134,6 +135,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4997123701821644943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2693922578144047152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31af50c63f5ba404eb26cf70cb37c28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewSceneInt: 0
 --- !u!1 &8161320872708709972
 GameObject:
   m_ObjectHideFlags: 0

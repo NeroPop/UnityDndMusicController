@@ -1,4 +1,6 @@
+using System.IO;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,8 +27,10 @@ public class NewSceneGenerator : MonoBehaviour
     [SerializeField]
     private string NewSceneName;
 
+    public int NewSceneInt;
+
     [SerializeField]
-    private int NewSceneInt;
+    private string FilePath = "Assets/CustomAudio";
 
     private SceneManager SceneManager;
 
@@ -45,10 +49,7 @@ public class NewSceneGenerator : MonoBehaviour
         // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
 
-        newSceneButton.GetComponent<Button>().onClick.AddListener(() =>
-        {
-           SceneManager.ChangeScene(NewSceneInt);
-        });
+        newSceneButton.GetComponent<SceneButtonScript>().NewSceneInt = NewSceneInt;
 
         //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
@@ -59,5 +60,13 @@ public class NewSceneGenerator : MonoBehaviour
         newScene.GetComponent<SceneController>().SceneName = NewSceneName;
         SceneManager.Scenes.Add(newScene);
         newScene.SetActive(false);
+
+        if (Application.isEditor)
+        {
+            string folderPath = AssetDatabase.GenerateUniqueAssetPath(FilePath + "/" + NewSceneName);
+
+            AssetDatabase.CreateFolder(FilePath, NewSceneName);
+            AssetDatabase.Refresh();
+        }
     }
 }
