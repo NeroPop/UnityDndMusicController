@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -19,14 +20,41 @@ public class customAudioClipLoader : MonoBehaviour
     private List<string> validExtensions = new List<string> { ".ogg", ".wav" }; // Don't forget the "." i.e. "ogg" won't work - cause Path.GetExtension(filePath) will return .ext, not just ext.
     public string absolutePath = "./Activities"; // relative path to where the app is running - change this to "./music" in your case
     [HideInInspector] public string Scene; //Loads the files for that particular scene (only works in editor atm)
+    
+    private int loadedFildCounter;
+    
+
+    [SerializeField] private int activtiyNum;
+    private int curantFile = 0;
+
+    private int fileIndex = 0;
+
 
     void Start()
     {
+        //Adds every activity to the activites list based on the number of children under activityParent
+        foreach (Transform child in activityParent.transform)
+        {
+            activities.Add(child.gameObject);
+        }
+
         //being able to test in unity
         if (Application.isEditor) absolutePath = "Assets/CustomAudio/" + Scene;
 
-        ReloadSounds();
+        DirectoryInfo dir = new DirectoryInfo(absolutePath);
+        DirectoryInfo[] info = dir.GetDirectories("*.*");
+        int count = dir.GetDirectories().Length;
+        for (int i = 0; i < count; i++)
+        {
+            Debug.Log("Found Directory: " + info[i]);
+            activtiyNum++;
+        }
+
+        
+        nextFile();
     }
+
+
 
 
     //void Seek(SeekDirection d)
@@ -40,9 +68,12 @@ public class customAudioClipLoader : MonoBehaviour
     //    }
     //}
 
+
+    
+
     void ReloadSounds()
     {
-        clips.Clear();
+        
 
         // get all valid files
         var info = new DirectoryInfo(absolutePath);
@@ -61,6 +92,8 @@ public class customAudioClipLoader : MonoBehaviour
         // Alternatively, you could go fileName.SubString(fileName.LastIndexOf('.') + 1); that way you don't need the '.' when you add your extensions
     }
 
+    
+
     IEnumerator LoadFile(string path)
     {
         WWW www = new WWW("file://" + path);
@@ -74,6 +107,62 @@ public class customAudioClipLoader : MonoBehaviour
         clip.name = Path.GetFileName(path);
         clips.Add(clip);
 
-        GetComponent<CustomAudioSetter>().LoadClips();
+ 
+        loadedFildCounter++; //counts the number of sound files loaded and compares it to the total number of files in the folder. Once all clips are loaded it triggers the allClipsLoaded Method.
+        if (loadedFildCounter >= soundFiles.Length)
+        {
+            print("Sound Files Leanth: " + soundFiles.Length);
+            allCLipsLoaded();
+        }
+           
+
+       
+    }
+
+    void allCLipsLoaded()
+    {
+        customAudioSetter();
+    }
+
+    //--------------------------------------------------------------------------------
+
+    [Header("Audio Setter")]
+    [SerializeField] private GameObject activityParent;
+    [SerializeField] private List<GameObject> activities = new List<GameObject>();
+
+    [SerializeField] AudioSource[] activitiesSources;
+
+
+    void nextFile()
+    {
+
+        if (fileIndex < activtiyNum)
+        {
+            if (fileIndex > 0)
+                curantFile++;
+            loadedFildCounter = 0;
+            clips.Clear();
+            absolutePath = "Assets/CustomAudio/" + Scene + "/" + curantFile;
+            ReloadSounds();
+            fileIndex++;
+        }
+
+    }
+
+    void customAudioSetter()
+    {
+        
+        int actLeanth = clips.Count; //gets the number of clips to be used in for loop
+        print("ActLeanth: " + actLeanth);
+        activities[curantFile].GetComponent<ActivityController>().Tracks.Clear();
+        for (int i = 0; i < actLeanth; i++)
+        {
+            activities[curantFile].GetComponent<ActivityController>().Tracks.Add(clips[i]);
+            print("Clip: " + clips[i]);
+
+        }
+        activities[curantFile].GetComponent<ActivityController>().loadCustomTrack();
+        //curantFile++;
+        nextFile();
     }
 }

@@ -5,21 +5,18 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(AudioSource))]
 
 public class ReadOnlyAttribute : PropertyAttribute { }
 public class ActivityController : MonoBehaviour
 {
-   // [Header("References")]
-   // public GameObject MusicManager;
-
-    //private UnityActivityManager activityManager;
-
     [Header("Soundtrack Audio")]
 
     //List of all the audio tracks
-    public AudioClip[] Tracks;
+    //public AudioClip[] Tracks;
+    public List<AudioClip> Tracks = new List<AudioClip>();
 
     [Header("Display Elements")]
 
@@ -59,8 +56,6 @@ public class ActivityController : MonoBehaviour
     [SerializeField]
     private bool isDragging = false;
 
-    public bool ActSelected;
-
     //Only used in the script internally
     private float ClipTime = 0;
     private int PrevTrack;
@@ -78,8 +73,6 @@ public class ActivityController : MonoBehaviour
     public event Action<float> OnUpdate;
     private void Start()
     {
-        //activityManager = MusicManager.GetComponent<UnityActivityManager>();
-
         //Starts playing the first song.
         //If it's shuffled then the track is random, if not then it sets the track to 1
         if (!Shuffle)
@@ -90,7 +83,7 @@ public class ActivityController : MonoBehaviour
 
         else if (Shuffle)
         {
-            TrackNumber = Random.Range(0, Tracks.Length);
+            TrackNumber = Random.Range(0, Tracks.Count);
             PlaySong();
         }
 
@@ -100,33 +93,30 @@ public class ActivityController : MonoBehaviour
 
     private void Update()
     {
-        if (ActSelected)
+        //Get's a reference for the AudioSource
+        AudioSource audio = GetComponent<AudioSource>();
+
+        //Figures out the track length of the audio clip
+        TrackLength = audio.clip.length;
+
+        //checks if the music is paused
+        if (!Paused)
         {
-            //Get's a reference for the AudioSource
-            AudioSource audio = GetComponent<AudioSource>();
+            //Adds 1 second to current time every second
+            OnUpdate?.Invoke(Time.deltaTime);
+            CurrentTime += Time.deltaTime;
 
-            //Figures out the track length of the audio clip
-            TrackLength = audio.clip.length;
-
-            //checks if the music is paused
-            if (!Paused)
+            //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
+            if (!isDragging)
             {
-                //Adds 1 second to current time every second
-                OnUpdate?.Invoke(Time.deltaTime);
-                CurrentTime += Time.deltaTime;
-
-                //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
-                if (!isDragging)
-                {
-                    //AudioSlider.value = CurrentTime;
-                    TimePercent = (CurrentTime / TrackLength) * 100;
-                }
+                //AudioSlider.value = CurrentTime;
+                TimePercent = (CurrentTime / TrackLength) * 100;
             }
-            //Displays the current and remaining times
-            DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
-            DisplayTime.text = FormatTime(CurrentTime);
-            AudioSlider.value = CurrentTime;
         }
+        //Displays the current and remaining times
+        DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
+        DisplayTime.text = FormatTime(CurrentTime);
+        AudioSlider.value = CurrentTime;
     }
 
     IEnumerator Playing()
@@ -136,42 +126,42 @@ public class ActivityController : MonoBehaviour
 
         //Starts playing the audio clip
         audio.Play();
-
+         
         //Sends a message to the console about what track is playing, how long it is and what time it's playing from.
-        // Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
+       // Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
 
         //Waits until the end of the song
         yield return new WaitForSeconds(audio.clip.length - CurrentTime);
 
-        //Checks if the music is paused
-        if (!Paused)
-        {
+         //Checks if the music is paused
+         if (!Paused)
+         {
             //Checks if the music isn't shuffled
             if (!Shuffle)
-            {
+             {
                 //Checks that the clip has definitely finished
-                if (CurrentTime >= audio.clip.length)
-                {
+                 if (CurrentTime >= audio.clip.length)
+                 {
                     //Sets the previous track as the current track before setting the current track to the next one and calling the PlaySong function
-                    PrevTrack = TrackNumber;
-                    TrackNumber = (TrackNumber + 1) % Tracks.Length;
-                    PlaySong();
-                    StopCoroutine(Playing());
-                }
-            }
+                     PrevTrack = TrackNumber;
+                     TrackNumber = (TrackNumber + 1) % Tracks.Count;
+                     PlaySong();
+                     StopCoroutine(Playing());
+                 }
+             }
 
-            //Checks if the music is on shuffle
-            else if (Shuffle)
-            {
+             //Checks if the music is on shuffle
+             else if (Shuffle)
+             {
                 //Checks that the clip has definitely finished
                 if (CurrentTime >= audio.clip.length)
-                {
+                 {
                     //Calls tbe shuffled function
-                    Shuffled();
-                    StopCoroutine(Playing());
-                }
-            }
-        }
+                     Shuffled();
+                     StopCoroutine(Playing());
+                 }
+             }
+         }
     }
 
     public void PlaySong()
@@ -180,7 +170,7 @@ public class ActivityController : MonoBehaviour
         AudioSource audio = GetComponent<AudioSource>();
 
         //Sets the track number to the last track if the current track number is somehow below 0
-        if (TrackNumber < 0 || TrackNumber >= Tracks.Length) return;
+        if (TrackNumber < 0 || TrackNumber >= Tracks.Count) return;
 
         //Sets the audio clip as whatever the current track number is
         audio.clip = Tracks[TrackNumber];
@@ -213,6 +203,12 @@ public class ActivityController : MonoBehaviour
         }
     }
 
+    public void loadCustomTrack()
+    {
+        TrackNumber = 0;
+        PlaySong();
+    }
+
     public void Skip()
     {
         StopCoroutine(Playing());
@@ -221,7 +217,7 @@ public class ActivityController : MonoBehaviour
         //If shuffled, it calls the shuffle function, if not shuffled it increases the track number and then plays the next song
         if (!Shuffle)
         {
-            TrackNumber = (TrackNumber + 1) % Tracks.Length;
+            TrackNumber = (TrackNumber + 1) % Tracks.Count;
             PlaySong();
         }
 
@@ -242,7 +238,7 @@ public class ActivityController : MonoBehaviour
         }
         else
         {
-            TrackNumber = (TrackNumber - 1 + Tracks.Length) % Tracks.Length;
+            TrackNumber = (TrackNumber - 1 + Tracks.Count) % Tracks.Count;
         }
         PlaySong();
     }
@@ -303,7 +299,7 @@ public class ActivityController : MonoBehaviour
         do
         {
             //randomises the next track from the tracks list
-            TrackNumber = Random.Range(0, Tracks.Length);
+            TrackNumber = Random.Range(0, Tracks.Count);
         } while (TrackNumber == PrevTrack);
 
         //plays the random song
