@@ -12,6 +12,11 @@ using System.Collections.Generic;
 public class ReadOnlyAttribute : PropertyAttribute { }
 public class ActivityController : MonoBehaviour
 {
+    // [Header("References")]
+    // public GameObject MusicManager;
+
+    //private UnityActivityManager activityManager;
+
     [Header("Soundtrack Audio")]
 
     //List of all the audio tracks
@@ -56,6 +61,8 @@ public class ActivityController : MonoBehaviour
     [SerializeField]
     private bool isDragging = false;
 
+    public bool ActSelected;
+
     //Only used in the script internally
     private float ClipTime = 0;
     private int PrevTrack;
@@ -73,6 +80,8 @@ public class ActivityController : MonoBehaviour
     public event Action<float> OnUpdate;
     private void Start()
     {
+        //activityManager = MusicManager.GetComponent<UnityActivityManager>();
+
         //Starts playing the first song.
         //If it's shuffled then the track is random, if not then it sets the track to 1
         if (!Shuffle)

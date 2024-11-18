@@ -744,6 +744,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -5393,6 +5394,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -9677,6 +9679,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -17882,6 +17885,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -21302,6 +21306,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -43859,6 +43864,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -50524,6 +50530,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -52084,6 +52091,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
@@ -53442,7 +53450,7 @@ MonoBehaviour:
   Skip: {fileID: 1238980268}
   Back: {fileID: 628576099}
   Pause: {fileID: 1679369898}
-  Resume: {fileID: 1679369898}
+  Resume: {fileID: 1203069603}
   ShuffleOff: {fileID: 362201894}
   ShuffleOn: {fileID: 1900263706}
 --- !u!1 &2130932233
@@ -53602,6 +53610,7 @@ MonoBehaviour:
   Shuffle: 0
   Paused: 0
   isDragging: 0
+  ActSelected: 0
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
