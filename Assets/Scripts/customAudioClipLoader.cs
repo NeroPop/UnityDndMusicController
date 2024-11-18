@@ -21,26 +21,25 @@ public class customAudioClipLoader : MonoBehaviour
     public string absolutePath = "./Activities"; // relative path to where the app is running - change this to "./music" in your case
     [HideInInspector] public string Scene; //Loads the files for that particular scene (only works in editor atm)
     
-    private int loadedFildCounter;
-    
 
-    [SerializeField] private int activtiyNum;
+    private int loadedFildCounter;    
+    private int activtiyNum;
     private int curantFile = 0;
-
-    private int fileIndex = 0;
 
 
     void Start()
     {
+
+        //being able to test in unity
+        if (Application.isEditor) absolutePath = "Assets/CustomAudio/" + Scene;
+
         //Adds every activity to the activites list based on the number of children under activityParent
         foreach (Transform child in activityParent.transform)
         {
             activities.Add(child.gameObject);
         }
 
-        //being able to test in unity
-        if (Application.isEditor) absolutePath = "Assets/CustomAudio/" + Scene;
-
+        //Gets number of activtiy folders witin the scene
         DirectoryInfo dir = new DirectoryInfo(absolutePath);
         DirectoryInfo[] info = dir.GetDirectories("*.*");
         int count = dir.GetDirectories().Length;
@@ -50,26 +49,16 @@ public class customAudioClipLoader : MonoBehaviour
             activtiyNum++;
         }
 
-        
-        nextFile();
+        //sets the clips for each activtiy for the number of activitynums
+        for (int i = 0;i < activtiyNum; i++)
+        {
+            clips.Clear();
+            loadedFildCounter = 0;
+            absolutePath = "Assets/CustomAudio/" + Scene + "/Activities/" + curantFile;
+            ReloadSounds();
+        }
+
     }
-
-
-
-
-    //void Seek(SeekDirection d)
-    //{
-    //    if (d == SeekDirection.Forward)
-    //        currentIndex = (currentIndex + 1) % clips.Count;
-    //    else
-    //    {
-    //        currentIndex--;
-    //        if (currentIndex < 0) currentIndex = clips.Count - 1;
-    //    }
-    //}
-
-
-    
 
     void ReloadSounds()
     {
@@ -112,16 +101,11 @@ public class customAudioClipLoader : MonoBehaviour
         if (loadedFildCounter >= soundFiles.Length)
         {
             print("Sound Files Leanth: " + soundFiles.Length);
-            allCLipsLoaded();
+            customAudioSetter();
         }
            
 
        
-    }
-
-    void allCLipsLoaded()
-    {
-        customAudioSetter();
     }
 
     //--------------------------------------------------------------------------------
@@ -132,22 +116,6 @@ public class customAudioClipLoader : MonoBehaviour
 
     [SerializeField] AudioSource[] activitiesSources;
 
-
-    void nextFile()
-    {
-
-        if (fileIndex < activtiyNum)
-        {
-            if (fileIndex > 0)
-                curantFile++;
-            loadedFildCounter = 0;
-            clips.Clear();
-            absolutePath = "Assets/CustomAudio/" + Scene + "/" + curantFile;
-            ReloadSounds();
-            fileIndex++;
-        }
-
-    }
 
     void customAudioSetter()
     {
@@ -162,7 +130,5 @@ public class customAudioClipLoader : MonoBehaviour
 
         }
         activities[curantFile].GetComponent<ActivityController>().loadCustomTrack();
-        //curantFile++;
-        nextFile();
     }
 }
