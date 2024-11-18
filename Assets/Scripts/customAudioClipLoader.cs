@@ -58,6 +58,7 @@ public class customAudioClipLoader : MonoBehaviour
             ReloadSounds();
         }
 
+        temp();
     }
 
     void ReloadSounds()
@@ -130,5 +131,17 @@ public class customAudioClipLoader : MonoBehaviour
 
         }
         activities[curantFile].GetComponent<ActivityController>().loadCustomTrack();
+    }
+
+
+    //--------------------------------------------------------------------------------
+
+    [Header("Activtiy Builder")]
+    [SerializeField] private GameObject ActivityButtonGroup;
+    [SerializeField] private GameObject ActivityPreFab;
+
+    void temp()
+    {
+        Instantiate(ActivityPreFab, ActivityButtonGroup.transform);
     }
 }
