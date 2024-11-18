@@ -102,30 +102,33 @@ public class ActivityController : MonoBehaviour
 
     private void Update()
     {
-        //Get's a reference for the AudioSource
-        AudioSource audio = GetComponent<AudioSource>();
-
-        //Figures out the track length of the audio clip
-        TrackLength = audio.clip.length;
-
-        //checks if the music is paused
-        if (!Paused)
+        if (ActSelected)
         {
-            //Adds 1 second to current time every second
-            OnUpdate?.Invoke(Time.deltaTime);
-            CurrentTime += Time.deltaTime;
+            //Get's a reference for the AudioSource
+            AudioSource audio = GetComponent<AudioSource>();
 
-            //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
-            if (!isDragging)
+            //Figures out the track length of the audio clip
+            TrackLength = audio.clip.length;
+
+            //checks if the music is paused
+            if (!Paused)
             {
-                //AudioSlider.value = CurrentTime;
-                TimePercent = (CurrentTime / TrackLength) * 100;
+                //Adds 1 second to current time every second
+                OnUpdate?.Invoke(Time.deltaTime);
+                CurrentTime += Time.deltaTime;
+
+                //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
+                if (!isDragging)
+                {
+                    //AudioSlider.value = CurrentTime;
+                    TimePercent = (CurrentTime / TrackLength) * 100;
+                }
             }
+            //Displays the current and remaining times
+            DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
+            DisplayTime.text = FormatTime(CurrentTime);
+            AudioSlider.value = CurrentTime;
         }
-        //Displays the current and remaining times
-        DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
-        DisplayTime.text = FormatTime(CurrentTime);
-        AudioSlider.value = CurrentTime;
     }
 
     IEnumerator Playing()
