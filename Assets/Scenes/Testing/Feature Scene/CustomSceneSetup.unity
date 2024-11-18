@@ -2116,7 +2116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3082026503228996634, guid: 01e224fabd2076244944b7983d920696, type: 3}
       propertyPath: m_Name
-      value: Scene
+      value: Default Scene
       objectReference: {fileID: 0}
     - target: {fileID: 3112093241065404554, guid: 01e224fabd2076244944b7983d920696, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2477,6 +2477,10 @@ PrefabInstance:
     - target: {fileID: 6918710249449657022, guid: 01e224fabd2076244944b7983d920696, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505089642419234737, guid: 01e224fabd2076244944b7983d920696, type: 3}
+      propertyPath: SceneName
+      value: Default Scene
       objectReference: {fileID: 0}
     - target: {fileID: 7982919917863207071, guid: 01e224fabd2076244944b7983d920696, type: 3}
       propertyPath: m_AnchorMax.y

@@ -55,7 +55,9 @@ public class NewSceneGenerator : MonoBehaviour
         //newSceneButton.name = NewSceneName; not sure this is necessary (changes the button name in unity hierarchy
 
         GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
+        newScene.name = NewSceneName;
         newScene.GetComponent<SceneController>().SceneName = NewSceneName;
         SceneManager.Scenes.Add(newScene);
+        newScene.SetActive(false);
     }
 }

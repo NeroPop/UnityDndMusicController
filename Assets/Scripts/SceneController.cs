@@ -15,22 +15,21 @@ public class SceneController : MonoBehaviour
 
     public string SceneName;
 
+    [SerializeField]
+    private GameObject SceneManager;
+
     private GameObject SceneSelectCanvas;
 
     private void Start()
     {
-        SceneSelectCanvas = GameObject.Find("Scene Select Canvas");
+        SceneManager = GameObject.Find("/SceneManager");
         MusicManager.GetComponent<customAudioClipLoader>().Scene = SceneName;
         SceneTitleTxt.text = SceneName;
-        SceneTitle.onClick.AddListener(SceneSelect);
+        SceneTitle.onClick.AddListener(SceneManager.GetComponent<SceneManager>().SelectSceneUI);
+        Debug.Log("Scene " + SceneName + " has started");
     }
     public void ActivateScene()
     {
         MusicManager.GetComponent<UnityActivityManager>().NewScene();
-    }
-
-    private void SceneSelect()
-    {
-        SceneSelectCanvas.SetActive(true);
     }
 }

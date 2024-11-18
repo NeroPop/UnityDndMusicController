@@ -35,4 +35,9 @@ public class SceneManager : MonoBehaviour
             SceneSelectUI.SetActive(false);
         }
     }
+
+    public void SelectSceneUI()
+    {
+        SceneSelectUI.SetActive(true);
+    }
 }
