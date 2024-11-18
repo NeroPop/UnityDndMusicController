@@ -8,17 +8,29 @@ public class SceneController : MonoBehaviour
     private GameObject MusicManager;
 
     [SerializeField]
-    private TMP_Text SceneTitle;
+    private TMP_Text SceneTitleTxt;
+
+    [SerializeField]
+    private Button SceneTitle;
 
     public string SceneName;
 
+    private GameObject SceneSelectCanvas;
+
     private void Start()
     {
+        SceneSelectCanvas = GameObject.Find("Scene Select Canvas");
         MusicManager.GetComponent<customAudioClipLoader>().Scene = SceneName;
-        SceneTitle.text = SceneName;
+        SceneTitleTxt.text = SceneName;
+        SceneTitle.onClick.AddListener(SceneSelect);
     }
     public void ActivateScene()
     {
         MusicManager.GetComponent<UnityActivityManager>().NewScene();
+    }
+
+    private void SceneSelect()
+    {
+        SceneSelectCanvas.SetActive(true);
     }
 }

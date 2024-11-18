@@ -52,6 +52,10 @@ public class NewSceneGenerator : MonoBehaviour
 
         //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
-       //newSceneButton.name = NewSceneName; not sure this is necessary (changes the button name in unity hierarchy
+        //newSceneButton.name = NewSceneName; not sure this is necessary (changes the button name in unity hierarchy
+
+        GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
+        newScene.GetComponent<SceneController>().SceneName = NewSceneName;
+        SceneManager.Scenes.Add(newScene);
     }
 }
