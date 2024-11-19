@@ -1083,16 +1083,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tracks:
-  - {fileID: 8300000, guid: 2387505b4732b6445b5749ee4dfe7843, type: 3}
-  - {fileID: 8300000, guid: 50bceab4bb40f4b4e8d0373b432adfca, type: 3}
-  - {fileID: 8300000, guid: 3cd76d6af5189f64d927e23daa97290f, type: 3}
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
+  Tracks: []
+  DisplayName: {fileID: 7354250434203763953}
+  DisplayTime: {fileID: 2456300616346397637}
+  DisplayRemaining: {fileID: 7743573503192023433}
+  AudioSlider: {fileID: 3051651446474824786}
+  PauseButton: {fileID: 1300056860294246662}
+  ResumeButton: {fileID: 2097061106303356766}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -4848,16 +4845,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tracks:
-  - {fileID: 8300000, guid: 52b226d58b47d7145831cb31b0bd4feb, type: 3}
-  - {fileID: 8300000, guid: 446fb2f7f7666d8429952b7b326aeb54, type: 3}
-  - {fileID: 8300000, guid: 86287241f6e57a04185fb74b24f33aa8, type: 3}
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
+  Tracks: []
+  DisplayName: {fileID: 6145076081841003970}
+  DisplayTime: {fileID: 7146690630426968129}
+  DisplayRemaining: {fileID: 4656530280138286932}
+  AudioSlider: {fileID: 1057667187759129580}
+  PauseButton: {fileID: 2020295799474195382}
+  ResumeButton: {fileID: 2094128044105627594}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -5144,12 +5138,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tracks: []
-  DisplayName: {fileID: 0}
-  DisplayTime: {fileID: 0}
-  DisplayRemaining: {fileID: 0}
-  AudioSlider: {fileID: 0}
-  PauseButton: {fileID: 0}
-  ResumeButton: {fileID: 0}
+  DisplayName: {fileID: 4956580467287004045}
+  DisplayTime: {fileID: 61098943913288316}
+  DisplayRemaining: {fileID: 3356367568280944835}
+  AudioSlider: {fileID: 6765764090299874128}
+  PauseButton: {fileID: 4037747429345859905}
+  ResumeButton: {fileID: 7821068320710607619}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
