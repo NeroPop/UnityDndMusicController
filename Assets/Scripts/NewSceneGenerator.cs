@@ -32,7 +32,7 @@ public class NewSceneGenerator : MonoBehaviour
     private SceneManager SceneManager;
 
     [SerializeField]
-    private string FilePath = "Assets/CustomAudio/CustomScenes";
+    private string FilePath = "Assets\\CustomAudio";
 
     private string folderName;
 
@@ -56,15 +56,8 @@ public class NewSceneGenerator : MonoBehaviour
                 // Check if the folder is directly under the specified directory
                 if (System.IO.Path.GetDirectoryName(folderPath) == FilePath)
                 {
-
-                    // Create a new GameObject with the folder's name
-                    //GameObject folderObject = new GameObject(folderName);
-
-                    LoadScene();
-
-                    Debug.Log($"Created GameObject for folder: {folderName}");
+                    LoadScene(); //loads the scene
                 }
-                Debug.Log($"No files found");
             }
         }
     }
@@ -78,8 +71,6 @@ public class NewSceneGenerator : MonoBehaviour
 
         // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
-
-        //newSceneButton.GetComponent<SceneButtonScript>().NewSceneInt = NewSceneInt;
 
         //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
@@ -107,8 +98,6 @@ public class NewSceneGenerator : MonoBehaviour
 
         // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
-
-        //newSceneButton.GetComponent<SceneButtonScript>().NewSceneInt = NewSceneInt;
 
         //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
