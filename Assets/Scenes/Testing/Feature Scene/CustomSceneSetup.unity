@@ -579,7 +579,7 @@ MonoBehaviour:
   SceneNameInput: {fileID: 1742352980}
   NewSceneName: 
   NewSceneInt: 0
-  FilePath: Assets/CustomAudio
+  FilePath: Assets\CustomAudio
 --- !u!1 &591147170
 GameObject:
   m_ObjectHideFlags: 0

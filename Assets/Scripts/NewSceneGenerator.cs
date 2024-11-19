@@ -29,14 +29,44 @@ public class NewSceneGenerator : MonoBehaviour
 
     public int NewSceneInt;
 
-    [SerializeField]
-    private string FilePath = "Assets/CustomAudio";
-
     private SceneManager SceneManager;
+
+    [SerializeField]
+    private string FilePath = "Assets/CustomAudio/CustomScenes";
+
+    private string folderName;
 
     private void Start()
     {
         SceneManager = GetComponent<SceneManager>();
+        AssetDatabase.Refresh();
+
+        if (Application.isEditor)
+        {
+            string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { FilePath });
+
+            foreach (string folderGUID in folders)
+            {
+                // Convert folder GUID to a path
+                string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
+
+                // Extract folder name
+                folderName = System.IO.Path.GetFileName(folderPath);
+
+                // Check if the folder is directly under the specified directory
+                if (System.IO.Path.GetDirectoryName(folderPath) == FilePath)
+                {
+
+                    // Create a new GameObject with the folder's name
+                    //GameObject folderObject = new GameObject(folderName);
+
+                    LoadScene();
+
+                    Debug.Log($"Created GameObject for folder: {folderName}");
+                }
+                Debug.Log($"No files found");
+            }
+        }
     }
 
     public void NewScene()
@@ -49,11 +79,10 @@ public class NewSceneGenerator : MonoBehaviour
         // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
 
-        newSceneButton.GetComponent<SceneButtonScript>().NewSceneInt = NewSceneInt;
+        //newSceneButton.GetComponent<SceneButtonScript>().NewSceneInt = NewSceneInt;
 
         //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
-        //newSceneButton.name = NewSceneName; not sure this is necessary (changes the button name in unity hierarchy
 
         GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
         newScene.name = NewSceneName;
@@ -68,5 +97,26 @@ public class NewSceneGenerator : MonoBehaviour
             AssetDatabase.CreateFolder(FilePath, NewSceneName);
             AssetDatabase.Refresh();
         }
+    }
+
+    private void LoadScene()
+    {
+        NewSceneInt = NewSceneInt + 1;
+
+        NewSceneName = folderName;
+
+        // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
+        GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
+
+        //newSceneButton.GetComponent<SceneButtonScript>().NewSceneInt = NewSceneInt;
+
+        //Changes the button name text
+        newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
+
+        GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
+        newScene.name = NewSceneName;
+        newScene.GetComponent<SceneController>().SceneName = NewSceneName;
+        SceneManager.Scenes.Add(newScene);
+        newScene.SetActive(false);
     }
 }

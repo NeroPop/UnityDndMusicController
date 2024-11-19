@@ -6,15 +6,19 @@ using UnityEngine.UI;
 public class SceneButtonScript : MonoBehaviour
 {
     private GameObject SceneManager;
-    public int NewSceneInt;
+
+    [SerializeField]
+    private int siblingIndex;
     private void Start()
     {
         SceneManager = GameObject.Find("/SceneManager");
-        NewSceneInt = SceneManager.GetComponent<NewSceneGenerator>().NewSceneInt;
+
+        // Get the index of this GameObject under its parent
+        siblingIndex = transform.GetSiblingIndex();
 
         gameObject.GetComponent<Button>().onClick.AddListener(() =>
         {
-            SceneManager.GetComponent<SceneManager>().ChangeScene(NewSceneInt);
+            SceneManager.GetComponent<SceneManager>().ChangeScene(siblingIndex -1);
         });
     }
 }
