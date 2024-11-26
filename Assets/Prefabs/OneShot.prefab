@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 359644878002881549}
   - component: {fileID: 1620629839010959783}
   m_Layer: 0
-  m_Name: AudioOneShot
+  m_Name: OneShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
