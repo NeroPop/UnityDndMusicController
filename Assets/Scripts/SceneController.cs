@@ -24,6 +24,7 @@ public class SceneController : MonoBehaviour
     {
         SceneManager = GameObject.Find("/SceneManager");
         MusicManager.GetComponent<customAudioClipLoader>().Scene = SceneName;
+        MusicManager.GetComponent<OneshotFileSelector>().SceneName = SceneName;
         SceneTitleTxt.text = SceneName;
         SceneTitle.onClick.AddListener(SceneManager.GetComponent<SceneManager>().SelectSceneUI);
         Debug.Log("Scene " + SceneName + " has started");

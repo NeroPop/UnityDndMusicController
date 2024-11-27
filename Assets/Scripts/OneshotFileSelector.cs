@@ -9,10 +9,17 @@ public class OneshotFileSelector : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav file will be copied.")]
-    public string targetFolderPath = "OneshotAudioFiles";
+    private string targetFolderPath = "OneshotAudioFiles";
 
     [Tooltip("The selected file path (for debugging purposes).")]
     public string selectedFilePath;
+
+    public string SceneName;
+
+    private void Start()
+    {
+        targetFolderPath = "CustomAudio/" + SceneName + "/One-Shots";
+    }
 
     public void OpenFileDialog()
     {
