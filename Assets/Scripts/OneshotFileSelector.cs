@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.IO;
 
 #if UNITY_EDITOR
@@ -14,7 +15,12 @@ public class OneshotFileSelector : MonoBehaviour
     [Tooltip("The selected file path (for debugging purposes).")]
     public string selectedFilePath;
 
+    [Tooltip("Scene name to organize custom audio.")]
     public string SceneName;
+
+    [Header("Audio Clips")]
+    [Tooltip("List of loaded audio clips.")]
+    public List<AudioClip> audioClips = new List<AudioClip>();
 
     private void Start()
     {
@@ -81,10 +87,37 @@ public class OneshotFileSelector : MonoBehaviour
             // Refresh the Asset Database so Unity detects the new file
             AssetDatabase.Refresh();
 #endif
+
+            // Load the AudioClip and add it to the list
+            AddAudioClipToList(fileName);
         }
         catch (System.Exception ex)
         {
             Debug.LogError($"Failed to copy file: {ex.Message}");
+        }
+    }
+
+    private void AddAudioClipToList(string fileName)
+    {
+        string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
+
+#if UNITY_EDITOR
+        // Use the AssetDatabase in the editor to load the clip
+        AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+#else
+        // For builds, use Resources.Load
+        string resourcePath = Path.Combine(targetFolderPath, Path.GetFileNameWithoutExtension(fileName));
+        AudioClip clip = Resources.Load<AudioClip>(resourcePath);
+#endif
+
+        if (clip != null)
+        {
+            audioClips.Add(clip);
+            Debug.Log($"AudioClip successfully added: {clip.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"Failed to load AudioClip: {fileName}. Ensure it is in the correct folder.");
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OneShotManager : MonoBehaviour
 {
@@ -29,23 +30,26 @@ public class OneShotManager : MonoBehaviour
     [SerializeField]
     private TMP_InputField OneshotNameInput;
 
+    public List<Button> OneshotButtons = new List<Button>();
+
     [Header("Audio")]
 
     public List<AudioSource> OneshotAudioSources = new List<AudioSource>();
 
-    private string FilePath;
+    public List<AudioClip> Oneshotclips = new List<AudioClip>();
+
+    private string audioFolderPath;
 
     [Header("New Oneshot Properties")]
 
     [SerializeField]
     private string OneshotName;
 
-    [SerializeField]
-    private int NewOneshotInt;
+    public int NewOneshotInt;
 
     private void Start()
     {
-        FilePath = gameObject.GetComponent<OneshotFileSelector>().targetFolderPath;
+        audioFolderPath = gameObject.GetComponent<OneshotFileSelector>().targetFolderPath;
     }
 
     public void playOneShot(int OneShotNumber)
@@ -69,16 +73,25 @@ public class OneShotManager : MonoBehaviour
     {
         NewOneshotInt = NewOneshotInt + 1;
 
+        LoadAudioFiles();
+
         GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
         newOneshotButton.GetComponentInChildren<TMP_Text>().text = OneshotName;
+        newOneshotButton.GetComponent<Button>().onClick.AddListener(() => playOneShot(NewOneshotInt - 1));
 
         GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
         newOneshot.name = OneshotName;
-        //newOneshot.GetComponent<AudioSource>().clip = 
+        OneshotAudioSources.Add(newOneshot.GetComponent<AudioSource>());
+        newOneshot.GetComponent<AudioSource>().clip = Oneshotclips[NewOneshotInt - 1];
 
         CustomisationMenuUI.SetActive(false);
         NewOneshotUI.SetActive(false);
         Debug.Log("Created new Oneshot");
+    }
+
+    private void LoadAudioFiles()
+    {
+       Oneshotclips = gameObject.GetComponent<OneshotFileSelector>().audioClips;
     }
 
     public void CancelNew()

@@ -3977,6 +3977,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2132979674853333700}
+        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
+        m_MethodName: playOneShot
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &256149770465680331
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6974,13 +6986,16 @@ MonoBehaviour:
   OneshotPrefab: {fileID: 7230694675415061765, guid: e0fc2001498c0e646a6fdbc785c007d7, type: 3}
   OneshotButtonPrefab: {fileID: 1723224333103379799, guid: e971eff0bd711e4419d9a0033ff0640a, type: 3}
   OneshotButtonGroup: {fileID: 2076022321136306763}
+  Oneshots: {fileID: 0}
   CustomisationMenuUI: {fileID: 564445543}
   NewOneshotUI: {fileID: 628307097}
   OneshotNameInput: {fileID: 1194128919}
+  OneshotButtons: []
   OneshotAudioSources:
   - {fileID: 3813441619293486681}
   - {fileID: 601269290916759797}
   - {fileID: 108688863176101442}
+  Oneshotclips: []
   OneshotName: 
   NewOneshotInt: 0
 --- !u!222 &2167741968070953662
