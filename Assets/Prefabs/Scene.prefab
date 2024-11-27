@@ -17388,6 +17388,7 @@ MonoBehaviour:
   CustomisationMenuUI: {fileID: 1448866088284698969}
   NewOneshotUI: {fileID: 7725966037349449918}
   OneshotNameInput: {fileID: 4074718720829890427}
+  OneshotButtons: []
   OneshotAudioSources: []
   Oneshotclips: []
   OneshotName: 
@@ -17404,7 +17405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c2f8ec334ae55489cce5858aef280c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFolderPath: CustomAudio\Scene1\One-Shots
+  targetFolderPath: 
   selectedFilePath: 
   SceneName: 
   audioClips: []
