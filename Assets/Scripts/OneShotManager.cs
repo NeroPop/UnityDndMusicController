@@ -55,6 +55,7 @@ public class OneShotManager : MonoBehaviour
     public void playOneShot(int OneShotNumber)
     {
         OneshotAudioSources[OneShotNumber].Play();
+        Debug.Log("Playing Oneshot number " +  OneShotNumber);
     }
 
     public void SetupNewOneshot()
@@ -77,7 +78,9 @@ public class OneShotManager : MonoBehaviour
 
         GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
         newOneshotButton.GetComponentInChildren<TMP_Text>().text = OneshotName;
-        newOneshotButton.GetComponent<Button>().onClick.AddListener(() => playOneShot(NewOneshotInt - 1));
+        newOneshotButton.name = "Button " + OneshotName;
+        OneshotButtons.Add(newOneshotButton.GetComponent<Button>());
+        OneshotButtons[NewOneshotInt - 1].onClick.AddListener(() => playOneShot(NewOneshotInt - 1));
 
         GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
         newOneshot.name = OneshotName;
