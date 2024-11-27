@@ -57,6 +57,15 @@ public class OneShotManager : MonoBehaviour
 
     public void NewOneShot()
     {
+        CustomisationMenuUI.SetActive(false);
+        NewOneshotUI.SetActive(false);
+        Debug.Log("Created new Oneshot");
+    }
 
+    public void CancelNew()
+    {
+        CustomisationMenuUI.SetActive(false);
+        NewOneshotUI.SetActive(false);
+        Debug.Log("Cancelled new Oneshot");
     }
 }
