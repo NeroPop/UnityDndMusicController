@@ -80,7 +80,8 @@ public class OneShotManager : MonoBehaviour
         newOneshotButton.GetComponentInChildren<TMP_Text>().text = OneshotName;
         newOneshotButton.name = "Button " + OneshotName;
         OneshotButtons.Add(newOneshotButton.GetComponent<Button>());
-        OneshotButtons[NewOneshotInt - 1].onClick.AddListener(() => playOneShot(NewOneshotInt - 1));
+        newOneshotButton.GetComponent<OneshotButtonController>().ButtonIndex = NewOneshotInt - 1;
+        OneshotButtons[NewOneshotInt - 1].onClick.AddListener(() => playOneShot(newOneshotButton.GetComponent<OneshotButtonController>().ButtonIndex));
 
         GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
         newOneshot.name = OneshotName;
@@ -89,7 +90,7 @@ public class OneShotManager : MonoBehaviour
 
         CustomisationMenuUI.SetActive(false);
         NewOneshotUI.SetActive(false);
-        Debug.Log("Created new Oneshot");
+        Debug.Log("Created new Oneshot " + NewOneshotInt);
     }
 
     private void LoadAudioFiles()

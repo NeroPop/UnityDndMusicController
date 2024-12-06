@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 894921095983054428}
   - component: {fileID: 6436570916465928397}
   - component: {fileID: 3391587873496992563}
+  - component: {fileID: 7230541227676628397}
   m_Layer: 5
   m_Name: Button OneShot
   m_TagString: Untagged
@@ -134,6 +135,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7230541227676628397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723224333103379799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e080bf0347895a4cbc13bfb9e9cfbbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7615156535740827742
 GameObject:
   m_ObjectHideFlags: 0
