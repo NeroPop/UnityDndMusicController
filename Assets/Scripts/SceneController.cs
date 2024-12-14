@@ -36,4 +36,10 @@ public class SceneController : MonoBehaviour
         MusicManager.GetComponent<OneShotManager>().SceneName = SceneName;
         MusicManager.GetComponent<OneShotManager>().LoadExistingWavFiles();
     }
+
+    public void DeactivateScene()
+    {
+        MusicManager.GetComponent<OneShotManager>().clean = false;
+        Debug.Log("Scene Deactivated");
+    }
 }
