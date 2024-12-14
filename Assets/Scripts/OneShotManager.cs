@@ -53,6 +53,8 @@ public class OneShotManager : MonoBehaviour
 
     public int NewOneshotInt;
 
+    private int PreloadedOneshots;
+
     [SerializeField]
     private string FilePath;
 
@@ -82,26 +84,62 @@ public class OneShotManager : MonoBehaviour
 
     public void NewOneShot()
     {
-        NewOneshotInt = NewOneshotInt + 1;
+        // Increment the counter for new oneshots
+        NewOneshotInt++;
 
+        // Ensure that audio files are loaded
         LoadAudioFiles();
 
+        // Create the new button for the oneshot
         GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
         newOneshotButton.GetComponentInChildren<TMP_Text>().text = OneshotName;
         newOneshotButton.name = "Button " + OneshotName;
-        OneshotButtons.Add(newOneshotButton.GetComponent<Button>());
-        newOneshotButton.GetComponent<OneshotButtonController>().ButtonIndex = NewOneshotInt - 1;
-        OneshotButtons[NewOneshotInt - 1].onClick.AddListener(() => playOneShot(newOneshotButton.GetComponent<OneshotButtonController>().ButtonIndex));
 
+        // Add the button to the list
+        Button buttonComponent = newOneshotButton.GetComponent<Button>();
+        OneshotButtons.Add(buttonComponent);
+
+        // Assign the button index correctly
+        int buttonIndex = NewOneshotInt + PreloadedOneshots - 1; // Use the last index in the list
+        newOneshotButton.GetComponent<OneshotButtonController>().ButtonIndex = buttonIndex;
+
+        // Add the click event listener
+        buttonComponent.onClick.AddListener(() => playOneShot(buttonIndex));
+
+        // Create the new oneshot game object
         GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
         newOneshot.name = OneshotName;
+
+        // Assign the audio clip to the audio source
         OneshotAudioSources.Add(newOneshot.GetComponent<AudioSource>());
         newOneshot.GetComponent<AudioSource>().clip = Oneshotclips[NewOneshotInt - 1];
 
+        Debug.Log($"OneshotButtons.Count: {OneshotButtons.Count}");
+        Debug.Log($"ButtonIndex: {buttonIndex}");
+        Debug.Log($"Oneshotclips.Count: {Oneshotclips.Count}");
+        Debug.Log($"NewOneshotInt: {NewOneshotInt}");
+        Debug.Log($"PreloadedOneshots: {PreloadedOneshots}");
+
+        // Assign the audio clip to the audio source
+       /* AudioSource audioSource = newOneshot.GetComponent<AudioSource>();
+        if (Oneshotclips.Count >= NewOneshotInt)
+        {
+            audioSource.clip = Oneshotclips[buttonIndex];
+            OneshotAudioSources.Add(audioSource);
+        }
+        else
+        {
+            Debug.LogWarning($"No audio clip found for index {buttonIndex}");
+        } */
+
+        // Hide the customisation menus
         CustomisationMenuUI.SetActive(false);
         NewOneshotUI.SetActive(false);
-        Debug.Log("Created new Oneshot " + NewOneshotInt);
+
+        Debug.Log($"Created new Oneshot: {OneshotName} (Index: {buttonIndex})");
+
     }
+
 
     private void LoadAudioFiles()
     {
@@ -144,7 +182,9 @@ public class OneShotManager : MonoBehaviour
             {
                 Oneshotclips.Add(clip);
 
-                NewOneshotInt = NewOneshotInt + 1;
+                PreloadedOneshots++;
+
+                //NewOneshotInt = NewOneshotInt + 1;
 
                 // Create a button for each loaded clip
                 GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
