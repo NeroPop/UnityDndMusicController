@@ -48,8 +48,7 @@ public class OneShotManager : MonoBehaviour
 
     [Header("New Oneshot Properties")]
 
-    [SerializeField]
-    private string OneshotName;
+    public string OneshotName;
 
     public int NewOneshotInt;
 

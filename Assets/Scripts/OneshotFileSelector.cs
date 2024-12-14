@@ -22,6 +22,8 @@ public class OneshotFileSelector : MonoBehaviour
     [Tooltip("List of loaded audio clips.")]
     public List<AudioClip> audioClips = new List<AudioClip>();
 
+    public string OneshotName;
+
     private void Start()
     {
         targetFolderPath = "CustomAudio/" + SceneName + "/One-Shots";
@@ -59,6 +61,15 @@ public class OneshotFileSelector : MonoBehaviour
 
     private void CopyFileToTargetFolder(string filePath)
     {
+        // Get the OneshotName from the OneShotManager
+        OneshotName = gameObject.GetComponent<OneShotManager>().OneshotName;
+
+        if (string.IsNullOrEmpty(OneshotName))
+        {
+            Debug.LogError("OneshotName is not set. Please provide a valid name.");
+            return;
+        }
+
         if (string.IsNullOrEmpty(targetFolderPath))
         {
             Debug.LogError("Target folder path is not set.");
@@ -74,26 +85,29 @@ public class OneshotFileSelector : MonoBehaviour
             Directory.CreateDirectory(targetPath);
         }
 
-        // Copy the file
-        string fileName = Path.GetFileName(filePath);
-        string destinationPath = Path.Combine(targetPath, fileName);
+        // Get the extension of the original file (e.g., ".wav")
+        string fileExtension = Path.GetExtension(filePath);
+
+        // Set the destination file name to use OneshotName
+        string destinationFileName = $"{OneshotName}{fileExtension}";
+        string destinationPath = Path.Combine(targetPath, destinationFileName);
 
         try
         {
+            // Copy the file and rename it
             File.Copy(filePath, destinationPath, true);
-            Debug.Log($"File successfully copied to: {destinationPath}");
+            Debug.Log($"File successfully copied and renamed to: {destinationPath}");
 
 #if UNITY_EDITOR
             // Refresh the Asset Database so Unity detects the new file
             AssetDatabase.Refresh();
 #endif
-
-            // Load the AudioClip and add it to the list
-            AddAudioClipToList(fileName);
+            // Load the renamed AudioClip and add it to the list
+            AddAudioClipToList(destinationFileName);
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"Failed to copy file: {ex.Message}");
+            Debug.LogError($"Failed to copy and rename file: {ex.Message}");
         }
     }
 
