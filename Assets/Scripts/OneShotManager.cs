@@ -1,7 +1,11 @@
-using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 
 public class OneShotManager : MonoBehaviour
 {
@@ -30,6 +34,8 @@ public class OneShotManager : MonoBehaviour
     [SerializeField]
     private TMP_InputField OneshotNameInput;
 
+    public string SceneName;
+
     public List<Button> OneshotButtons = new List<Button>();
 
     [Header("Audio")]
@@ -47,15 +53,19 @@ public class OneShotManager : MonoBehaviour
 
     public int NewOneshotInt;
 
+    [SerializeField]
+    private string FilePath;
+
     private void Start()
     {
         audioFolderPath = gameObject.GetComponent<OneshotFileSelector>().targetFolderPath;
+        //FilePath = "Assets\\CustomAudio\\" + SceneName + "\\One-Shots";
     }
 
     public void playOneShot(int OneShotNumber)
     {
         OneshotAudioSources[OneShotNumber].Play();
-        Debug.Log("Playing Oneshot number " +  OneShotNumber);
+        Debug.Log("Playing Oneshot number " + OneShotNumber);
     }
 
     public void SetupNewOneshot()
@@ -67,7 +77,7 @@ public class OneShotManager : MonoBehaviour
     public void NewOneShotName()
     {
         OneshotName = OneshotNameInput.text;
-        Debug.Log("New Oneshot Name is " +  OneshotName);
+        Debug.Log("New Oneshot Name is " + OneshotName);
     }
 
     public void NewOneShot()
@@ -95,7 +105,7 @@ public class OneShotManager : MonoBehaviour
 
     private void LoadAudioFiles()
     {
-       Oneshotclips = gameObject.GetComponent<OneshotFileSelector>().audioClips;
+        Oneshotclips = gameObject.GetComponent<OneshotFileSelector>()?.audioClips;
     }
 
     public void CancelNew()
@@ -103,5 +113,66 @@ public class OneShotManager : MonoBehaviour
         CustomisationMenuUI.SetActive(false);
         NewOneshotUI.SetActive(false);
         Debug.Log("Cancelled new Oneshot");
+    }
+
+    /// <summary>
+    /// Loads existing .wav files from the specified FilePath and creates buttons for them.
+    /// </summary>
+    public void LoadExistingWavFiles()
+    {
+        Debug.Log("Triggered LoadExistingWavFiles");
+
+        FilePath = $"Assets/CustomAudio/{SceneName}/One-Shots";
+
+        if (!Directory.Exists(FilePath))
+        {
+            Debug.LogWarning($"The specified directory does not exist: {FilePath}");
+            Debug.Log($"The specified directory does not exist: {FilePath}");
+            return;
+        }
+
+        string[] wavFiles = Directory.GetFiles(FilePath, "*.wav");
+
+        foreach (string filePath in wavFiles)
+        {
+            string relativePath = filePath.Replace(Application.dataPath, "Assets");
+            AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+
+            Debug.Log("Loading Oneshot Files");
+
+            if (clip != null)
+            {
+                Oneshotclips.Add(clip);
+
+                NewOneshotInt = NewOneshotInt + 1;
+
+                // Create a button for each loaded clip
+                GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
+                newOneshotButton.GetComponentInChildren<TMP_Text>().text = clip.name;
+                newOneshotButton.name = "Button " + clip.name;
+
+                Button buttonComponent = newOneshotButton.GetComponent<Button>();
+                OneshotButtons.Add(buttonComponent);
+
+                GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
+                newOneshot.name = clip.name;
+
+                AudioSource audioSource = newOneshot.GetComponent<AudioSource>();
+                audioSource.clip = clip;
+                OneshotAudioSources.Add(audioSource);
+
+                int buttonIndex = OneshotAudioSources.Count - 1;
+                buttonComponent.onClick.AddListener(() => playOneShot(buttonIndex));
+
+                Debug.Log($"Loaded Oneshot: {clip.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to load AudioClip at path: {relativePath}");
+                Debug.Log($"Failed to load AudioClip at path: {relativePath}");
+            }
+        }
+
+        Debug.Log("Done loading oneshots at " + FilePath);
     }
 }
