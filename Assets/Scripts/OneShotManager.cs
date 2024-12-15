@@ -3,6 +3,7 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -176,14 +177,19 @@ public class OneShotManager : MonoBehaviour
                 if (clip == null)
                 {
                     Debug.LogWarning($"Failed to load AudioClip at path: {relativePath}");
-                    continue;
+                    continue; // Skip to the next file if the clip couldn't be loaded
+                }
+                else
+                {
+                    // Add the clip and create the corresponding button
+                    AddClipAndCreateButton(clip);
                 }
 #else
-        Debug.LogError("LoadExistingWavFiles should not be called in builds.");
-        return;
+    Debug.LogError("LoadExistingWavFiles should not be called in builds.");
+    return;
 #endif
-
-                AddClipAndCreateButton(clip);
+                // Add the clip and create the corresponding button
+                //AddClipAndCreateButton(clip);
             }
 
             Debug.Log("Finished loading oneshot files.");
@@ -212,7 +218,15 @@ public class OneShotManager : MonoBehaviour
         int buttonIndex = OneshotAudioSources.Count - 1;
         buttonComponent.onClick.AddListener(() => PlayOneShot(buttonIndex));
 
-        Debug.Log($"Loaded Oneshot: {clip.name}");
+        if (clip != null)
+        {
+            Debug.Log($"Loaded Oneshot: {clip.name}");
+        }
+        else
+        {
+            Debug.LogWarning("Failed to load the clip in the dynamic loading section.");
+        }
+
     }
 
     private void RemoveOldStuff()

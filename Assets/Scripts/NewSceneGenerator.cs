@@ -4,6 +4,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class NewSceneGenerator : MonoBehaviour
 {
     [Header("Prefabs")]
@@ -39,27 +43,26 @@ public class NewSceneGenerator : MonoBehaviour
     private void Start()
     {
         SceneManager = GetComponent<SceneManager>();
+
+#if UNITY_EDITOR
         AssetDatabase.Refresh();
+        string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { FilePath });
 
-        if (Application.isEditor)
+        foreach (string folderGUID in folders)
         {
-            string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { FilePath });
+            // Convert folder GUID to a path
+            string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
 
-            foreach (string folderGUID in folders)
+            // Extract folder name
+            folderName = System.IO.Path.GetFileName(folderPath);
+
+            // Check if the folder is directly under the specified directory
+            if (System.IO.Path.GetDirectoryName(folderPath) == FilePath)
             {
-                // Convert folder GUID to a path
-                string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
-
-                // Extract folder name
-                folderName = System.IO.Path.GetFileName(folderPath);
-
-                // Check if the folder is directly under the specified directory
-                if (System.IO.Path.GetDirectoryName(folderPath) == FilePath)
-                {
-                    LoadScene(); //loads the scene
-                }
+                LoadScene(); //loads the scene
             }
         }
+#endif
     }
 
     public void NewScene()
@@ -81,13 +84,12 @@ public class NewSceneGenerator : MonoBehaviour
         SceneManager.Scenes.Add(newScene);
         newScene.SetActive(false);
 
-        if (Application.isEditor)
-        {
-            string folderPath = AssetDatabase.GenerateUniqueAssetPath(FilePath + "/" + NewSceneName);
+#if UNITY_EDITOR
+        string folderPath = AssetDatabase.GenerateUniqueAssetPath(FilePath + "/" + NewSceneName);
 
-            AssetDatabase.CreateFolder(FilePath, NewSceneName);
-            AssetDatabase.Refresh();
-        }
+        AssetDatabase.CreateFolder(FilePath, NewSceneName);
+        AssetDatabase.Refresh();
+#endif
     }
 
     private void LoadScene()
