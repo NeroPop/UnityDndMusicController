@@ -1,72 +1,52 @@
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using Unity.VisualScripting;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class OneShotManager : MonoBehaviour
 {
     [Header("Prefabs")]
-
-    [SerializeField]
-    private GameObject OneshotPrefab;
-
-    [SerializeField]
-    private GameObject OneshotButtonPrefab;
+    [SerializeField] private GameObject OneshotPrefab;
+    [SerializeField] private GameObject OneshotButtonPrefab;
 
     [Header("References")]
-
-    [SerializeField]
-    private GameObject OneshotButtonGroup;
-
-    [SerializeField]
-    private GameObject Oneshots;
-
-    [SerializeField]
-    private GameObject CustomisationMenuUI;
-
-    [SerializeField]
-    private GameObject NewOneshotUI;
-
-    [SerializeField]
-    private TMP_InputField OneshotNameInput;
+    [SerializeField] private GameObject OneshotButtonGroup;
+    [SerializeField] private GameObject Oneshots;
+    [SerializeField] private GameObject CustomisationMenuUI;
+    [SerializeField] private GameObject NewOneshotUI;
+    [SerializeField] private TMP_InputField OneshotNameInput;
 
     public string SceneName;
-
     public List<Button> OneshotButtons = new List<Button>();
 
     [Header("Audio")]
-
     public List<AudioSource> OneshotAudioSources = new List<AudioSource>();
-
     public List<AudioClip> Oneshotclips = new List<AudioClip>();
 
     private string audioFolderPath;
 
     [Header("New Oneshot Properties")]
-
     public string OneshotName;
-
     public int NewOneshotInt;
-
     private int PreloadedOneshots;
-
-    [SerializeField]
-    private string FilePath;
-
     public bool clean = true;
 
     private void Start()
     {
-        audioFolderPath = gameObject.GetComponent<OneshotFileSelector>().targetFolderPath;
-        //FilePath = "Assets\\CustomAudio\\" + SceneName + "\\One-Shots";
+        // Set up the audio folder path
+#if UNITY_EDITOR
+        audioFolderPath = $"Assets/CustomAudio/{SceneName}/One-Shots";
+#else
+        audioFolderPath = Path.Combine(Application.persistentDataPath, "CustomAudio", SceneName, "One-Shots");
+#endif
     }
 
-    public void playOneShot(int OneShotNumber)
+    public void PlayOneShot(int OneShotNumber)
     {
         OneshotAudioSources[OneShotNumber].Play();
         Debug.Log("Playing Oneshot number " + OneShotNumber);
@@ -89,24 +69,21 @@ public class OneShotManager : MonoBehaviour
         // Increment the counter for new oneshots
         NewOneshotInt++;
 
-        // Ensure that audio files are loaded
+        // Ensure audio files are loaded
         LoadAudioFiles();
 
-        // Create the new button for the oneshot
+        // Create the new button
         GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
         newOneshotButton.GetComponentInChildren<TMP_Text>().text = OneshotName;
         newOneshotButton.name = "Button " + OneshotName;
 
-        // Add the button to the list
         Button buttonComponent = newOneshotButton.GetComponent<Button>();
         OneshotButtons.Add(buttonComponent);
 
-        // Assign the button index correctly
-        int buttonIndex = NewOneshotInt + PreloadedOneshots - 1; // Use the last index in the list
+        // Assign the button index
+        int buttonIndex = NewOneshotInt + PreloadedOneshots - 1;
         newOneshotButton.GetComponent<OneshotButtonController>().ButtonIndex = buttonIndex;
-
-        // Add the click event listener
-        buttonComponent.onClick.AddListener(() => playOneShot(buttonIndex));
+        buttonComponent.onClick.AddListener(() => PlayOneShot(buttonIndex));
 
         // Create the new oneshot game object
         GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
@@ -116,142 +93,148 @@ public class OneShotManager : MonoBehaviour
         OneshotAudioSources.Add(newOneshot.GetComponent<AudioSource>());
         newOneshot.GetComponent<AudioSource>().clip = Oneshotclips[NewOneshotInt - 1];
 
-        Debug.Log($"OneshotButtons.Count: {OneshotButtons.Count}");
-        Debug.Log($"ButtonIndex: {buttonIndex}");
-        Debug.Log($"Oneshotclips.Count: {Oneshotclips.Count}");
-        Debug.Log($"NewOneshotInt: {NewOneshotInt}");
-        Debug.Log($"PreloadedOneshots: {PreloadedOneshots}");
-
-        // Assign the audio clip to the audio source
-       /* AudioSource audioSource = newOneshot.GetComponent<AudioSource>();
-        if (Oneshotclips.Count >= NewOneshotInt)
-        {
-            audioSource.clip = Oneshotclips[buttonIndex];
-            OneshotAudioSources.Add(audioSource);
-        }
-        else
-        {
-            Debug.LogWarning($"No audio clip found for index {buttonIndex}");
-        } */
-
         // Hide the customisation menus
         CustomisationMenuUI.SetActive(false);
         NewOneshotUI.SetActive(false);
 
         Debug.Log($"Created new Oneshot: {OneshotName} (Index: {buttonIndex})");
-
     }
-
 
     private void LoadAudioFiles()
     {
+#if UNITY_EDITOR
+        // In the editor, load clips using AssetDatabase
         Oneshotclips = gameObject.GetComponent<OneshotFileSelector>()?.audioClips;
+#else
+        // In builds, load audio clips dynamically
+        if (Directory.Exists(audioFolderPath))
+        {
+            string[] wavFiles = Directory.GetFiles(audioFolderPath, "*.wav");
+            foreach (string filePath in wavFiles)
+            {
+                StartCoroutine(LoadAudioClip(filePath));
+            }
+        }
+#endif
     }
 
-    public void CancelNew()
+#if !UNITY_EDITOR
+    private System.Collections.IEnumerator LoadAudioClip(string filePath)
     {
-        CustomisationMenuUI.SetActive(false);
-        NewOneshotUI.SetActive(false);
-        Debug.Log("Cancelled new Oneshot");
-    }
+        // Use UnityWebRequest to load audio clip at runtime
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + filePath, AudioType.WAV))
+        {
+            yield return www.SendWebRequest();
 
-    /// <summary>
-    /// Loads existing .wav files from the specified FilePath and creates buttons for them.
-    /// </summary>
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                Oneshotclips.Add(clip);
+
+                Debug.Log($"Loaded AudioClip: {clip.name}");
+            }
+            else
+            {
+                Debug.LogError($"Failed to load AudioClip: {filePath}");
+            }
+        }
+    }
+#endif
+
     public void LoadExistingWavFiles()
     {
         if (!clean)
         {
             RemoveOldStuff();
         }
-
         else
         {
-            Debug.Log("Triggered LoadExistingWavFiles");
 
-            FilePath = $"Assets/CustomAudio/{SceneName}/One-Shots";
+#if UNITY_EDITOR
+            AssetDatabase.Refresh();
+            audioFolderPath = $"Assets/CustomAudio/{SceneName}/One-Shots";
+#endif
 
-            if (!Directory.Exists(FilePath))
+            Debug.Log($"Triggered LoadExistingWavFiles. AudioFolderPath: {audioFolderPath}");
+
+            if (!Directory.Exists(audioFolderPath))
             {
-                Debug.LogWarning($"The specified directory does not exist: {FilePath}");
-                Debug.Log($"The specified directory does not exist: {FilePath}");
+                Debug.LogWarning($"The specified directory does not exist: {audioFolderPath}");
                 return;
             }
 
-            string[] wavFiles = Directory.GetFiles(FilePath, "*.wav");
+            string[] wavFiles = Directory.GetFiles(audioFolderPath, "*.wav");
+            Debug.Log($"Found {wavFiles.Length} .wav files in {audioFolderPath}");
 
             foreach (string filePath in wavFiles)
             {
-                string relativePath = filePath.Replace(Application.dataPath, "Assets");
+#if UNITY_EDITOR
+                string relativePath = filePath.Replace("\\", "/").Replace(Application.dataPath, "Assets");
+                Debug.Log($"Attempting to load AudioClip from: {relativePath}");
+
                 AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
-
-                Debug.Log("Loading Oneshot Files");
-
-                if (clip != null)
-                {
-                    Oneshotclips.Add(clip);
-
-                    PreloadedOneshots++;
-
-                    //NewOneshotInt = NewOneshotInt + 1;
-
-                    // Create a button for each loaded clip
-                    GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
-                    newOneshotButton.GetComponentInChildren<TMP_Text>().text = clip.name;
-                    newOneshotButton.name = "Button " + clip.name;
-
-                    Button buttonComponent = newOneshotButton.GetComponent<Button>();
-                    OneshotButtons.Add(buttonComponent);
-
-                    GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
-                    newOneshot.name = clip.name;
-
-                    AudioSource audioSource = newOneshot.GetComponent<AudioSource>();
-                    audioSource.clip = clip;
-                    OneshotAudioSources.Add(audioSource);
-
-                    int buttonIndex = OneshotAudioSources.Count - 1;
-                    buttonComponent.onClick.AddListener(() => playOneShot(buttonIndex));
-
-                    Debug.Log($"Loaded Oneshot: {clip.name}");
-                }
-                else
+                if (clip == null)
                 {
                     Debug.LogWarning($"Failed to load AudioClip at path: {relativePath}");
-                    Debug.Log($"Failed to load AudioClip at path: {relativePath}");
+                    continue;
                 }
+#else
+        Debug.LogError("LoadExistingWavFiles should not be called in builds.");
+        return;
+#endif
+
+                AddClipAndCreateButton(clip);
             }
 
-            Debug.Log("Done loading oneshots at " + FilePath);
+            Debug.Log("Finished loading oneshot files.");
         }
+    }
+
+    private void AddClipAndCreateButton(AudioClip clip)
+    {
+        Oneshotclips.Add(clip);
+        PreloadedOneshots++;
+
+        GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
+        newOneshotButton.GetComponentInChildren<TMP_Text>().text = clip.name;
+        newOneshotButton.name = "Button " + clip.name;
+
+        Button buttonComponent = newOneshotButton.GetComponent<Button>();
+        OneshotButtons.Add(buttonComponent);
+
+        GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
+        newOneshot.name = clip.name;
+
+        AudioSource audioSource = newOneshot.GetComponent<AudioSource>();
+        audioSource.clip = clip;
+        OneshotAudioSources.Add(audioSource);
+
+        int buttonIndex = OneshotAudioSources.Count - 1;
+        buttonComponent.onClick.AddListener(() => PlayOneShot(buttonIndex));
+
+        Debug.Log($"Loaded Oneshot: {clip.name}");
     }
 
     private void RemoveOldStuff()
     {
-        for (int i = 0; i < OneshotButtons.Count; i++)
+        foreach (var button in OneshotButtons)
         {
-            OneshotButtons[i].GetComponent<OneshotButtonController>().DestroyMe();
+            Destroy(button.gameObject);
         }
         OneshotButtons.Clear();
 
-        Debug.Log("Cleared buttons");
-
-        for (int i = 0; i < OneshotAudioSources.Count; i++)
+        foreach (var audioSource in OneshotAudioSources)
         {
-            Destroy(OneshotAudioSources[i].gameObject);
+            Destroy(audioSource.gameObject);
         }
         OneshotAudioSources.Clear();
 
-        Debug.Log("Cleared Audio Sources");
-
         Oneshotclips.Clear();
-
-        Debug.Log("Cleared Clips");
 
         NewOneshotInt = 0;
         PreloadedOneshots = 0;
-
         clean = true;
+
         LoadExistingWavFiles();
     }
 }
