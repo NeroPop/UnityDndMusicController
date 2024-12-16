@@ -122,7 +122,7 @@ public class OneshotFileSelector : MonoBehaviour
 #else
         // For builds, use Resources.Load
         string resourcePath = Path.Combine(targetFolderPath, Path.GetFileNameWithoutExtension(fileName));
-        AudioClip clip = Resources.Load<AudioClip>(resourcePath);
+        AudioClip clip = Resources.Load<AudioClip>(relativePath);
 #endif
 
         if (clip != null)
@@ -132,7 +132,7 @@ public class OneshotFileSelector : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Failed to load AudioClip: {fileName}. Ensure it is in the correct folder.");
+            Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
         }
     }
 }
