@@ -32,34 +32,50 @@ public class NewSceneGenerator : MonoBehaviour
     private SceneManager SceneManager;
 
     [SerializeField]
-    private string FilePath = "Assets\\CustomAudio";
+    private string EditorFilePath = "Assets/CustomAudio";
+
+    private string BuildFilePath = Path.Combine(Application.streamingAssetsPath, "CustomAudio");
 
     private string folderName;
 
     private void Start()
     {
         SceneManager = GetComponent<SceneManager>();
+
+#if UNITY_EDITOR
         AssetDatabase.Refresh();
+        string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { EditorFilePath });
 
-        if (Application.isEditor)
+        foreach (string folderGUID in folders)
         {
-            string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { FilePath });
+            // Convert folder GUID to a path
+            string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
 
-            foreach (string folderGUID in folders)
+            // Extract folder name
+            folderName = System.IO.Path.GetFileName(folderPath);
+
+            // Check if the folder is directly under the specified directory
+            if (System.IO.Path.GetDirectoryName(folderPath) == EditorFilePath)
             {
-                // Convert folder GUID to a path
-                string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
-
-                // Extract folder name
-                folderName = System.IO.Path.GetFileName(folderPath);
-
-                // Check if the folder is directly under the specified directory
-                if (System.IO.Path.GetDirectoryName(folderPath) == FilePath)
-                {
-                    LoadScene(); //loads the scene
-                }
+                LoadScene(); //loads the scene
             }
         }
+#else
+        string[] folders = Directory.GetDirectories(BuildFilePath);
+
+        foreach (string folderPath in folders)
+        {
+            // Extract the folder name
+            folderName = Path.GetFileName(folderPath);
+
+            // Check if the folder is directly under the specified directory
+            if (Path.GetDirectoryName(folderPath) == BuildFilePath)
+            {
+                // Load the scene
+                LoadScene();
+            }
+        }
+#endif
     }
 
     public void NewScene()
@@ -81,13 +97,21 @@ public class NewSceneGenerator : MonoBehaviour
         SceneManager.Scenes.Add(newScene);
         newScene.SetActive(false);
 
-        if (Application.isEditor)
-        {
-            string folderPath = AssetDatabase.GenerateUniqueAssetPath(FilePath + "/" + NewSceneName);
+#if UNITY_EDITOR
+        string folderPath = AssetDatabase.GenerateUniqueAssetPath(EditorFilePath + "/" + NewSceneName);
 
-            AssetDatabase.CreateFolder(FilePath, NewSceneName);
-            AssetDatabase.Refresh();
+        AssetDatabase.CreateFolder(EditorFilePath, NewSceneName);
+        AssetDatabase.Refresh();
+#else
+         // Build-specific folder creation (runtime)
+        string folderPath = Path.Combine(BuildFilePath, NewSceneName);
+
+        // Create the folder at runtime
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
         }
+#endif
     }
 
     private void LoadScene()
