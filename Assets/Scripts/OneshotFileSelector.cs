@@ -24,17 +24,18 @@ public class OneshotFileSelector : MonoBehaviour
 
     public string OneshotName;
 
-    private void Start()
-    {
-        targetFolderPath = "CustomAudio/" + SceneName + "/One-Shots";
-    }
-
     public void OpenFileDialog()
     {
 #if UNITY_EDITOR
+        // Setup the audio folder path
+        targetFolderPath = "CustomAudio/" + SceneName + "/One-Shots";
+
         // Use UnityEditor file dialog for editor
         selectedFilePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
 #else
+        // Setup the audio folder path
+        targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "One-Shots");
+
         // Use System.Windows.Forms for standalone builds
         using (var fileDialog = new System.Windows.Forms.OpenFileDialog())
         {
