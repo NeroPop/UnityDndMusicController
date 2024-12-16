@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine.Networking;
+using System.Collections;
+
 
 
 #if UNITY_EDITOR
@@ -106,7 +108,7 @@ public class OneshotFileSelector : MonoBehaviour
             AssetDatabase.Refresh();
 #endif
             // Load the renamed AudioClip and add it to the list
-            AddAudioClipToList(destinationFileName);
+            StartCoroutine(AddAudioClipToList(destinationFileName));
         }
         catch (System.Exception ex)
         {
@@ -114,7 +116,7 @@ public class OneshotFileSelector : MonoBehaviour
         }
     }
 
-    private void AddAudioClipToList(string fileName)
+    private IEnumerator AddAudioClipToList(string fileName)
     {
         string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
 
@@ -133,10 +135,14 @@ public class OneshotFileSelector : MonoBehaviour
         }
 
 #else
-        // For builds, load the audio clip using UnityWebRequest
-        string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
-    UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file:///" + filePath, AudioType.WAV);
-    www.SendWebRequest();
+    // For builds, load the audio clip using UnityWebRequest
+    string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
+
+    // Ensure the file path starts with file:// for UnityWebRequest
+    string fileUrl = "file:///" + filePath.Replace("\\", "/");
+
+    UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileUrl, AudioType.WAV);
+    yield return www.SendWebRequest(); // Wait for the request to finish
 
     if (www.result == UnityWebRequest.Result.Success)
     {
@@ -148,7 +154,7 @@ public class OneshotFileSelector : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Failed to load AudioClip: {fileName} at {filePath}. Ensure it is in the correct folder.");
+            Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Ensure the file is in the correct folder.");
         }
     }
     else
@@ -156,5 +162,6 @@ public class OneshotFileSelector : MonoBehaviour
         Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
     }
 #endif
+        yield break; // Ensures the coroutine exits cleanly
     }
 }
