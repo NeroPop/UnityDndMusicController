@@ -17298,11 +17298,14 @@ MonoBehaviour:
   CustomisationMenuUI: {fileID: 1448866088284698969}
   NewOneshotUI: {fileID: 7725966037349449918}
   OneshotNameInput: {fileID: 4074718720829890427}
+  SceneName: 
   OneshotButtons: []
   OneshotAudioSources: []
   Oneshotclips: []
   OneshotName: 
   NewOneshotInt: 0
+  FilePath: 
+  clean: 1
 --- !u!114 &3873629573956951481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17319,6 +17322,7 @@ MonoBehaviour:
   selectedFilePath: 
   SceneName: 
   audioClips: []
+  OneshotName: 
 --- !u!114 &1707891008354019812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17326,7 +17330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8761451629842720680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af72aec5d8f18541ab8554585bee22d, type: 3}
   m_Name: 
