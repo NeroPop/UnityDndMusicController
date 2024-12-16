@@ -36,7 +36,7 @@ public class NewSceneGenerator : MonoBehaviour
     private SceneManager SceneManager;
 
     [SerializeField]
-    private string FilePath = "Assets\\CustomAudio";
+    private string FilePath = "Assets\\StreamingAssets\\CustomAudio";
 
     private string folderName;
 
