@@ -119,11 +119,6 @@ public class OneshotFileSelector : MonoBehaviour
 #if UNITY_EDITOR
         // Use the AssetDatabase in the editor to load the clip
         AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
-#else
-        // For builds, use Resources.Load
-        string resourcePath = Path.Combine(targetFolderPath, Path.GetFileNameWithoutExtension(fileName));
-        AudioClip clip = Resources.Load<AudioClip>(relativePath);
-#endif
 
         if (clip != null)
         {
@@ -134,5 +129,29 @@ public class OneshotFileSelector : MonoBehaviour
         {
             Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
         }
+#else
+        // For builds, load the audio clip using UnityWebRequest
+    string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
+    UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file:///" + filePath, AudioType.WAV);
+    www.SendWebRequest();
+
+    if (www.result == UnityWebRequest.Result.Success)
+    {
+        AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+        if (clip != null)
+        {
+            audioClips.Add(clip);
+            Debug.Log($"AudioClip successfully added: {clip.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"Failed to load AudioClip: {fileName} at {filePath}. Ensure it is in the correct folder.");
+        }
+    }
+    else
+    {
+        Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
+    }
+#endif
     }
 }
