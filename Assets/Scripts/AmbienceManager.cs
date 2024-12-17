@@ -1,17 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AmbienceManager : MonoBehaviour
 {
+    [Header("Prefabs")]
+    [SerializeField] private GameObject AmbientPrefab;
+    [SerializeField] private GameObject AmbientButtonPrefab;
+
+    [Header("References")]
+    [SerializeField] private GameObject AmbientButtonGroup;
+    [SerializeField] private GameObject AmbienceParent;
+    [SerializeField] private GameObject CustomisationMenuUI;
+    [SerializeField] private GameObject NewAmbientUI;
+    [SerializeField] private TMP_InputField AmbientNameInput;
+
     [Header("Lists")]
-    public List<AudioSource> AmbientAudioSources = new List<AudioSource>();
     public List<Button> AmbientButtons = new List<Button>();
+    public List<AudioSource> AmbientAudioSources = new List<AudioSource>();
+    public List<AudioClip> AmbientClips = new List<AudioClip>();
 
     [Header("Ambience Properties")]
+    [HideInInspector] public string SceneName;
     public float FadeDuration = 5;
-    private int Amb;
+    public int Amb;
+    public string AmbientName;
+    private int PreloadedAmbience;
+    private string FilePath;
+    private string AudioFolderPath;
+    public bool clean = true;
 
     public void ToggleAmbientAudio(int AmbientButton)
     {

@@ -13,54 +13,29 @@ using UnityEngine.Networking;
 public class OneShotManager : MonoBehaviour
 {
     [Header("Prefabs")]
-
-    [SerializeField]
-    private GameObject OneshotPrefab;
-
-    [SerializeField]
-    private GameObject OneshotButtonPrefab;
+    [SerializeField] private GameObject OneshotPrefab;
+    [SerializeField] private GameObject OneshotButtonPrefab;
 
     [Header("References")]
+    [SerializeField] private GameObject OneshotButtonGroup;
+    [SerializeField] private GameObject Oneshots;
+    [SerializeField] private GameObject CustomisationMenuUI;
+    [SerializeField] private GameObject NewOneshotUI;
+    [SerializeField] private TMP_InputField OneshotNameInput;
 
-    [SerializeField]
-    private GameObject OneshotButtonGroup;
-
-    [SerializeField]
-    private GameObject Oneshots;
-
-    [SerializeField]
-    private GameObject CustomisationMenuUI;
-
-    [SerializeField]
-    private GameObject NewOneshotUI;
-
-    [SerializeField]
-    private TMP_InputField OneshotNameInput;
-
-    public string SceneName;
-
+    [Header("Lists")]
     public List<Button> OneshotButtons = new List<Button>();
-
-    [Header("Audio")]
-
     public List<AudioSource> OneshotAudioSources = new List<AudioSource>();
-
     public List<AudioClip> Oneshotclips = new List<AudioClip>();
 
-    private string audioFolderPath;
-
-    [Header("New Oneshot Properties")]
-
+    [Header("Oneshot Properties")]
+    [HideInInspector] public string SceneName;
     public string OneshotName;
-
     public int NewOneshotInt;
-
     private int PreloadedOneshots;
-
-    [SerializeField]
     private string FilePath;
-
-    public bool clean = true;
+    private string audioFolderPath;
+    [HideInInspector] public bool clean = true;
 
     private void Start()
     {
