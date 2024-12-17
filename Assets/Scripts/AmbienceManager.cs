@@ -1,27 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AmbienceManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] AmbientAudioSources;
+    [Header("Lists")]
+    public List<AudioSource> AmbientAudioSources = new List<AudioSource>();
+    public List<Button> AmbientButtons = new List<Button>();
 
-    [SerializeField]
-    private GameObject[] AmbientButtons;
-
+    [Header("Ambience Properties")]
     public float FadeDuration = 5;
-
     private int Amb;
 
     public void ToggleAmbientAudio(int AmbientButton)
     {
         //Ensures the button always plays a sound even if there's more buttons than sound.
-        if (AmbientButton >= AmbientAudioSources.Length)
+        if (AmbientButton >= AmbientAudioSources.Count)
         {
-            Amb = AmbientAudioSources.Length - 1;
+            Amb = AmbientAudioSources.Count - 1;
         }
-        else if (AmbientButton < AmbientAudioSources.Length)
+        else if (AmbientButton < AmbientAudioSources.Count)
         {
             Amb = AmbientButton;
         }
