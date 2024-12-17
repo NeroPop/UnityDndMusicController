@@ -212,7 +212,7 @@ public class OneShotManager : MonoBehaviour
 
             Debug.Log("Done loading oneshots at " + FilePath);
 #else
-            FilePath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "One-Shots");
+             FilePath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "One-Shots");
 
             if (!Directory.Exists(FilePath))
             {
@@ -225,25 +225,27 @@ public class OneShotManager : MonoBehaviour
 
             foreach (string filePath in Wavfiles)
             {
-                string relativePath = filePath.Replace(Application.dataPath, "Assets");
-               // AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
-
-                StartCoroutine(LoadAudioClip(relativePath));
+                StartCoroutine(LoadAudioClip(filePath));
             }
 #endif
         }
     }
 
-    private IEnumerator LoadAudioClip(string relativePath)
+    private IEnumerator LoadAudioClip(string filePath)
     {
-        // Use UnityWebRequest to load audio clip at runtime
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + relativePath, AudioType.WAV))
+        string url = $"file://{filePath}";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.WAV))
         {
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success)
             {
                 AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+
+                // Extract file name from the path
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                clip.name = fileName; // Manually set the clip name
+
                 Oneshotclips.Add(clip);
 
                 // Create a button for each loaded clip
@@ -268,7 +270,7 @@ public class OneShotManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"Failed to load AudioClip: {relativePath}");
+                Debug.LogError($"Failed to load AudioClip: {filePath}. Error: {www.error}");
             }
         }
     }
