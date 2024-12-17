@@ -4,29 +4,25 @@ using System.IO;
 using UnityEngine.Networking;
 using System.Collections;
 
-
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class OneshotFileSelector : MonoBehaviour
 {
-    [Header("Settings")]
     [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav file will be copied.")]
-    public string targetFolderPath = "OneshotAudioFiles";
+    [HideInInspector] public string targetFolderPath = "OneshotAudioFiles";
 
     [Tooltip("The selected file path (for debugging purposes).")]
-    public string selectedFilePath;
+    [HideInInspector] public string selectedFilePath;
 
     [Tooltip("Scene name to organize custom audio.")]
-    public string SceneName;
+    [HideInInspector] public string SceneName;
 
-    [Header("Audio Clips")]
     [Tooltip("List of loaded audio clips.")]
-    public List<AudioClip> audioClips = new List<AudioClip>();
+    public List<AudioClip> OneshotaudioClips = new List<AudioClip>();
 
-    public string OneshotName;
+    [HideInInspector] public string OneshotName;
 
     public void OpenFileDialog()
     {
@@ -34,13 +30,13 @@ public class OneshotFileSelector : MonoBehaviour
         // Setup the audio folder path
         targetFolderPath = "CustomAudio/" + SceneName + "/One-Shots";
 
-        // Use UnityEditor file dialog for editor
+        // Use UnityEditor file dialog for editor and select only wav files
         selectedFilePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
 #else
         // Setup the audio folder path
         targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "One-Shots");
 
-        // Use System.Windows.Forms for standalone builds
+        // Use System.Windows.Forms for standalone builds and select only wav files
         using (var fileDialog = new System.Windows.Forms.OpenFileDialog())
         {
             fileDialog.Filter = "WAV Files (*.wav)|*.wav";
@@ -126,7 +122,7 @@ public class OneshotFileSelector : MonoBehaviour
 
         if (clip != null)
         {
-            audioClips.Add(clip);
+            OneshotaudioClips.Add(clip);
             Debug.Log($"AudioClip successfully added: {clip.name}");
         }
         else
@@ -149,7 +145,7 @@ public class OneshotFileSelector : MonoBehaviour
         AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
         if (clip != null)
         {
-            audioClips.Add(clip);
+            OneshotaudioClips.Add(clip);
             Debug.Log($"AudioClip successfully added: {clip.name}");
         }
         else
