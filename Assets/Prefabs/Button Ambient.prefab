@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7615697498000766699}
   - component: {fileID: 5300638509615095948}
   m_Layer: 5
-  m_Name: Button Ambience
+  m_Name: Button Ambient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
