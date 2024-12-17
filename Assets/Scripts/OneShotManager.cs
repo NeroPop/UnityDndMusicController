@@ -248,6 +248,8 @@ public class OneShotManager : MonoBehaviour
 
                 Oneshotclips.Add(clip);
 
+                PreloadedOneshots++;
+
                 // Create a button for each loaded clip
                 GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
                 newOneshotButton.GetComponentInChildren<TMP_Text>().text = clip.name;
