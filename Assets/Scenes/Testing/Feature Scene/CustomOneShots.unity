@@ -1099,7 +1099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7505089642419234737, guid: 01e224fabd2076244944b7983d920696, type: 3}
       propertyPath: SceneName
-      value: TestingScene
+      value: Default Scene
       objectReference: {fileID: 0}
     - target: {fileID: 7505089642419234737, guid: 01e224fabd2076244944b7983d920696, type: 3}
       propertyPath: SceneManager
@@ -1651,7 +1651,7 @@ MonoBehaviour:
   SceneNameInput: {fileID: 209955192}
   NewSceneName: 
   NewSceneInt: 0
-  FilePath: Assets\CustomAudio
+  EditorFilePath: 
 --- !u!114 &756837505
 MonoBehaviour:
   m_ObjectHideFlags: 0

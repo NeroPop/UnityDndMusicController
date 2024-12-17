@@ -32,7 +32,7 @@ public class NewSceneGenerator : MonoBehaviour
     private SceneManager SceneManager;
 
     [SerializeField]
-    private string EditorFilePath = "Assets/CustomAudio";
+    private string EditorFilePath = "Assets\\CustomAudio";
 
     private string BuildFilePath = Path.Combine(Application.streamingAssetsPath, "CustomAudio");
 
@@ -43,6 +43,8 @@ public class NewSceneGenerator : MonoBehaviour
         SceneManager = GetComponent<SceneManager>();
 
 #if UNITY_EDITOR
+        EditorFilePath = "Assets\\CustomAudio";
+
         AssetDatabase.Refresh();
         string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { EditorFilePath });
 
@@ -57,23 +59,39 @@ public class NewSceneGenerator : MonoBehaviour
             // Check if the folder is directly under the specified directory
             if (System.IO.Path.GetDirectoryName(folderPath) == EditorFilePath)
             {
-                LoadScene(); //loads the scene
+                LoadScene();
+            }
+            else
+            {
+                Debug.LogWarning("Folder not found in specified directory " + System.IO.Path.GetDirectoryName(folderPath));
             }
         }
 #else
-        string[] folders = Directory.GetDirectories(BuildFilePath);
-
-        foreach (string folderPath in folders)
+// Load folders at runtime in build
+        if (Directory.Exists(BuildFilePath))
         {
-            // Extract the folder name
-            folderName = Path.GetFileName(folderPath);
+            string[] folders = Directory.GetDirectories(BuildFilePath);
 
-            // Check if the folder is directly under the specified directory
-            if (Path.GetDirectoryName(folderPath) == BuildFilePath)
+            foreach (string folderPath in folders)
             {
-                // Load the scene
-                LoadScene();
+                folderName = Path.GetFileName(folderPath);
+
+                Debug.Log("Found folder " + folderName + " at " + folderPath);
+
+                // Ensure folder exists and is valid
+                if (!string.IsNullOrEmpty(folderName))
+                {
+                    LoadScene();
+                }
+                else
+                {
+                    Debug.LogWarning("Folder not found in specified directory. " +  Directory.GetDirectories(BuildFilePath));
+                }
             }
+        }
+        else
+        {
+            Debug.LogError($"CustomAudio directory not found at: {BuildFilePath}");
         }
 #endif
     }
@@ -85,12 +103,11 @@ public class NewSceneGenerator : MonoBehaviour
         //sets the scene name to the written text
         NewSceneName = SceneNameInput.text;
 
-        // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
+        //Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
-
-        //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
 
+        //Instantiate the Scene Prefab
         GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
         newScene.name = NewSceneName;
         newScene.GetComponent<SceneController>().SceneName = NewSceneName;
@@ -120,15 +137,16 @@ public class NewSceneGenerator : MonoBehaviour
 
         NewSceneName = folderName;
 
-        // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
+        //Instantiate the SceneButtonPrefab
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
-
-        //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
 
+        //Instantiate the ScenePrefab
         GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
         newScene.name = NewSceneName;
         newScene.GetComponent<SceneController>().SceneName = NewSceneName;
+
+        //Add to the SceneManager list
         SceneManager.Scenes.Add(newScene);
         newScene.SetActive(false);
     }
