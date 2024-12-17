@@ -17799,9 +17799,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0416d5e02d00744c9a95ef4f95d1042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmbientAudioSources: []
+  AmbientPrefab: {fileID: 7943744943658112431, guid: 96bc02926c503f54eb46d790fe8edf28, type: 3}
+  AmbientButtonPrefab: {fileID: 5857825026946533519, guid: 94e6ab675f626d142b376d49c25a857f, type: 3}
+  AmbientButtonGroup: {fileID: 9078886332682652870}
+  AmbienceParent: {fileID: 565653506135870628}
+  CustomisationMenuUI: {fileID: 1448866088284698969}
+  NewAmbientUI: {fileID: 5202269051332167468}
+  AmbientNameInput: {fileID: 8103382609805951413}
+  SceneName: 
   AmbientButtons: []
+  AmbientAudioSources: []
+  AmbientClips: []
   FadeDuration: 5
+  Amb: 0
+  AmbientName: 
+  clean: 1
 --- !u!114 &2132979676031734118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17827,7 +17839,6 @@ MonoBehaviour:
   Oneshotclips: []
   OneshotName: 
   NewOneshotInt: 0
-  FilePath: 
   clean: 1
 --- !u!114 &3873629573956951481
 MonoBehaviour:
