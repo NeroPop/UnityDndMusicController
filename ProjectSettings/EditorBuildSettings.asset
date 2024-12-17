@@ -5,15 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Testing/Feature Scene/Ambience.unity
-    guid: 29d8fe6f9b840224c9be063838f8fc05
-  - enabled: 0
-    path: Assets/Scenes/Testing/AudioLoadTestScene.unity
-    guid: 9c5d6a3b94b56df4a8aaaebd9e0bc537
-  - enabled: 0
-    path: Assets/Scenes/Testing/Feature Scene/Audio Loading.unity
-    guid: 9c6004bf08e329a4292bedcabce5d05b
   - enabled: 1
     path: Assets/Scenes/Testing/Feature Scene/CustomOneShots.unity
     guid: c27b65e35290fad4dab6b1aa248115cb
