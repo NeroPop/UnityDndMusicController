@@ -178,8 +178,11 @@ public class ActivityController : MonoBehaviour
 
     public void PlaySong()
     {
+
+        
         //Get's a reference for the AudioSource
         AudioSource audio = GetComponent<AudioSource>();
+
 
         //Sets the track number to the last track if the current track number is somehow below 0
         if (TrackNumber < 0 || TrackNumber >= Tracks.Count) return;
@@ -198,6 +201,7 @@ public class ActivityController : MonoBehaviour
 
         //Displays the song name
         DisplayName.text = audio.clip.name;
+
 
         // Set the slider's max value to the length of the audio clip
         AudioSlider.maxValue = audio.clip.length;
