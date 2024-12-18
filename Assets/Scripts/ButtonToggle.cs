@@ -21,11 +21,13 @@ public class ButtonToggle : MonoBehaviour
         {
             gameObject.GetComponent<Image>().sprite = ButtonSelectedSprite;
             Pressed = true;
+            Debug.Log("Button Pressed");
         }
         else if (Pressed)
         {
             gameObject.GetComponent<Image>().sprite = ButtonDefaultSprite;
             Pressed = false;
+            Debug.Log("Button un Pressed");
         }
     }
 }

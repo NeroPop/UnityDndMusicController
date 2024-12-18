@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class AmbientController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject MusicManager;
-
-    private float FadeDuration;
+    public float FadeDuration;
 
     private float CurrentTime;
     private float FadeInVolume;
@@ -16,17 +13,15 @@ public class AmbientController : MonoBehaviour
 
     private bool FadeIn;
 
-    private void Start()
-    {
-        FadeDuration = MusicManager.GetComponent<AmbienceManager>().FadeDuration;
-    }
     public void TriggerAmbient()
     {
-        CurrentVolume = gameObject.GetComponent<AudioSource>().volume;
+        AudioSource AmbientAudioSource = gameObject.GetComponent<AudioSource>();
+        CurrentVolume = AmbientAudioSource.volume;
 
         if (!FadeIn) //triggers if fading in
         {
             FadeIn = true;
+            AmbientAudioSource.Play();
         }
 
         else if (FadeIn) //triggers if fading out
@@ -34,7 +29,6 @@ public class AmbientController : MonoBehaviour
             FadeOutVolume = CurrentVolume;
             FadeIn = false;
         }
-
         CurrentTime = 0;
     }
 

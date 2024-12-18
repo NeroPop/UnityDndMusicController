@@ -32,34 +32,68 @@ public class NewSceneGenerator : MonoBehaviour
     private SceneManager SceneManager;
 
     [SerializeField]
-    private string FilePath = "Assets\\CustomAudio";
+    private string EditorFilePath = "Assets\\CustomAudio";
+
+    private string BuildFilePath = Path.Combine(Application.streamingAssetsPath, "CustomAudio");
 
     private string folderName;
 
     private void Start()
     {
         SceneManager = GetComponent<SceneManager>();
+
+#if UNITY_EDITOR
+        EditorFilePath = "Assets\\CustomAudio";
+
         AssetDatabase.Refresh();
+        string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { EditorFilePath });
 
-        if (Application.isEditor)
+        foreach (string folderGUID in folders)
         {
-            string[] folders = AssetDatabase.FindAssets("t:Folder", new[] { FilePath });
+            // Convert folder GUID to a path
+            string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
 
-            foreach (string folderGUID in folders)
+            // Extract folder name
+            folderName = System.IO.Path.GetFileName(folderPath);
+
+            // Check if the folder is directly under the specified directory
+            if (System.IO.Path.GetDirectoryName(folderPath) == EditorFilePath)
             {
-                // Convert folder GUID to a path
-                string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
+                LoadScene();
+            }
+            else
+            {
+                Debug.LogWarning("Folder not found in specified directory " + System.IO.Path.GetDirectoryName(folderPath));
+            }
+        }
+#else
+// Load folders at runtime in build
+        if (Directory.Exists(BuildFilePath))
+        {
+            string[] folders = Directory.GetDirectories(BuildFilePath);
 
-                // Extract folder name
-                folderName = System.IO.Path.GetFileName(folderPath);
+            foreach (string folderPath in folders)
+            {
+                folderName = Path.GetFileName(folderPath);
 
-                // Check if the folder is directly under the specified directory
-                if (System.IO.Path.GetDirectoryName(folderPath) == FilePath)
+                Debug.Log("Found folder " + folderName + " at " + folderPath);
+
+                // Ensure folder exists and is valid
+                if (!string.IsNullOrEmpty(folderName))
                 {
-                    LoadScene(); //loads the scene
+                    LoadScene();
+                }
+                else
+                {
+                    Debug.LogWarning("Folder not found in specified directory. " +  Directory.GetDirectories(BuildFilePath));
                 }
             }
         }
+        else
+        {
+            Debug.LogError($"CustomAudio directory not found at: {BuildFilePath}");
+        }
+#endif
     }
 
     public void NewScene()
@@ -69,25 +103,32 @@ public class NewSceneGenerator : MonoBehaviour
         //sets the scene name to the written text
         NewSceneName = SceneNameInput.text;
 
-        // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
+        //Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
-
-        //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
 
+        //Instantiate the Scene Prefab
         GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
         newScene.name = NewSceneName;
         newScene.GetComponent<SceneController>().SceneName = NewSceneName;
         SceneManager.Scenes.Add(newScene);
         newScene.SetActive(false);
 
-        if (Application.isEditor)
-        {
-            string folderPath = AssetDatabase.GenerateUniqueAssetPath(FilePath + "/" + NewSceneName);
+#if UNITY_EDITOR
+        string folderPath = AssetDatabase.GenerateUniqueAssetPath(EditorFilePath + "/" + NewSceneName);
 
-            AssetDatabase.CreateFolder(FilePath, NewSceneName);
-            AssetDatabase.Refresh();
+        AssetDatabase.CreateFolder(EditorFilePath, NewSceneName);
+        AssetDatabase.Refresh();
+#else
+         // Build-specific folder creation (runtime)
+        string folderPath = Path.Combine(BuildFilePath, NewSceneName);
+
+        // Create the folder at runtime
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
         }
+#endif
     }
 
     private void LoadScene()
@@ -96,15 +137,16 @@ public class NewSceneGenerator : MonoBehaviour
 
         NewSceneName = folderName;
 
-        // Instantiate the SceneButtonPrefab as a child of ScenesButtonGroup
+        //Instantiate the SceneButtonPrefab
         GameObject newSceneButton = Instantiate(SceneButtonPrefab, ScenesButtonGroup.transform);
-
-        //Changes the button name text
         newSceneButton.GetComponentInChildren<TMP_Text>().text = NewSceneName;
 
+        //Instantiate the ScenePrefab
         GameObject newScene = Instantiate(ScenePrefab, gameObject.transform);
         newScene.name = NewSceneName;
         newScene.GetComponent<SceneController>().SceneName = NewSceneName;
+
+        //Add to the SceneManager list
         SceneManager.Scenes.Add(newScene);
         newScene.SetActive(false);
     }
