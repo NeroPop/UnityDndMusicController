@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 952675297282474185}
   - component: {fileID: 1360556354080019065}
   - component: {fileID: 3389578412466653705}
+  - component: {fileID: 1260115054602629832}
   m_Layer: 0
   m_Name: Activity
   m_TagString: Untagged
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tracks:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 18f2cde12250da84ab2bd6694cba4079, type: 3}
   DisplayName: {fileID: 0}
   DisplayTime: {fileID: 0}
   DisplayRemaining: {fileID: 0}
@@ -159,3 +160,15 @@ MonoBehaviour:
   ResetDial:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1260115054602629832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3865340002470286149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f3babf50c281a4483f506e3e820cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
