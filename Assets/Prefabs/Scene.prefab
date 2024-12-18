@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
@@ -2153,7 +2153,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -2311,7 +2311,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -2758,7 +2758,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
@@ -3054,7 +3054,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4139852331071741178}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
           m_MethodName: OnPointerUp
           m_Mode: 1
@@ -3437,7 +3437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707004e52591abc43958e2106b46bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Activity: {fileID: 2584490150099387830}
+  Activity: {fileID: 0}
   ActivityPlayerControls: {fileID: 8136451757376520657}
   DisabledPlayerControls: {fileID: 2040670846298137579}
   CurrentSong: {fileID: 4956580467287004045}
@@ -4288,7 +4288,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -4782,7 +4782,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -4940,7 +4940,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -5257,7 +5257,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4139852331071741178}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
           m_MethodName: OnPointerUp
           m_Mode: 1
@@ -5443,7 +5443,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1963872332413736506}
+  - {fileID: 4900717228989085778}
   - {fileID: 3970313320473929024}
   - {fileID: 8413265395654618873}
   m_Father: {fileID: 6304186386370436887}
@@ -5730,7 +5730,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Skip
         m_Mode: 1
@@ -5742,165 +5742,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &2584490150099387830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1963872332413736506}
-  - component: {fileID: 331063579138966666}
-  - component: {fileID: 4139852331071741178}
-  m_Layer: 0
-  m_Name: SFX Explore
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1963872332413736506
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2584490150099387830}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 394158428094289312}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &331063579138966666
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2584490150099387830}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
-  m_audioClip: {fileID: 8300000, guid: e020133fbeeff594a9624338109f1610, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &4139852331071741178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2584490150099387830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tracks:
-  - {fileID: 8300000, guid: 1a0bbfe31338fe74da4f3ca3db5fe509, type: 3}
-  DisplayName: {fileID: 4956580467287004045}
-  DisplayTime: {fileID: 61098943913288316}
-  DisplayRemaining: {fileID: 3356367568280944835}
-  AudioSlider: {fileID: 6765764090299874128}
-  PauseButton: {fileID: 4037747429345859905}
-  ResumeButton: {fileID: 7821068320710607619}
-  TrackNumber: 1
-  CurrentTime: 0
-  TrackLength: 0
-  Shuffle: 0
-  Paused: 0
-  isDragging: 0
-  ActSelected: 0
-  ResetDial:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2608998989785724399
 GameObject:
   m_ObjectHideFlags: 0
@@ -6023,7 +5864,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
@@ -7151,7 +6992,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4139852331071741178}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
           m_MethodName: OnPointerUp
           m_Mode: 1
@@ -7208,7 +7049,7 @@ Transform:
   - {fileID: 6304186386370436887}
   - {fileID: 5147103910207781981}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7505089642419234737
 MonoBehaviour:
@@ -7374,7 +7215,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
@@ -8645,7 +8486,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
@@ -9149,7 +8990,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -9798,7 +9639,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: ToggleShuffle
         m_Mode: 1
@@ -12427,7 +12268,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -14708,7 +14549,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -16085,7 +15926,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -16787,7 +16628,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Skip
         m_Mode: 1
@@ -17718,7 +17559,6 @@ GameObject:
   - component: {fileID: 2665321583816548207}
   - component: {fileID: 2132979676031734118}
   - component: {fileID: 3873629573956951481}
-  - component: {fileID: 1707891008354019812}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -17885,25 +17725,6 @@ MonoBehaviour:
   SceneName: 
   OneshotaudioClips: []
   OneshotName: 
---- !u!114 &1707891008354019812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8761451629842720680}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4af72aec5d8f18541ab8554585bee22d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clips: []
-  currentIndex: 0
-  absolutePath: ./Activities
-  Scene: 
-  activityParent: {fileID: 2472816092138532865}
-  activities: []
-  activitiesSources: []
 --- !u!1 &8817724434567175372
 GameObject:
   m_ObjectHideFlags: 0
@@ -18026,7 +17847,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4139852331071741178}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MusicController, Assembly-CSharp
         m_MethodName: Skip
         m_Mode: 1
@@ -18891,3 +18712,69 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &5276615092858271899
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 394158428094289312}
+    m_Modifications:
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865340002470286149, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+      propertyPath: m_Name
+      value: Activity
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+--- !u!4 &4900717228989085778 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 952675297282474185, guid: 07b943083706e4a459eb9a2112a0cb64, type: 3}
+  m_PrefabInstance: {fileID: 5276615092858271899}
+  m_PrefabAsset: {fileID: 0}
