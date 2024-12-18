@@ -1823,9 +1823,9 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2132979676031734118}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
-        m_MethodName: NewOneShotName
+      - m_Target: {fileID: 7013284000665708554}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: NewAmbientName
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3783,9 +3783,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2132979676031734118}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 7013284000665708554}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: SetupNewAmbience
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4445,8 +4445,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2132979676031734118}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
+      - m_Target: {fileID: 7013284000665708554}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
         m_MethodName: CancelNew
         m_Mode: 1
         m_Arguments:
@@ -4459,7 +4459,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 3754310637275636935}
         m_TargetAssemblyTypeName: CustomisationInterface, Assembly-CSharp
-        m_MethodName: ResetCustomOneshotUI
+        m_MethodName: ResetCustomAmbienceUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7243,6 +7243,12 @@ MonoBehaviour:
   OneshotButtonAudioImport: {fileID: 9060486748509852452}
   OneshotButtonDone: {fileID: 2060187753904235817}
   OneshotButtonCancel: {fileID: 4324968235785669641}
+  NewAmbient: {fileID: 5202269051332167468}
+  AmbientTitle: {fileID: 675379042813440283}
+  AmbientInput: {fileID: 1177913974397343960}
+  AmbientButtonAudioImport: {fileID: 3197314633187171295}
+  AmbientButtonDone: {fileID: 8193712319691671670}
+  AmbientButtonCancel: {fileID: 2040257184249754830}
 --- !u!1 &3087056794566570955
 GameObject:
   m_ObjectHideFlags: 0
@@ -7606,8 +7612,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3873629573956951481}
-        m_TargetAssemblyTypeName: OneshotFileSelector, Assembly-CSharp
+      - m_Target: {fileID: 2665321583816548207}
+        m_TargetAssemblyTypeName: AmbienceFileSelector, Assembly-CSharp
         m_MethodName: OpenFileDialog
         m_Mode: 1
         m_Arguments:
@@ -17093,9 +17099,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2132979676031734118}
-        m_TargetAssemblyTypeName: OneShotManager, Assembly-CSharp
-        m_MethodName: NewOneShot
+      - m_Target: {fileID: 7013284000665708554}
+        m_TargetAssemblyTypeName: AmbienceManager, Assembly-CSharp
+        m_MethodName: NewAmbient
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17107,7 +17113,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 3754310637275636935}
         m_TargetAssemblyTypeName: CustomisationInterface, Assembly-CSharp
-        m_MethodName: ResetCustomOneshotUI
+        m_MethodName: ResetCustomAmbienceUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17706,6 +17712,7 @@ GameObject:
   - component: {fileID: 8825865631796243600}
   - component: {fileID: 7759033057013590514}
   - component: {fileID: 7013284000665708554}
+  - component: {fileID: 2665321583816548207}
   - component: {fileID: 2132979676031734118}
   - component: {fileID: 3873629573956951481}
   - component: {fileID: 1707891008354019812}
@@ -17806,14 +17813,32 @@ MonoBehaviour:
   CustomisationMenuUI: {fileID: 1448866088284698969}
   NewAmbientUI: {fileID: 5202269051332167468}
   AmbientNameInput: {fileID: 8103382609805951413}
-  SceneName: 
   AmbientButtons: []
   AmbientAudioSources: []
   AmbientClips: []
+  SceneName: 
   FadeDuration: 5
   Amb: 0
   AmbientName: 
+  NewAmbientInt: 0
   clean: 1
+--- !u!114 &2665321583816548207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761451629842720680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83075fb8a2c5c6b40bc672df6d50d7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFolderPath: AmbientAudioFiles
+  selectedFilePath: 
+  SceneName: 
+  AmbientaudioClips: []
+  AmbientName: 
 --- !u!114 &2132979676031734118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17833,10 +17858,10 @@ MonoBehaviour:
   CustomisationMenuUI: {fileID: 1448866088284698969}
   NewOneshotUI: {fileID: 7725966037349449918}
   OneshotNameInput: {fileID: 4074718720829890427}
-  SceneName: 
   OneshotButtons: []
   OneshotAudioSources: []
   Oneshotclips: []
+  SceneName: 
   OneshotName: 
   NewOneshotInt: 0
   clean: 1
@@ -17855,7 +17880,7 @@ MonoBehaviour:
   targetFolderPath: 
   selectedFilePath: 
   SceneName: 
-  audioClips: []
+  OneshotaudioClips: []
   OneshotName: 
 --- !u!114 &1707891008354019812
 MonoBehaviour:
