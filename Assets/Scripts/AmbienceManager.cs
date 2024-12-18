@@ -73,7 +73,7 @@ public class AmbienceManager : MonoBehaviour
     }
 
     //Sets the Ambient Name to whatever you called it
-    public void NewOneShotName()
+    public void NewAmbientName()
     {
         AmbientName = AmbientNameInput.text;
         Debug.Log("New Ambient Name is " + AmbientName);
