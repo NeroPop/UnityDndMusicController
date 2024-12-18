@@ -8,6 +8,9 @@ public class SceneController : MonoBehaviour
     private GameObject MusicManager;
 
     [SerializeField]
+    private GameObject Activities;
+
+    [SerializeField]
     private TMP_Text SceneTitleTxt;
 
     [SerializeField]
@@ -25,7 +28,9 @@ public class SceneController : MonoBehaviour
         SceneManager = GameObject.Find("/SceneManager"); //Finds Scene Manager
 
         //Sets the Scene Name for various scripts
-        MusicManager.GetComponent<customAudioClipLoader>().Scene = SceneName;
+        MusicManager.GetComponent<UnityActivityManager>().SceneName = SceneName;
+        Activities.GetComponent<SceneNameHolder>().SceneName = SceneName;
+        //MusicManager.GetComponent<customAudioClipLoader>().Scene = SceneName;
         MusicManager.GetComponent<OneshotFileSelector>().SceneName = SceneName;
         MusicManager.GetComponent<AmbienceFileSelector>().SceneName = SceneName;
         MusicManager.GetComponent<OneShotManager>().SceneName = SceneName;
@@ -38,7 +43,12 @@ public class SceneController : MonoBehaviour
     }
     public void ActivateScene() //Triggered when a scene is activated
     {
+        //Gives Activity Manager the Scene name and triggers it to restart
+        MusicManager.GetComponent<UnityActivityManager>().SceneName = SceneName;
         MusicManager.GetComponent<UnityActivityManager>().NewScene();
+
+        //Sets the activities scene name
+        Activities.GetComponent<SceneNameHolder>().SceneName = SceneName;
 
         //Gives Oneshot Manager the Scene name and triggers it to load existing Oneshots
         MusicManager.GetComponent<OneShotManager>().SceneName = SceneName;
