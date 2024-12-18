@@ -811,7 +811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tracks: []
+  Tracks:
+  - {fileID: 8300000, guid: 9620dea0377f4514faa8bf76d310aa89, type: 3}
   DisplayName: {fileID: 7354250434203763953}
   DisplayTime: {fileID: 2456300616346397637}
   DisplayRemaining: {fileID: 7743573503192023433}
@@ -5589,7 +5590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tracks: []
+  Tracks:
+  - {fileID: 8300000, guid: a03e85b39caa45c49ba2b21f192fb819, type: 3}
   DisplayName: {fileID: 6145076081841003970}
   DisplayTime: {fileID: 7146690630426968129}
   DisplayRemaining: {fileID: 4656530280138286932}
@@ -5881,7 +5883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc26d37b58da0479aa9e0992207448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tracks: []
+  Tracks:
+  - {fileID: 8300000, guid: 1a0bbfe31338fe74da4f3ca3db5fe509, type: 3}
   DisplayName: {fileID: 4956580467287004045}
   DisplayTime: {fileID: 61098943913288316}
   DisplayRemaining: {fileID: 3356367568280944835}
@@ -7205,7 +7208,7 @@ Transform:
   - {fileID: 6304186386370436887}
   - {fileID: 5147103910207781981}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7505089642419234737
 MonoBehaviour:
