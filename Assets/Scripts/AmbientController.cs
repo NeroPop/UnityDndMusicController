@@ -15,11 +15,13 @@ public class AmbientController : MonoBehaviour
 
     public void TriggerAmbient()
     {
-        CurrentVolume = gameObject.GetComponent<AudioSource>().volume;
+        AudioSource AmbientAudioSource = gameObject.GetComponent<AudioSource>();
+        CurrentVolume = AmbientAudioSource.volume;
 
         if (!FadeIn) //triggers if fading in
         {
             FadeIn = true;
+            AmbientAudioSource.Play();
         }
 
         else if (FadeIn) //triggers if fading out
@@ -27,7 +29,6 @@ public class AmbientController : MonoBehaviour
             FadeOutVolume = CurrentVolume;
             FadeIn = false;
         }
-
         CurrentTime = 0;
     }
 

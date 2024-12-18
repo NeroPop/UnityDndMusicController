@@ -29,7 +29,7 @@ public class AmbienceManager : MonoBehaviour
     public List<AudioClip> AmbientClips = new List<AudioClip>();
 
     [Header("Ambience Properties")]
-    [HideInInspector] public string SceneName;
+    public string SceneName;
     public float FadeDuration = 5;
     public int Amb;
     public string AmbientName;
@@ -174,8 +174,8 @@ public class AmbienceManager : MonoBehaviour
 
                     //Create the new button for each loaded clip
                     GameObject newAmbientButton = Instantiate(AmbientButtonPrefab, AmbientButtonGroup.transform);
-                    newAmbientButton.GetComponentInChildren<TMP_Text>().text = AmbientName;
-                    newAmbientButton.name = "Button " + AmbientName;
+                    newAmbientButton.GetComponentInChildren<TMP_Text>().text = clip.name;
+                    newAmbientButton.name = "Button " + clip.name;
 
                     //Add the button to the list
                     Button buttonComponent = newAmbientButton.GetComponent<Button>();
@@ -292,7 +292,7 @@ public class AmbienceManager : MonoBehaviour
         //Destroy all the old buttons
         for (int i = 0; i < AmbientButtons.Count; i++)
         {
-            AmbientButtons[i].GetComponent<OneshotButtonController>().DestroyMe();
+            AmbientButtons[i].GetComponent<AmbientButtonController>().DestroyMe();
         }
         AmbientButtons.Clear();
 
