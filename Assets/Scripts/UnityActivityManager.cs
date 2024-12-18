@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -10,6 +11,9 @@ public class UnityActivityManager : MonoBehaviour
     public AudioMixerGroup[] ActivityMixers;
 
     public string[] MixerVolNames;
+
+    [Header("Activities")]
+    public List<GameObject> ActivitiesList = new List<GameObject>();
 
     [Header("Buttons")]
 
@@ -25,7 +29,8 @@ public class UnityActivityManager : MonoBehaviour
     [Header("Fade")]
     public float FadeDuration = 5;
 
-    [Header("Debugging")]
+    [Header("Properties")]
+    [HideInInspector] public string SceneName;
 
     public int Act = 0;     //Act is the current activity number. 0 means no activity is playing.
     private int PrevAct;    //PrevAct is the previous activity number that was playing.
@@ -49,6 +54,7 @@ public class UnityActivityManager : MonoBehaviour
 
     public void NewScene() //triggered when a new scene is selected
     {
+
         if (Act > 0) //Resets the scene if it was left on
         {
             ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
