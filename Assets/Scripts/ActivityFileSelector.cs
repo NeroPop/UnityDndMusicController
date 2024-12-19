@@ -8,10 +8,10 @@ using System.Collections;
 using UnityEditor;
 #endif
 
-public class AmbienceFileSelector : MonoBehaviour
+public class ActivityFileSelector : MonoBehaviour
 {
     [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav file will be copied.")]
-    [HideInInspector] public string targetFolderPath = "AmbientAudioFiles";
+    [HideInInspector] public string targetFolderPath = "ActivityAudioFiles";
 
     [Tooltip("The selected file path (for debugging purposes).")]
     [HideInInspector] public string selectedFilePath;
@@ -20,22 +20,21 @@ public class AmbienceFileSelector : MonoBehaviour
     [HideInInspector] public string SceneName;
 
     [Tooltip("List of loaded audio clips.")]
-    public List<AudioClip> AmbientaudioClips = new List<AudioClip>();
+    public List<AudioClip> ActivityaudioClips = new List<AudioClip>();
 
-    [HideInInspector] public string AmbientName;
+    [HideInInspector] public string ActivityName;
 
-    //Open the file inspector and select a file
-    public void OpenFileDialog()
+    public void OpenFileDialog() //Open the file inspector and select a file
     {
 #if UNITY_EDITOR
         // Setup the audio folder path
-        targetFolderPath = "CustomAudio/" + SceneName + "/Ambience";
+        targetFolderPath = "CustomAudio/" + SceneName + "/Activities/" + ActivityName;
 
         // Use UnityEditor file dialog for editor and select only wav files
         selectedFilePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
 #else
         // Setup the audio folder path
-        targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Ambience");
+        targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities", ActivityName);
 
         // Use System.Windows.Forms for standalone builds and select only wav files
         using (var fileDialog = new System.Windows.Forms.OpenFileDialog())
@@ -60,16 +59,15 @@ public class AmbienceFileSelector : MonoBehaviour
         }
     }
 
-    //Copy the file over to the selected place and rename
-    private void CopyFileToTargetFolder(string filePath)
+    private void CopyFileToTargetFolder(string filePath) //Copy the file over to the selected place and rename
     {
-        // Get the AmbientName from the AmbienceManager
-        AmbientName = gameObject.GetComponent<AmbienceManager>().AmbientName;
+        // Get the ActivityName from the CustomActivitiesSetup
+        ActivityName = gameObject.GetComponent<CustomActivitiesSetup>().ActivityName;
 
-        //Logs errors if there is no target folder or ambient name
-        if (string.IsNullOrEmpty(AmbientName))
+        //Logs errors if there is no target folder or Activity name
+        if (string.IsNullOrEmpty(ActivityName))
         {
-            Debug.LogError("Ambient is not set. Please provide a valid name.");
+            Debug.LogError("Activity is not set. Please provide a valid name.");
             return;
         }
         if (string.IsNullOrEmpty(targetFolderPath))
@@ -90,8 +88,8 @@ public class AmbienceFileSelector : MonoBehaviour
         // Get the extension of the original file (e.g., ".wav")
         string fileExtension = Path.GetExtension(filePath);
 
-        // Set the destination file name to use OneshotName
-        string destinationFileName = $"{AmbientName}{fileExtension}";
+        // Set the destination file name to use ActivityName
+        string destinationFileName = $"{ActivityName}{fileExtension}";
         string destinationPath = Path.Combine(targetPath, destinationFileName);
 
         try
@@ -123,7 +121,7 @@ public class AmbienceFileSelector : MonoBehaviour
 
         if (clip != null)
         {
-            AmbientaudioClips.Add(clip);
+            ActivityaudioClips.Add(clip);
             Debug.Log($"AudioClip successfully added: {clip.name}");
         }
         else
@@ -146,8 +144,7 @@ public class AmbienceFileSelector : MonoBehaviour
         AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
         if (clip != null)
         {
-            AmbientaudioClips.Add(clip);
-            Debug.Log($"AudioClip successfully added: {clip.name}");
+            ActivityaudioClips.Add(clip);
         }
         else
         {

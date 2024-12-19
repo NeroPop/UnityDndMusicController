@@ -76,7 +76,6 @@ public class AmbienceManager : MonoBehaviour
     public void NewAmbientName()
     {
         AmbientName = AmbientNameInput.text;
-        Debug.Log("New Ambient Name is " + AmbientName);
     }
 
     public void NewAmbient()
