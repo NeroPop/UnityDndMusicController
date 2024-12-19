@@ -17607,9 +17607,11 @@ GameObject:
   - component: {fileID: 6304186386370436887}
   - component: {fileID: 8825865631796243600}
   - component: {fileID: 7759033057013590514}
+  - component: {fileID: 4828908869477178980}
   - component: {fileID: 7013284000665708554}
-  - component: {fileID: 2665321583816548207}
   - component: {fileID: 2132979676031734118}
+  - component: {fileID: 1053757789291343955}
+  - component: {fileID: 2665321583816548207}
   - component: {fileID: 3873629573956951481}
   m_Layer: 0
   m_Name: MusicManager
@@ -17691,6 +17693,33 @@ MonoBehaviour:
   SceneName: 
   Act: 0
   FadeoutVolume: 0
+--- !u!114 &4828908869477178980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761451629842720680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4209f58c7de1d15488d5bd5d8ed7a48a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivityPrefab: {fileID: 0}
+  ActivityButtonPrefab: {fileID: 0}
+  ActivityButtonGroup: {fileID: 0}
+  ActivitiesParent: {fileID: 0}
+  CustomisationMenuUI: {fileID: 0}
+  NewActivityUI: {fileID: 0}
+  ActivityNameInput: {fileID: 0}
+  ActivityButtons: []
+  ActivityAudioSources: []
+  ActivityClips: []
+  SceneName: 
+  FadeDuration: 5
+  ActivityName: 
+  NewActivityInt: 0
+  clean: 1
 --- !u!114 &7013284000665708554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17719,23 +17748,6 @@ MonoBehaviour:
   AmbientName: 
   NewAmbientInt: 0
   clean: 1
---- !u!114 &2665321583816548207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8761451629842720680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83075fb8a2c5c6b40bc672df6d50d7f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetFolderPath: AmbientAudioFiles
-  selectedFilePath: 
-  SceneName: 
-  AmbientaudioClips: []
-  AmbientName: 
 --- !u!114 &2132979676031734118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17762,6 +17774,35 @@ MonoBehaviour:
   OneshotName: 
   NewOneshotInt: 0
   clean: 1
+--- !u!114 &1053757789291343955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761451629842720680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfffa3b91ebc9dd4984b388c13c5b6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2665321583816548207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761451629842720680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83075fb8a2c5c6b40bc672df6d50d7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFolderPath: AmbientAudioFiles
+  selectedFilePath: 
+  SceneName: 
+  AmbientaudioClips: []
+  AmbientName: 
 --- !u!114 &3873629573956951481
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -113,13 +113,6 @@ public class AmbienceManager : MonoBehaviour
         //Assign the Fade time to the Ambient Controller
         newAmbient.GetComponent<AmbientController>().FadeDuration = FadeDuration;
 
-        //Testing Debugs which can be removed when it works
-        Debug.Log($"AmbientButtons.Count: {AmbientButtons.Count}");
-        Debug.Log($"AmbientIndex: {buttonIndex}");
-        Debug.Log($"AmbientClips.Count: {AmbientClips.Count}");
-        Debug.Log($"NewAmbientInt: {NewAmbientInt}");
-        Debug.Log($"PreloadedAmbience: {PreloadedAmbience}");
-
         //Hide the customisation menus
         CustomisationMenuUI.SetActive(false);
         NewAmbientUI.SetActive(false);
