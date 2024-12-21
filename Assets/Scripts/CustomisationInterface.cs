@@ -7,6 +7,14 @@ public class CustomisationInterface : MonoBehaviour
 {
     [SerializeField] private GameObject CustomisationMenu;
 
+    [Header("Custom Activities UI")]
+    [SerializeField] private GameObject NewActivity;
+    [SerializeField] private GameObject ActivityTitle;
+    [SerializeField] private GameObject ActivityInput;
+    [SerializeField] private GameObject ActivityButtonAudioImport;
+    [SerializeField] private GameObject ActivityButtonDone;
+    [SerializeField] private GameObject ActivityButtonCancel;
+
     [Header("Custom One-Shots UI")]
     [SerializeField] private GameObject NewOneshot;
     [SerializeField] private GameObject OneshotTitle;
@@ -27,6 +35,13 @@ public class CustomisationInterface : MonoBehaviour
     {
         CustomisationMenu.SetActive(false);
 
+        NewActivity.SetActive(false);
+        ActivityTitle.SetActive(true);
+        ActivityInput.SetActive(true);
+        ActivityButtonAudioImport.SetActive(false);
+        ActivityButtonDone.SetActive(false);
+        ActivityButtonCancel.SetActive(true);
+
         NewOneshot.SetActive(false);
         OneshotTitle.SetActive(true);
         OneshotInput.SetActive(true);
@@ -40,6 +55,19 @@ public class CustomisationInterface : MonoBehaviour
         AmbientButtonAudioImport.SetActive(false);
         AmbientButtonDone.SetActive(false);
         AmbientButtonCancel.SetActive(true);
+    }
+
+    public void ResetCustomActivityUI()
+    {
+        ActivityInput.GetComponent<TMP_InputField>().text = "";
+
+        CustomisationMenu.SetActive(false);
+        NewActivity.SetActive(false);
+        ActivityTitle.SetActive(true);
+        ActivityInput.SetActive(true);
+        ActivityButtonAudioImport.SetActive(false);
+        ActivityButtonDone.SetActive(false);
+        ActivityButtonCancel.SetActive(true);
     }
 
     public void ResetCustomOneshotUI()

@@ -126,7 +126,7 @@ public class AmbienceManager : MonoBehaviour
         AmbientClips = gameObject.GetComponent<AmbienceFileSelector>()?.AmbientaudioClips;
     }
 
-    //Loads existing .wav files from the specified FilePath and creates buttons for them.
+    //Loads existing .wav files from the specified FilePath and creates buttons for them. triggered by scene controller
     public void LoadExistingWavFiles()
     {
         //Checks if buttons have already been loaded
