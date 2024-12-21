@@ -98,4 +98,9 @@ public class ActivityClipLoader : MonoBehaviour
             }
         }
     }
+
+    public void Clean()
+    {
+        ActivityClips.Clear();
+    }
 }

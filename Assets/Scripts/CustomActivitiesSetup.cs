@@ -9,6 +9,7 @@ using System.Diagnostics.Eventing.Reader;
 using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine.Networking;
+using System.ComponentModel;
 
 
 public class CustomActivitiesSetup : MonoBehaviour
@@ -23,15 +24,20 @@ public class CustomActivitiesSetup : MonoBehaviour
     [SerializeField] private GameObject CustomisationMenuUI;
     [SerializeField] private GameObject NewActivityUI;
     [SerializeField] private TMP_InputField ActivityNameInput;
+    [SerializeField] private CustomisationInterface CustomisationInterface;
 
     [Header("Lists")]
     public List<Button> ActivityButtons = new List<Button>();
     public List<AudioSource> ActivityAudioSources = new List<AudioSource>();
     public List<AudioClip> ActivityClips = new List<AudioClip>();
 
+    [Header("UI Elements")]
+    private TMP_Text DisplayName;
+    private TMP_Text DisplayText;
+
+
     [Header("Ambience Properties")]
     public string SceneName;
-    public float FadeDuration = 5;
     public string ActivityName;
     public int NewActivityInt;
     private int PreloadedActivities;
@@ -41,9 +47,14 @@ public class CustomActivitiesSetup : MonoBehaviour
     private string AudioFolderPath;
     public bool clean = true;
 
+    private void Start()
+    {
+        LoadExistingWavFiles();
+    }
+
     public void PlayActivity(int ActivityNumber)
     {
-
+        ActivityAudioSources[ActivityNumber].GetComponent<ActivityController>().PlaySong();
     }
 
     public void SetupNewActivity() //Opens up the New Activity sound setup menu
@@ -102,8 +113,8 @@ public class CustomActivitiesSetup : MonoBehaviour
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
         newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
 
-        //Assign the Fade time to the Activity Controller
-        newActivity.GetComponent<UnityActivityManager>().FadeDuration = FadeDuration;
+        //Add activity to the buttonUI script
+        buttonComponent.GetComponent<UIActivitySetup>().Activity = newActivity;
 
         //Testing Debugs which can be removed when it works
         Debug.Log($"ActivityButtons.Count: {ActivityButtons.Count}");
@@ -153,6 +164,7 @@ public class CustomActivitiesSetup : MonoBehaviour
                 GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
                 newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
                 newActivityButton.name = "Button " + FolderName;
+                Debug.Log("New Activity Button Name = Button " + FolderName);
 
                 //Add the button to the list
                 Button buttonComponent = newActivityButton.GetComponent<Button>();
@@ -164,17 +176,13 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                 //Assign the button index correctly
                 int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
-                newActivityButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
+                newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
                 //Ensure that on click it triggers the correct Activity
                 buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
 
-                //Assign the audio clip to the audio source
-                //ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
-                //newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1]; //This might not work
-
-                //Assign the Fade time to the Activity Controller
-                newActivity.GetComponent<UnityActivityManager>().FadeDuration = FadeDuration;
+                //Add activity to the buttonUI script
+                buttonComponent.GetComponent<UIActivitySetup>().Activity = newActivity;
 
 
                 // Check if the folder is directly under the specified directory
@@ -227,13 +235,10 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                         //Assign the button index correctly
                         int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
-                        newActivityButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
+                        newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
                         //Ensure that on click it triggers the correct Activity
                         buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
-
-                        //Assign the Fade time to the Activity Controller
-                        newActivity.GetComponent<UnityActivityManager>().FadeDuration = FadeDuration;
 
                         newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
                         newActivity.GetComponent<ActivityClipLoader>().LoadClips();
@@ -254,7 +259,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Destroy all the old buttons
         for (int i = 0; i < ActivityButtons.Count; i++)
         {
-            ActivityButtons[i].GetComponent<AmbientButtonController>().DestroyMe();
+            ActivityButtons[i].GetComponent<ActivityButtonController>().DestroyMe();
         }
         ActivityButtons.Clear();
 
@@ -262,6 +267,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         for (int i = 0; i < ActivityAudioSources.Count; i++)
         {
             Destroy(ActivityAudioSources[i].gameObject);
+            ActivityAudioSources[i].GetComponent<ActivityClipLoader>().Clean();
         }
         ActivityAudioSources.Clear();
 

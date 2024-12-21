@@ -63,7 +63,7 @@ public class NewSceneGenerator : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Folder not found in specified directory " + System.IO.Path.GetDirectoryName(folderPath));
+               // Debug.LogWarning("Folder not found in specified directory " + System.IO.Path.GetDirectoryName(folderPath));
             }
         }
 #else

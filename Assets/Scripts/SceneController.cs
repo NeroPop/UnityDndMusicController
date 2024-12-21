@@ -30,7 +30,7 @@ public class SceneController : MonoBehaviour
         //Sets the Scene Name for various scripts
         MusicManager.GetComponent<UnityActivityManager>().SceneName = SceneName;
         Activities.GetComponent<SceneNameHolder>().SceneName = SceneName;
-        //MusicManager.GetComponent<customAudioClipLoader>().Scene = SceneName;
+        MusicManager.GetComponent<CustomActivitiesSetup>().SceneName = SceneName;
         MusicManager.GetComponent<OneshotFileSelector>().SceneName = SceneName;
         MusicManager.GetComponent<AmbienceFileSelector>().SceneName = SceneName;
         MusicManager.GetComponent<OneShotManager>().SceneName = SceneName;
@@ -50,6 +50,11 @@ public class SceneController : MonoBehaviour
         //Sets the activities scene name
         Activities.GetComponent<SceneNameHolder>().SceneName = SceneName;
 
+        //Gives CustomActivitiesSetup the Scene name and triggers it to load existing Activities
+        MusicManager.GetComponent<CustomActivitiesSetup>().SceneName = SceneName;
+        MusicManager.GetComponent<CustomActivitiesSetup>().LoadExistingWavFiles();
+        Debug.Log("Called CustomActivitiesSetup");
+
         //Gives Oneshot Manager the Scene name and triggers it to load existing Oneshots
         MusicManager.GetComponent<OneShotManager>().SceneName = SceneName;
         MusicManager.GetComponent<OneShotManager>().LoadExistingWavFiles();
@@ -61,7 +66,8 @@ public class SceneController : MonoBehaviour
 
     public void DeactivateScene() //Triggered when the scene is deactivated
     {
-        //Tells the Oneshots and Ambience managers that they need to be cleaned when loaded back in
+        //Tells the Activities, Oneshots and Ambience managers that they need to be cleaned when loaded back in
+        MusicManager.GetComponent<CustomActivitiesSetup>().clean = false;
         MusicManager.GetComponent<OneShotManager>().clean = false;
         MusicManager.GetComponent<AmbienceManager>().clean = false;
         Debug.Log("Scene Deactivated");
