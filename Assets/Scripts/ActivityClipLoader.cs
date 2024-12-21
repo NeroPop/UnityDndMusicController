@@ -21,12 +21,11 @@ public class ActivityClipLoader : MonoBehaviour
 
     private void Start()
     {
-        LoadClips();
+       // LoadClips();
     }
 
     public void LoadClips()
     {
-        ActivityName = "0";
         Debug.Log("LoadClips triggered in " + ActivityName);
         ActivityController ActivityController = gameObject.GetComponent<ActivityController>();
         SceneName = GetComponentInParent<SceneNameHolder>().SceneName;
@@ -60,7 +59,7 @@ public class ActivityClipLoader : MonoBehaviour
 
 #else
         //Sets the folder path to find the audio clips
-        ActivityFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Ambience");
+        ActivityFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities", ActivityName);
 
         //Finds the wav files in the directory
         string[] Wavfiles = Directory.GetFiles(ActivityFolderPath, "*.wav");
@@ -71,5 +70,32 @@ public class ActivityClipLoader : MonoBehaviour
         }
 #endif
         ActivityController.loadCustomTrack(); //Load the custom tracks in ActivityController
+    }
+
+    private IEnumerator LoadAudioClip(string filePath)
+    {
+        string url = $"file://{filePath}";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.WAV))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+
+                // Extract file name from the path
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                clip.name = fileName; // Manually set the clip name
+
+                ActivityClips.Add(clip); // Add the clip to the list of clips
+                Debug.Log("Number of ActivityClips: " + ActivityClips.Count);
+                gameObject.GetComponent<ActivityController>().Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
+                Debug.Log("Added Clip " + clip.name);
+            }
+            else
+            {
+                Debug.LogError($"Failed to load AudioClip: {filePath}. Error: {www.error}");
+            }
+        }
     }
 }

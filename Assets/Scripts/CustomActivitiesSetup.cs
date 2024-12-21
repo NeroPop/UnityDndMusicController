@@ -36,6 +36,8 @@ public class CustomActivitiesSetup : MonoBehaviour
     public int NewActivityInt;
     private int PreloadedActivities;
     private string FilePath;
+    private string FolderPath;
+    private string FolderName;
     private string AudioFolderPath;
     public bool clean = true;
 
@@ -87,7 +89,7 @@ public class CustomActivitiesSetup : MonoBehaviour
 
         //Assign the button index correctly
         int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
-        newActivityButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
+        newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
         //Ensure that on click it triggers the correct Activity
         buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
@@ -101,19 +103,177 @@ public class CustomActivitiesSetup : MonoBehaviour
         newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
 
         //Assign the Fade time to the Activity Controller
-        newActivity.GetComponent<AmbientController>().FadeDuration = FadeDuration;
+        newActivity.GetComponent<UnityActivityManager>().FadeDuration = FadeDuration;
 
         //Testing Debugs which can be removed when it works
-        Debug.Log($"AmbientButtons.Count: {ActivityButtons.Count}");
-        Debug.Log($"AmbientIndex: {buttonIndex}");
-        Debug.Log($"AmbientClips.Count: {ActivityClips.Count}");
-        Debug.Log($"NewAmbientInt: {NewActivityInt}");
-        Debug.Log($"PreloadedAmbience: {PreloadedActivities}");
+        Debug.Log($"ActivityButtons.Count: {ActivityButtons.Count}");
+        Debug.Log($"ActivityIndex: {buttonIndex}");
+        Debug.Log($"ActivityClips.Count: {ActivityClips.Count}");
+        Debug.Log($"NewActivityInt: {NewActivityInt}");
+        Debug.Log($"PreloadedActivities: {PreloadedActivities}");
 
         //Hide the customisation menus
         CustomisationMenuUI.SetActive(false);
         NewActivityUI.SetActive(false);
 
-        Debug.Log($"Created new Ambient: {ActivityName} (Index: {buttonIndex})");
+        Debug.Log($"Created new Activity: {ActivityName} (Index: {buttonIndex})");
+    }
+
+    //Loads existing .wav files from the specified FilePath and creates buttons for them. triggered by scene controller
+    public void LoadExistingWavFiles()
+    {
+        //Checks if buttons have already been loaded
+        if (!clean)
+        {
+            RemoveOldStuff();
+        }
+
+        else
+        {
+            Debug.Log("Triggered LoadExistingWavFiles");
+#if UNITY_EDITOR
+            //Sets the Folder path for in editor
+            FolderPath = "Assets\\CustomAudio\\" + SceneName + "\\Activities";
+            AssetDatabase.Refresh();
+            string[] folders = AssetDatabase.FindAssets("t:Folder", new[] {FolderPath});
+
+            foreach (string folderGUID in folders)
+            {
+                // Convert folder GUID to a path
+                string folderPath = AssetDatabase.GUIDToAssetPath(folderGUID);
+
+                // Extract folder name
+                FolderName = System.IO.Path.GetFileName(folderPath);
+
+                PreloadedActivities++; //Increment the counter for loaded activities
+
+                //Setup the activity
+
+                //Create the new button for each loaded clip
+                GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
+                newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
+                newActivityButton.name = "Button " + FolderName;
+
+                //Add the button to the list
+                Button buttonComponent = newActivityButton.GetComponent<Button>();
+                ActivityButtons.Add(buttonComponent);
+
+                //Create the new Activity game object
+                GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
+                newActivity.name = FolderName;
+
+                //Assign the button index correctly
+                int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
+                newActivityButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
+
+                //Ensure that on click it triggers the correct Activity
+                buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
+
+                //Assign the audio clip to the audio source
+                //ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
+                //newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1]; //This might not work
+
+                //Assign the Fade time to the Activity Controller
+                newActivity.GetComponent<UnityActivityManager>().FadeDuration = FadeDuration;
+
+
+                // Check if the folder is directly under the specified directory
+                if (System.IO.Path.GetDirectoryName(folderPath) == FolderPath)
+                {
+                    newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
+                    newActivity.GetComponent<ActivityClipLoader>().LoadClips();
+                }
+                else
+                {
+                    Debug.LogWarning("Folder not found in specified directory " + System.IO.Path.GetDirectoryName(folderPath));
+                }
+            }
+#else
+            //Sets the Folder path for in Build
+            FolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities");
+
+            if (!Directory.Exists(FilePath)) //Checks that the file path exists
+            {
+                Debug.LogWarning($"The specified directory does not exist: {FilePath}");
+                return;
+            }
+
+            if (Directory.Exists(FolderPath))
+            {
+                string[] folders = Directory.GetDirectories(FolderPath);
+
+                foreach (string folderPath in folders)
+                {
+                    FolderName = Path.GetFileName(folderPath);
+
+                    Debug.Log("Found folder " + FolderName + " at " + folderPath);
+
+                    // Ensure folder exists and is valid
+                    if (!string.IsNullOrEmpty(FolderName))
+                    {
+                        //Sets everything up
+                        //Create the new button for each loaded clip
+                        GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
+                        newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
+                        newActivityButton.name = "Button " + FolderName;
+
+                        //Add the button to the list
+                        Button buttonComponent = newActivityButton.GetComponent<Button>();
+                        ActivityButtons.Add(buttonComponent);
+
+                        //Create the new Activity game object
+                        GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
+                        newActivity.name = FolderName;
+
+                        //Assign the button index correctly
+                        int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
+                        newActivityButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
+
+                        //Ensure that on click it triggers the correct Activity
+                        buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
+
+                        //Assign the Fade time to the Activity Controller
+                        newActivity.GetComponent<UnityActivityManager>().FadeDuration = FadeDuration;
+
+                        newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
+                        newActivity.GetComponent<ActivityClipLoader>().LoadClips();
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Folder not found in specified directory. " + Directory.GetDirectories(FolderPath));
+                    }
+                }
+            }
+#endif
+        }
+    }
+
+    //Ensures theres no button duplicates
+    private void RemoveOldStuff()
+    {
+        //Destroy all the old buttons
+        for (int i = 0; i < ActivityButtons.Count; i++)
+        {
+            ActivityButtons[i].GetComponent<AmbientButtonController>().DestroyMe();
+        }
+        ActivityButtons.Clear();
+
+        //Destroy all old Audiosources
+        for (int i = 0; i < ActivityAudioSources.Count; i++)
+        {
+            Destroy(ActivityAudioSources[i].gameObject);
+        }
+        ActivityAudioSources.Clear();
+
+        //Clear all the loaded clips
+        ActivityClips.Clear();
+
+        //Clear all the integers
+        NewActivityInt = 0;
+        PreloadedActivities = 0;
+
+        //Sets clean to true and loads the correct buttons back in
+        clean = true;
+        LoadExistingWavFiles();
     }
 }
