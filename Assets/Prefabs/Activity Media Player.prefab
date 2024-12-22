@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Activity: {fileID: 0}
-  ActivityPlayerControls: {fileID: 135843090399341489}
+  ActivityPlayerControls: {fileID: 0}
   DisabledPlayerControls: {fileID: 0}
   CurrentSong: {fileID: 3873562959426779629}
   CurrentTime: {fileID: 8201607408434022428}

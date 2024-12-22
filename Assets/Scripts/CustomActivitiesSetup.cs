@@ -22,7 +22,7 @@ public class CustomActivitiesSetup : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject ActivityButtonGroup;
     [SerializeField] private GameObject ActivitiesParent;
-    [SerializeField] private GameObject PLayerParent;
+    [SerializeField] private GameObject PlayerParent;
     [SerializeField] private GameObject CustomisationMenuUI;
     [SerializeField] private GameObject InactiveMediaPlayer;
     [SerializeField] private GameObject NewActivityUI;
@@ -120,7 +120,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
 
         //Create a new Media Player for the activity
-        GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PLayerParent.transform);
+        GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
         newActivityPlayer.name = ActivityName + " Media Player";
         newActivityPlayer.GetComponent<UIActivitySetup>().Activity = newActivity;
 
@@ -148,6 +148,9 @@ public class CustomActivitiesSetup : MonoBehaviour
     //Loads existing .wav files from the specified FilePath and creates buttons for them. triggered by scene controller
     public void LoadExistingWavFiles()
     {
+        //Gets reference to the ActivityManager
+        UnityActivityManager ActivityManager = gameObject.GetComponent<UnityActivityManager>();
+
         //Checks if buttons have already been loaded
         if (!clean)
         {
@@ -196,9 +199,17 @@ public class CustomActivitiesSetup : MonoBehaviour
                 //Ensure that on click it triggers the correct Activity
                 buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
 
-                //Add activity to the buttonUI script
-                buttonComponent.GetComponent<UIActivitySetup>().Activity = newActivity;
+                //Create a new Media Player for the activity
+                GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
+                newActivityPlayer.name = ActivityName + " Media Player";
+                newActivityPlayer.GetComponent<UIActivitySetup>().Activity = newActivity;
 
+                //Triggers the player to set itself up
+                newActivityPlayer.GetComponent<UIActivitySetup>().LoadActivity();
+
+                //Add the media player to the list
+                ActivityMediaPlayers.Add(newActivityPlayer);
+                ActivityManager.PlayersList.Add(newActivityPlayer);
 
                 // Check if the folder is directly under the specified directory
                 if (System.IO.Path.GetDirectoryName(folderPath) == FolderPath)
@@ -255,6 +266,19 @@ public class CustomActivitiesSetup : MonoBehaviour
                         //Ensure that on click it triggers the correct Activity
                         buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
 
+                        //Create a new Media Player for the activity
+                        GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
+                        newActivityPlayer.name = ActivityName + " Media Player";
+                        newActivityPlayer.GetComponent<UIActivitySetup>().Activity = newActivity;
+
+                        //Triggers the player to set itself up
+                        newActivityPlayer.GetComponent<UIActivitySetup>().LoadActivity();
+
+                        //Add the media player to the list
+                        ActivityMediaPlayers.Add(newActivityPlayer);
+                        ActivityManager.PlayersList.Add(newActivityPlayer);
+
+                        //Begins loading all the clips
                         newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
                         newActivity.GetComponent<ActivityClipLoader>().LoadClips();
                     }
