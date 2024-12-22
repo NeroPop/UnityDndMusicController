@@ -17,17 +17,21 @@ public class CustomActivitiesSetup : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject ActivityPrefab;
     [SerializeField] private GameObject ActivityButtonPrefab;
+    [SerializeField] private GameObject ActivityPlayerPrefab;
 
     [Header("References")]
     [SerializeField] private GameObject ActivityButtonGroup;
     [SerializeField] private GameObject ActivitiesParent;
+    [SerializeField] private GameObject PLayerParent;
     [SerializeField] private GameObject CustomisationMenuUI;
+    [SerializeField] private GameObject InactiveMediaPlayer;
     [SerializeField] private GameObject NewActivityUI;
     [SerializeField] private TMP_InputField ActivityNameInput;
     [SerializeField] private CustomisationInterface CustomisationInterface;
 
     [Header("Lists")]
     public List<Button> ActivityButtons = new List<Button>();
+    public List<GameObject> ActivityMediaPlayers = new List<GameObject>();
     public List<AudioSource> ActivityAudioSources = new List<AudioSource>();
     public List<AudioClip> ActivityClips = new List<AudioClip>();
 
@@ -83,6 +87,8 @@ public class CustomActivitiesSetup : MonoBehaviour
 
     public void NewActivity()
     {
+        UnityActivityManager ActivityManager = gameObject.GetComponent<UnityActivityManager>();
+
         //Increment the counter for new Activity
         NewActivityInt++;
 
@@ -113,8 +119,17 @@ public class CustomActivitiesSetup : MonoBehaviour
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
         newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
 
-        //Add activity to the buttonUI script
-        buttonComponent.GetComponent<UIActivitySetup>().Activity = newActivity;
+        //Create a new Media Player for the activity
+        GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PLayerParent.transform);
+        newActivityPlayer.name = ActivityName + " Media Player";
+        newActivityPlayer.GetComponent<UIActivitySetup>().Activity = newActivity;
+
+        //Triggers the player to set itself up
+        newActivityPlayer.GetComponent<UIActivitySetup>().LoadActivity();
+
+        //Add the media player to the list
+        ActivityMediaPlayers.Add(newActivityPlayer);
+        ActivityManager.PlayersList.Add(newActivityPlayer);
 
         //Testing Debugs which can be removed when it works
         Debug.Log($"ActivityButtons.Count: {ActivityButtons.Count}");

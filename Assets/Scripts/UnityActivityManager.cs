@@ -14,6 +14,7 @@ public class UnityActivityManager : MonoBehaviour
 
     [Header("Activities")]
     public List<GameObject> ActivitiesList = new List<GameObject>();
+    public List<GameObject> PlayersList = new List<GameObject>();
 
     [Header("Buttons")]
 
@@ -58,7 +59,7 @@ public class UnityActivityManager : MonoBehaviour
         if (Act > 0) //Resets the scene if it was left on
         {
             ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
+            PlayersList[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
 
             SceneChange = true;
         }
@@ -101,13 +102,13 @@ public class UnityActivityManager : MonoBehaviour
 
             //changes the button sprites
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOn();
+            PlayersList[Act - 1].GetComponent<UIActivitySetup>().ActivityOn();
 
             //ensures the erray isn't out of bounds
             if (PrevAct > 0)
             {
                 ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-                ActivityButtons[PrevAct - 1].GetComponent<UIActivitySetup>().ActivityOff(false);
+                PlayersList[PrevAct - 1].GetComponent<UIActivitySetup>().ActivityOff(false);
             }
             //Debug.Log("Playing activity " + ActivityNumber);
         }
@@ -116,7 +117,7 @@ public class UnityActivityManager : MonoBehaviour
         else
         {
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            ActivityButtons[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
+            PlayersList[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
             Act = 0;
 
             CurrentTime = 0;
