@@ -36,7 +36,7 @@ public class CustomActivitiesSetup : MonoBehaviour
     private TMP_Text DisplayText;
 
 
-    [Header("Ambience Properties")]
+    [Header("Activities Properties")]
     public string SceneName;
     public string ActivityName;
     public int NewActivityInt;
