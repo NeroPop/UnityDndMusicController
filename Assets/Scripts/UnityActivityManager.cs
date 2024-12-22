@@ -16,6 +16,9 @@ public class UnityActivityManager : MonoBehaviour
     public List<GameObject> ActivitiesList = new List<GameObject>();
     public List<GameObject> PlayersList = new List<GameObject>();
 
+    [Header("UI Player")]
+    [SerializeField] private UIPlayerController PlayerController;
+
     [Header("Buttons")]
 
     [SerializeField]
@@ -59,7 +62,8 @@ public class UnityActivityManager : MonoBehaviour
         if (Act > 0) //Resets the scene if it was left on
         {
             ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            PlayersList[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
+            PlayerController.Act = Act -1;
+            PlayerController.ActivityOff(true);
 
             SceneChange = true;
         }
@@ -102,13 +106,15 @@ public class UnityActivityManager : MonoBehaviour
 
             //changes the button sprites
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
-            PlayersList[Act - 1].GetComponent<UIActivitySetup>().ActivityOn();
+            PlayerController.Act = Act - 1;
+            PlayerController.ActivityOff(true);
 
             //ensures the erray isn't out of bounds
             if (PrevAct > 0)
             {
                 ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-                PlayersList[PrevAct - 1].GetComponent<UIActivitySetup>().ActivityOff(false);
+                PlayerController.Act = PrevAct - 1;
+                PlayerController.ActivityOff(true);
             }
             //Debug.Log("Playing activity " + ActivityNumber);
         }
@@ -117,7 +123,8 @@ public class UnityActivityManager : MonoBehaviour
         else
         {
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonDefaultSprite;
-            PlayersList[Act - 1].GetComponent<UIActivitySetup>().ActivityOff(true);
+            PlayerController.Act = Act - 1;
+            PlayerController.ActivityOff(true);
             Act = 0;
 
             CurrentTime = 0;

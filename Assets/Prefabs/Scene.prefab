@@ -8341,7 +8341,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe014b7720e77a43876c637585c015a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivityMediaPlayers: []
+  DisabledPlayerControls: {fileID: 2040670846298137579}
+  ActivityPlayers: []
+  Act: 0
 --- !u!1 &6836080669747945419
 GameObject:
   m_ObjectHideFlags: 0
@@ -11131,6 +11133,7 @@ MonoBehaviour:
   - VictoryVol
   ActivitiesList: []
   PlayersList: []
+  PlayerController: {fileID: 6212171480866362010}
   ActivityButtons:
   - {fileID: 0}
   - {fileID: 0}
