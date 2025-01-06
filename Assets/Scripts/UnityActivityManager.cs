@@ -7,10 +7,8 @@ using UnityEngine.UI;
 public class UnityActivityManager : MonoBehaviour
 {
     [Header("Audio Mixers")]
-
-    public AudioMixerGroup[] ActivityMixers;
-
-    public string[] MixerVolNames;
+    public List<AudioMixerGroup> ActivityMixers = new List<AudioMixerGroup>();
+    public List<string> MixerVolNames = new List<string>();
 
     [Header("Activities")]
     public List<GameObject> ActivitiesList = new List<GameObject>();
