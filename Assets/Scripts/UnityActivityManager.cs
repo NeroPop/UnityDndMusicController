@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class UnityActivityManager : MonoBehaviour
 {
     [Header("Audio Mixers")]
-    public List<AudioMixerGroup> ActivityMixers = new List<AudioMixerGroup>();
-    public List<string> MixerVolNames = new List<string>();
+    public List<AudioMixerGroup> ActivityMixers = new();
+    public List<string> MixerVolNames = new();
 
     [Header("Activities")]
     public List<GameObject> ActivitiesList = new List<GameObject>();
@@ -144,7 +144,7 @@ public class UnityActivityManager : MonoBehaviour
             MixerInt = MixerInt + 1;
             //Debug.Log("Setting Mixer " + MixerInt);
 
-            if (MixerInt > ActivityMixers.Length - 1)
+            if (MixerInt > ActivityMixers.Count - 1)
             {
                 SceneChange = false;
                 MixerInt = 0;
