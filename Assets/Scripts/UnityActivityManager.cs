@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class UnityActivityManager : MonoBehaviour
 {
     [Header("Audio Mixers")]
-    public List<AudioMixerGroup> ActivityMixers = new();
-    public List<string> MixerVolNames = new();
+   // public List<AudioMixerGroup> ActivityMixers = new();
+   // public List<string> MixerVolNames = new();
 
     [Header("Activities")]
     public List<GameObject> ActivitiesList = new List<GameObject>();
@@ -50,7 +50,7 @@ public class UnityActivityManager : MonoBehaviour
     private float CurFadeTime;      //the amount the previous activity had faded, aka its volume level.
     private float OldCurFadeTime;   //The previous CurFadeTime remaining if it switches again whilst still fading.
 
-    private int MixerInt = 0;
+    private int MixerInt = 0;   //integer used to cycle through the activity volumes
     private bool SceneChange = false;
     private bool ActSelected = false;
 
@@ -76,7 +76,8 @@ public class UnityActivityManager : MonoBehaviour
         if (RemainingVol > 0 && FadingAct > 0)
         {
             //sets the old old previous activity volume to 0.
-            ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(0) * 20);
+            ActivitiesList[FadingAct - 1].GetComponent<AudioSource>().volume = 0;
+            // Old volume mixer code: ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(0) * 20);
         }
 
         if (FadeoutVolume > 0 && PrevAct > 0)
@@ -140,11 +141,12 @@ public class UnityActivityManager : MonoBehaviour
 
         if (SceneChange) //if scene change is triggered it sets all the audio mixers to 0.
         {
-            ActivityMixers[MixerInt].audioMixer.SetFloat(MixerVolNames[MixerInt], Mathf.Log10(0) * 20);
+            //Old Volume Mixer Code: ActivityMixers[MixerInt].audioMixer.SetFloat(MixerVolNames[MixerInt], Mathf.Log10(0) * 20);
+            ActivitiesList[MixerInt].GetComponent<AudioSource>().volume = 0;
             MixerInt = MixerInt + 1;
             //Debug.Log("Setting Mixer " + MixerInt);
 
-            if (MixerInt > ActivityMixers.Count - 1)
+            if (MixerInt > ActivitiesList.Count - 1)
             {
                 SceneChange = false;
                 MixerInt = 0;
@@ -161,7 +163,9 @@ public class UnityActivityManager : MonoBehaviour
                 VolumeLevel = CurrentTime / FadeDuration;
 
                 //Sets the activity volume to VolumeLevel
-                ActivityMixers[Act - 1].audioMixer.SetFloat(MixerVolNames[Act - 1], Mathf.Log10(VolumeLevel) * 20);
+                ActivitiesList[Act - 1].GetComponent <AudioSource>().volume = VolumeLevel;
+               
+                //Old Volume Mixer Code: ActivityMixers[Act - 1].audioMixer.SetFloat(MixerVolNames[Act - 1], Mathf.Log10(VolumeLevel) * 20);
                 //Debug.Log("Fading in Activity " + Act + " Current Volume is " + VolumeLevel);
             }
 
@@ -174,7 +178,9 @@ public class UnityActivityManager : MonoBehaviour
                     FadeoutVolume = CurFadeTime - (CurrentTime / FadeDuration);
 
                     //sets the previous activity volume to FadeoutVolume which decreases over time.
-                    ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
+                    ActivitiesList[PrevAct - 1].GetComponent <AudioSource>().volume = FadeoutVolume;
+
+                    //Old Volume Mixer Code: ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
                     //Debug.Log("Fading out Activity " + PrevAct + " Current Volume is " + FadeoutVolume);
                 }
             }
@@ -187,7 +193,9 @@ public class UnityActivityManager : MonoBehaviour
                     RemainingVol = OldCurFadeTime - (CurrentTime / FadeDuration);
 
                     //fades out the old previous activity
-                    ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
+                    ActivitiesList[FadingAct - 1].GetComponent <AudioSource>().volume = RemainingVol;
+
+                    //Old Volume Mixer Code: ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
                 }
             }
         }
@@ -200,7 +208,9 @@ public class UnityActivityManager : MonoBehaviour
                 FadeoutVolume = (CurFadeTime - (CurrentTime / FadeDuration));
 
                 //sets the previous activity volume to FadeoutVolume which decreases over time.
-                ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
+                ActivitiesList[PrevAct - 1].GetComponent<AudioSource>().volume = FadeoutVolume;
+
+                //Old Volume Mixer Code: ActivityMixers[PrevAct - 1].audioMixer.SetFloat(MixerVolNames[PrevAct - 1], Mathf.Log10(FadeoutVolume) * 20);
             }
 
             //Music continues to fade out if it didnt finish
@@ -211,7 +221,9 @@ public class UnityActivityManager : MonoBehaviour
                     RemainingVol = OldCurFadeTime - (CurrentTime / FadeDuration);
 
                     //fades out the old previous activity
-                    ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
+                    ActivitiesList[FadingAct - 1].GetComponent<AudioSource>().volume = RemainingVol;
+
+                    //Old Volume Mixer Code: ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(RemainingVol) * 20);
                 }
             }
         }
