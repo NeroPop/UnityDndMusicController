@@ -11123,14 +11123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62357115cabce9b42bd31f5217df8336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivityMixers:
-  - {fileID: -5104604883596571870, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
-  - {fileID: 3850902299445579265, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
-  - {fileID: -486800320227940255, guid: 4202d0073eb71f84a953d95fde6b6d4b, type: 2}
-  MixerVolNames:
-  - ExploreVol
-  - CombatVol
-  - VictoryVol
   ActivitiesList: []
   PlayersList: []
   PlayerController: {fileID: 6212171480866362010}
@@ -11163,7 +11155,7 @@ MonoBehaviour:
   ActivitiesParent: {fileID: 2472816092138532865}
   PlayerParent: {fileID: 6813520779383896739}
   CustomisationMenuUI: {fileID: 1448866088284698969}
-  InactiveMediaPlayer: {fileID: 0}
+  InactiveMediaPlayer: {fileID: 2040670846298137579}
   NewActivityUI: {fileID: 1505602999385305630}
   ActivityNameInput: {fileID: 3047975920138578797}
   CustomisationInterface: {fileID: 3754310637275636935}
