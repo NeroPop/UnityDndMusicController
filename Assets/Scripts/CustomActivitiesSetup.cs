@@ -58,7 +58,14 @@ public class CustomActivitiesSetup : MonoBehaviour
 
     public void PlayActivity(int ActivityNumber)
     {
-        ActivityAudioSources[ActivityNumber].GetComponent<ActivityController>().PlaySong();
+        //Triggers the activity to start playing
+       // ActivityAudioSources[ActivityNumber].GetComponent<ActivityController>().PlaySong();
+
+        //Gets a reference to the Activity Manager
+        UnityActivityManager ActivityManager = gameObject.GetComponent<UnityActivityManager>();
+        ActivityManager.TriggerActivity(ActivityNumber + 1);
+
+        Debug.Log($"Activity {ActivityNumber} Triggered play");
     }
 
     public void SetupNewActivity() //Opens up the New Activity sound setup menu
@@ -118,6 +125,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Assign the audio clip to the audio source
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
         newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
+
 
         //Create a new Media Player for the activity
         GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);

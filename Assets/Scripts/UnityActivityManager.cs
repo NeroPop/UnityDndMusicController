@@ -104,7 +104,7 @@ public class UnityActivityManager : MonoBehaviour
             CurFadeTime = PreVolumeLevel;
 
             //changes the button sprites
-            ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
+           // ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
             PlayerController.Act = Act - 1;
             PlayerController.ActivityOff(true);
 
