@@ -78,41 +78,47 @@ public class UIActivitySetup : MonoBehaviour
         //Starts the song
         ActivityController.PlaySong();
     }
-   /* public void ToggleActivity()
+
+    public void DestroyMe()
     {
-        if (!ActSelected)
-        {
-            ActivityPlayerControls.SetActive(true);
-            DisabledPlayerControls.SetActive(false);
-            ActSelected = true;
-            ActivityController.ActSelected = ActSelected;
-        }
-        else if (ActSelected)
-        {
-            ActivityPlayerControls.SetActive(false);
-            DisabledPlayerControls.SetActive(true);
-            ActSelected = false;
-            ActivityController.ActSelected = ActSelected;
-        }
+        Destroy(gameObject);
     }
 
-    public void ActivityOn()
-    {
-        ActivityPlayerControls.SetActive(true);
-        DisabledPlayerControls.SetActive(false);
-        ActSelected = true;
-        ActivityController.ActSelected = ActSelected;
+    /* public void ToggleActivity()
+     {
+         if (!ActSelected)
+         {
+             ActivityPlayerControls.SetActive(true);
+             DisabledPlayerControls.SetActive(false);
+             ActSelected = true;
+             ActivityController.ActSelected = ActSelected;
+         }
+         else if (ActSelected)
+         {
+             ActivityPlayerControls.SetActive(false);
+             DisabledPlayerControls.SetActive(true);
+             ActSelected = false;
+             ActivityController.ActSelected = ActSelected;
+         }
+     }
 
-    }
+     public void ActivityOn()
+     {
+         ActivityPlayerControls.SetActive(true);
+         DisabledPlayerControls.SetActive(false);
+         ActSelected = true;
+         ActivityController.ActSelected = ActSelected;
 
-    public void ActivityOff(bool Inactive)
-    {
-        ActivityPlayerControls.SetActive(false);
-        ActSelected = false;
-        ActivityController.ActSelected = ActSelected;
-        if (Inactive)
-        {
-            DisabledPlayerControls.SetActive(true);
-        }
-    }*/
+     }
+
+     public void ActivityOff(bool Inactive)
+     {
+         ActivityPlayerControls.SetActive(false);
+         ActSelected = false;
+         ActivityController.ActSelected = ActSelected;
+         if (Inactive)
+         {
+             DisabledPlayerControls.SetActive(true);
+         }
+     }*/
 }

@@ -380,9 +380,17 @@ public class CustomActivitiesSetup : MonoBehaviour
             Destroy(ActivityAudioSources[i].gameObject);
             ActivityAudioSources[i].GetComponent<ActivityClipLoader>().Clean();
         }
-
-        //Clear all audiosources
         ActivityAudioSources.Clear();
+
+        //Destroy all old Media players
+        for (int i = 0; i < ActivityMediaPlayers.Count; i++)
+        {
+            ActivityMediaPlayers[i].GetComponent<UIActivitySetup>().DestroyMe();
+        }
+        ActivityAudioSources.Clear();
+
+        //Clear all media players from player controller
+        PlayerParent.GetComponent<UIPlayerController>().ActivityPlayers.Clear();
 
         //Clear all the loaded clips
         ActivityClips.Clear();
