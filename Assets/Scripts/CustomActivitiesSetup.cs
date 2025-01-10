@@ -147,6 +147,9 @@ public class CustomActivitiesSetup : MonoBehaviour
         ActivityMediaPlayers.Add(newActivityPlayer);
         ActivityManager.PlayersList.Add(newActivityPlayer);
 
+        //Adds media player to Player Controller list
+        PlayerParent.GetComponent<UIPlayerController>().ActivityPlayers.Add(newActivityPlayer);
+
         //disable the media player
         newActivityPlayer.SetActive(false);
 
@@ -243,6 +246,9 @@ public class CustomActivitiesSetup : MonoBehaviour
                 ActivityMediaPlayers.Add(newActivityPlayer);
                 ActivityManager.PlayersList.Add(newActivityPlayer);
 
+                //Adds media player to Player Controller list
+                PlayerParent.GetComponent<UIPlayerController>().ActivityPlayers.Add(newActivityPlayer);
+
                 //disable the media player
                 newActivityPlayer.SetActive(false);
 
@@ -332,6 +338,9 @@ public class CustomActivitiesSetup : MonoBehaviour
                             //Add the media player to the list
                             ActivityMediaPlayers.Add(newActivityPlayer);
                             ActivityManager.PlayersList.Add(newActivityPlayer);
+
+                            //Adds media player to Player Controller list
+                            PlayerParent.GetComponent<UIPlayerController>().ActivityPlayers.Add(newActivityPlayer);
 
                             //disable the media player
                             newActivityPlayer.SetActive(false);
