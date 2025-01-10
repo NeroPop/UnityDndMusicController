@@ -13,8 +13,6 @@ public class UIPlayerController : MonoBehaviour
     public int Act;
     private int PrevAct;
 
-    private ActivityController ActivityController;
-
     public void ToggleActivity(int Act)
     {
         if (Act != PrevAct)
@@ -22,14 +20,12 @@ public class UIPlayerController : MonoBehaviour
             ActivityPlayers[Act].SetActive(true);
             DisabledPlayerControls.SetActive(false);
             ActSelected = true;
-            ActivityController.ActSelected = ActSelected;
         }
         else if (Act == PrevAct)
         {
             ActivityPlayers[Act].SetActive(false);
             DisabledPlayerControls.SetActive(true);
             ActSelected = false;
-            ActivityController.ActSelected = ActSelected;
         }
 
         PrevAct = Act;
@@ -40,14 +36,12 @@ public class UIPlayerController : MonoBehaviour
         ActivityPlayers[Act].SetActive(true);
         DisabledPlayerControls.SetActive(false);
         ActSelected = true;
-        ActivityController.ActSelected = ActSelected;
     }
 
     public void ActivityOff(bool Inactive)
     {
         ActivityPlayers[Act].SetActive(false);
         ActSelected = false;
-        ActivityController.ActSelected = ActSelected;
         if (Inactive)
         {
             DisabledPlayerControls.SetActive(true);
