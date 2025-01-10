@@ -355,6 +355,9 @@ public class CustomActivitiesSetup : MonoBehaviour
     //Ensures theres no button duplicates
     private void RemoveOldStuff()
     {
+        //Gets reference to the ActivityManager
+        UnityActivityManager ActivityManager = gameObject.GetComponent<UnityActivityManager>();
+
         //Destroy all the old buttons
         for (int i = 0; i < ActivityButtons.Count; i++)
         {
@@ -368,6 +371,8 @@ public class CustomActivitiesSetup : MonoBehaviour
             Destroy(ActivityAudioSources[i].gameObject);
             ActivityAudioSources[i].GetComponent<ActivityClipLoader>().Clean();
         }
+
+        //Clear all audiosources
         ActivityAudioSources.Clear();
 
         //Clear all the loaded clips
@@ -376,6 +381,11 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Clear all the integers
         NewActivityInt = 0;
         PreloadedActivities = 0;
+
+        //Clears the lists in ActivityManager
+        ActivityManager.ActivitiesList.Clear();
+        ActivityManager.PlayersList.Clear();
+        ActivityManager.ActivityButtons.Clear();
 
         //Sets clean to true and loads the correct buttons back in
         clean = true;
