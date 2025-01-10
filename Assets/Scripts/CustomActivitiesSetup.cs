@@ -49,7 +49,7 @@ public class CustomActivitiesSetup : MonoBehaviour
     private string FolderPath;
     private string FolderName;
     private string AudioFolderPath;
-    public bool clean = true;
+    public bool clean;
 
     private void Start()
     {
@@ -128,6 +128,9 @@ public class CustomActivitiesSetup : MonoBehaviour
         GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
         newActivity.name = ActivityName;
 
+        //Assign the new Activity to the Activity Manager list
+        ActivityManager.ActivitiesList.Add(newActivity);
+
         //Assign the audio clip to the audio source
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
         newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
@@ -143,6 +146,9 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Add the media player to the list
         ActivityMediaPlayers.Add(newActivityPlayer);
         ActivityManager.PlayersList.Add(newActivityPlayer);
+
+        //disable the media player
+        newActivityPlayer.SetActive(false);
 
         //Testing Debugs which can be removed when it works
         Debug.Log($"ActivityButtons.Count: {ActivityButtons.Count}");
@@ -186,6 +192,7 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                 // Extract folder name
                 FolderName = System.IO.Path.GetFileName(folderPath);
+                Debug.Log($"Loading folder {FolderName}");
 
                 PreloadedActivities++; //Increment the counter for loaded activities
 
@@ -215,8 +222,6 @@ public class CustomActivitiesSetup : MonoBehaviour
                 newActivity.name = FolderName;
 
                 //Assign the audio clip to the audio source
-                Debug.Log($"Preloaded Activities = {PreloadedActivities} and Number of activity clips is {ActivityClips.Count}");
-
                 if (ActivityClips.Count > 0)
                 {
                     ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
@@ -234,6 +239,9 @@ public class CustomActivitiesSetup : MonoBehaviour
                 //Add the media player to the list
                 ActivityMediaPlayers.Add(newActivityPlayer);
                 ActivityManager.PlayersList.Add(newActivityPlayer);
+
+                //disable the media player
+                newActivityPlayer.SetActive(false);
 
                 // Check if the folder is directly under the specified directory
                 if (System.IO.Path.GetDirectoryName(folderPath) == FolderPath)
@@ -258,66 +266,78 @@ public class CustomActivitiesSetup : MonoBehaviour
 
             if (Directory.Exists(FolderPath))
             {
-                string[] folders = Directory.GetDirectories(FolderPath);
-
-                foreach (string folderPath in folders)
+                if (!clean)
                 {
-                    FolderName = Path.GetFileName(folderPath);
+                    RemoveOldStuff();
+                }
 
-                    Debug.Log("Found folder " + FolderName + " at " + folderPath);
+                else
+                {
+                    string[] folders = Directory.GetDirectories(FolderPath);
 
-                    // Ensure folder exists and is valid
-                    if (!string.IsNullOrEmpty(FolderName))
+                    foreach (string folderPath in folders)
                     {
-                        //Sets everything up
-                        //Create the new button for each loaded clip
-                        GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
-                        newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
-                        newActivityButton.name = "Button " + FolderName;
+                        FolderName = Path.GetFileName(folderPath);
 
-                        //Add the button to the list
-                        Button buttonComponent = newActivityButton.GetComponent<Button>();
-                        ActivityButtons.Add(buttonComponent);
+                        Debug.Log("Found folder " + FolderName + " at " + folderPath);
 
-                        //Add the button to the Activity Manager list
-                        ActivityManager.ActivityButtons.Add(newActivityButton);
+                        // Ensure folder exists and is valid
+                        if (!string.IsNullOrEmpty(FolderName))
+                        {
+                            //Sets everything up
+                            //Create the new button for each loaded clip
+                            GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
+                            newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
+                            newActivityButton.name = "Button " + FolderName;
 
-                        //Create the new Activity game object
-                        GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
-                        newActivity.name = FolderName;
+                            //Add the button to the list
+                            Button buttonComponent = newActivityButton.GetComponent<Button>();
+                            ActivityButtons.Add(buttonComponent);
 
-                        //Assign the audio clip to the audio source
-                        ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
-                        newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities - 1];
+                            //Add the button to the Activity Manager list
+                            ActivityManager.ActivityButtons.Add(newActivityButton);
 
-                        //Assign the button index correctly
-                        int buttonIndex = PreloadedActivities + PreloadedActivities - 1; //Use the last index in the list
-                        newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
+                            //Create the new Activity game object
+                            GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
+                            newActivity.name = FolderName;
 
-                        //Ensure that on click it triggers the correct Activity
-                        buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
+                            //Assign the audio clip to the audio source
+                            ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
+                            newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities - 1];
 
-                        //Create a new Media Player for the activity
-                        GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
-                        newActivityPlayer.name = ActivityName + " Media Player";
-                        newActivityPlayer.GetComponent<UIActivitySetup>().Activity = newActivity;
+                            //Assign the button index correctly
+                            int buttonIndex = PreloadedActivities + PreloadedActivities - 1; //Use the last index in the list
+                            newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
-                        //Triggers the player to set itself up
-                        newActivityPlayer.GetComponent<UIActivitySetup>().LoadActivity();
+                            //Ensure that on click it triggers the correct Activity
+                            buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
 
-                        //Add the media player to the list
-                        ActivityMediaPlayers.Add(newActivityPlayer);
-                        ActivityManager.PlayersList.Add(newActivityPlayer);
+                            //Create a new Media Player for the activity
+                            GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
+                            newActivityPlayer.name = ActivityName + " Media Player";
+                            newActivityPlayer.GetComponent<UIActivitySetup>().Activity = newActivity;
 
-                        //Begins loading all the clips
-                        newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
-                        newActivity.GetComponent<ActivityClipLoader>().LoadClips();
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Folder not found in specified directory. " + Directory.GetDirectories(FolderPath));
+                            //Triggers the player to set itself up
+                            newActivityPlayer.GetComponent<UIActivitySetup>().LoadActivity();
+
+                            //Add the media player to the list
+                            ActivityMediaPlayers.Add(newActivityPlayer);
+                            ActivityManager.PlayersList.Add(newActivityPlayer);
+
+                            //disable the media player
+                            newActivityPlayer.SetActive(false);
+
+                            //Begins loading all the clips
+                            newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
+                            newActivity.GetComponent<ActivityClipLoader>().LoadClips();
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Folder not found in specified directory. " + Directory.GetDirectories(FolderPath));
+                        }
                     }
                 }
+                
             }
 #endif
         }
