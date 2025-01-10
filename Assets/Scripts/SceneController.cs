@@ -39,6 +39,10 @@ public class SceneController : MonoBehaviour
 
         //Adds listener to the scene title button for Scene switching
         SceneTitle.onClick.AddListener(SceneManager.GetComponent<SceneManager>().SelectSceneUI);
+
+        //Clean Activities
+        MusicManager.GetComponent<CustomActivitiesSetup>().clean = false;
+
         Debug.Log("Scene " + SceneName + " has started");
     }
     public void ActivateScene() //Triggered when a scene is activated
@@ -70,6 +74,6 @@ public class SceneController : MonoBehaviour
         MusicManager.GetComponent<CustomActivitiesSetup>().clean = false;
         MusicManager.GetComponent<OneShotManager>().clean = false;
         MusicManager.GetComponent<AmbienceManager>().clean = false;
-        Debug.Log("Scene Deactivated");
+        Debug.Log($"{SceneName} Deactivated");
     }
 }
