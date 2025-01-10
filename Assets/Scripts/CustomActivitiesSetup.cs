@@ -221,6 +221,9 @@ public class CustomActivitiesSetup : MonoBehaviour
                 GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
                 newActivity.name = FolderName;
 
+                //Assign the new Activity to the Activity Manager list
+                ActivityManager.ActivitiesList.Add(newActivity);
+
                 //Assign the audio clip to the audio source
                 if (ActivityClips.Count > 0)
                 {
@@ -301,9 +304,15 @@ public class CustomActivitiesSetup : MonoBehaviour
                             GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
                             newActivity.name = FolderName;
 
+                            //Assign the new Activity to the Activity Manager list
+                            ActivityManager.ActivitiesList.Add(newActivity);
+
                             //Assign the audio clip to the audio source
-                            ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
-                            newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities - 1];
+                            if (ActivityClips.Count > 0)
+                            {
+                                ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
+                                newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
+                            }
 
                             //Assign the button index correctly
                             int buttonIndex = PreloadedActivities + PreloadedActivities - 1; //Use the last index in the list
