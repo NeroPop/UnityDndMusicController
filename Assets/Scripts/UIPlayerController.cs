@@ -13,6 +13,16 @@ public class UIPlayerController : MonoBehaviour
     public int Act;
     private int PrevAct;
 
+    private void Start()
+    {
+        if (ActivityPlayers.Count > 0)
+        {
+            foreach (GameObject player in ActivityPlayers)
+            {
+                player.GetComponent<UIActivitySetup>().LoadActivity();
+            }
+        }
+    }
     public void ToggleActivity(int Act)
     {
         if (Act != PrevAct)

@@ -32,8 +32,6 @@ public class UIActivitySetup : MonoBehaviour
 
     public void LoadActivity()
     {
-        Debug.Log("Loaded new Activity Player");
-
         ActivityController = Activity.GetComponent<ActivityController>();
 
         //Find the disabled activity controller via the parent of the current activity
