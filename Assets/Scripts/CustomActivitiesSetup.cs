@@ -201,6 +201,20 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                 //Setup the activity
 
+                //Create the new Activity game object
+                GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
+                newActivity.name = FolderName;
+
+                //Assign the new Activity to the Activity Manager list
+                ActivityManager.ActivitiesList.Add(newActivity);
+
+                //Assign the audio clip to the audio source
+                if (ActivityClips.Count > 0)
+                {
+                    ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
+                    newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
+                }
+
                 //Create the new button for each loaded clip
                 GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
                 newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
@@ -219,20 +233,6 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                 //Ensure that on click it triggers the correct Activity
                 buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
-
-                //Create the new Activity game object
-                GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
-                newActivity.name = FolderName;
-
-                //Assign the new Activity to the Activity Manager list
-                ActivityManager.ActivitiesList.Add(newActivity);
-
-                //Assign the audio clip to the audio source
-                if (ActivityClips.Count > 0)
-                {
-                    ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
-                    newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
-                }
 
                 //Create a new Media Player for the activity
                 GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
@@ -263,7 +263,7 @@ public class CustomActivitiesSetup : MonoBehaviour
                     Debug.LogWarning("Folder not found in specified directory " + System.IO.Path.GetDirectoryName(folderPath));
                 }
             }
-#else
+//#else
             //Sets the Folder path for in Build
             FolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities");
 
