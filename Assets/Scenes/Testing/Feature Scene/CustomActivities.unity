@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -228,6 +228,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20497536}
   m_CullTransparentMesh: 1
+--- !u!1 &92667304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2677551913210158573, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
+  m_PrefabInstance: {fileID: 2743109896548074679}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &187393229
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +309,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187393229}
   m_CullTransparentMesh: 1
+--- !u!1 &195488004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6639812901559326951, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
+  m_PrefabInstance: {fileID: 2743109896548074679}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &209955191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,7 +1593,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6524431059683733104, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
   m_PrefabInstance: {fileID: 2743109896548074679}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 92667304}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -1961,7 +1971,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2559916626531691386, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
   m_PrefabInstance: {fileID: 2743109896548074679}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 195488004}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -2386,8 +2396,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3570190248681764792, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
       propertyPath: ActivityButtons.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3570190248681764792, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
+      propertyPath: ActivityButtons.Array.data[0]
+      value: 
+      objectReference: {fileID: 92667304}
+    - target: {fileID: 3570190248681764792, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
+      propertyPath: ActivityButtons.Array.data[1]
+      value: 
+      objectReference: {fileID: 195488004}
     - target: {fileID: 3597526945230388267, guid: db914130b88ff7a42a51c136ef859c4d, type: 3}
       propertyPath: SceneName
       value: Activities Test Scene

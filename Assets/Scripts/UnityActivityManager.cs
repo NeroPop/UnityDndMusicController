@@ -61,7 +61,6 @@ public class UnityActivityManager : MonoBehaviour
         {
             ActivityButtons[Act - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
             PlayerController.Act = Act -1;
-            Debug.Log("Line 64");
             PlayerController.ActivityOff(true);
 
             SceneChange = true;
@@ -105,7 +104,7 @@ public class UnityActivityManager : MonoBehaviour
             CurFadeTime = PreVolumeLevel;
 
             //changes the button sprites
-            // ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
+            ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
 
             //Sets the Activity to false
             ActivitiesList[Act - 1].GetComponent<ActivityController>().ActSelected = false;
