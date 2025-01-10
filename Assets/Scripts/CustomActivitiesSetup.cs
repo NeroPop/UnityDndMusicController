@@ -114,6 +114,9 @@ public class CustomActivitiesSetup : MonoBehaviour
         Button buttonComponent = newActivityButton.GetComponent<Button>();
         ActivityButtons.Add(buttonComponent);
 
+        //Add the button to the Activity Manager list
+        ActivityManager.ActivityButtons.Add(newActivityButton);
+
         //Assign the button index correctly
         int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
         newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;

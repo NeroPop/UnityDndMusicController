@@ -18,9 +18,7 @@ public class UnityActivityManager : MonoBehaviour
     [SerializeField] private UIPlayerController PlayerController;
 
     [Header("Buttons")]
-
-    [SerializeField]
-    private GameObject[] ActivityButtons;
+    public List<GameObject> ActivityButtons = new List<GameObject>();
 
     [SerializeField]
     private Sprite ButtonDefaultSprite;
@@ -106,16 +104,20 @@ public class UnityActivityManager : MonoBehaviour
             //changes the button sprites
             ActivityButtons[Act-1].GetComponent<Image>().sprite = ButtonSelectedSprite;
 
-            //Sets the Activity to false
-            ActivitiesList[Act - 1].GetComponent<ActivityController>().ActSelected = false;
+            //Sets the Activity to true
+            ActivitiesList[Act - 1].GetComponent<ActivityController>().ActSelected = true;
 
             PlayerController.Act = Act - 1;
-            PlayerController.ActivityOff(true);
+            PlayerController.ActivityOn();
 
             //ensures the erray isn't out of bounds
             if (PrevAct > 0)
             {
                 ActivityButtons[PrevAct - 1].GetComponent<Image>().sprite = ButtonDefaultSprite;
+
+                //Sets the Previous Activity to false
+                ActivitiesList[PrevAct - 1].GetComponent<ActivityController>().ActSelected = false;
+
                 PlayerController.Act = PrevAct - 1;
                 PlayerController.ActivityOff(true);
             }
