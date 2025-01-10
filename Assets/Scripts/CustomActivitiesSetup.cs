@@ -59,11 +59,14 @@ public class CustomActivitiesSetup : MonoBehaviour
     public void PlayActivity(int ActivityNumber)
     {
         //Triggers the activity to start playing
-       // ActivityAudioSources[ActivityNumber].GetComponent<ActivityController>().PlaySong();
+        //ActivityAudioSources[ActivityNumber].GetComponent<ActivityController>().PlaySong();
 
         //Gets a reference to the Activity Manager
         UnityActivityManager ActivityManager = gameObject.GetComponent<UnityActivityManager>();
-        ActivityManager.TriggerActivity(ActivityNumber + 1);
+
+        //Sets the Activity number and then triggers it
+        ActivityNumber++;
+        ActivityManager.TriggerActivity(ActivityNumber);
 
         Debug.Log($"Activity {ActivityNumber} Triggered play");
     }
