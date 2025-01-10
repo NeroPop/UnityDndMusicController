@@ -150,8 +150,7 @@ public class UnityActivityManager : MonoBehaviour
         if (SceneChange) //if scene change is triggered it sets all the audio mixers to 0.
         {
             //Old Volume Mixer Code: ActivityMixers[MixerInt].audioMixer.SetFloat(MixerVolNames[MixerInt], Mathf.Log10(0) * 20);
-            ActivitiesList[MixerInt].GetComponent<AudioSource>().volume = 0;
-            MixerInt = MixerInt + 1;
+            Debug.Log($"Mixers Int = {MixerInt} and there are {ActivitiesList.Count -1} activities");
             //Debug.Log("Setting Mixer " + MixerInt);
 
             if (MixerInt > ActivitiesList.Count - 1)
@@ -159,6 +158,11 @@ public class UnityActivityManager : MonoBehaviour
                 SceneChange = false;
                 MixerInt = 0;
                 //Debug.Log("All audio is now 0");
+            }
+            else
+            {
+                ActivitiesList[MixerInt].GetComponent<AudioSource>().volume = 0;
+                MixerInt++;
             }
         }
         //checks if activity is playing or not
