@@ -199,11 +199,12 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                 PreloadedActivities++; //Increment the counter for loaded activities
 
-                //Setup the activity
-
                 //Create the new Activity game object
                 GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
                 newActivity.name = FolderName;
+
+                //Add Activity to the list
+                ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
 
                 //Assign the new Activity to the Activity Manager list
                 ActivityManager.ActivitiesList.Add(newActivity);
@@ -211,7 +212,6 @@ public class CustomActivitiesSetup : MonoBehaviour
                 //Assign the audio clip to the audio source
                 if (ActivityClips.Count > 0)
                 {
-                    ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
                     newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
                 }
 
@@ -263,7 +263,7 @@ public class CustomActivitiesSetup : MonoBehaviour
                     Debug.LogWarning("Folder not found in specified directory " + System.IO.Path.GetDirectoryName(folderPath));
                 }
             }
-//#else
+#else
             //Sets the Folder path for in Build
             FolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities");
 
@@ -309,6 +309,9 @@ public class CustomActivitiesSetup : MonoBehaviour
                             //Create the new Activity game object
                             GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
                             newActivity.name = FolderName;
+
+                            //Add Activity to the list
+                            ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
 
                             //Assign the new Activity to the Activity Manager list
                             ActivityManager.ActivitiesList.Add(newActivity);
@@ -377,8 +380,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Destroy all old Audiosources
         for (int i = 0; i < ActivityAudioSources.Count; i++)
         {
-            Destroy(ActivityAudioSources[i].gameObject);
-            ActivityAudioSources[i].GetComponent<ActivityClipLoader>().Clean();
+            ActivityAudioSources[i].gameObject.GetComponent<ActivityController>().DestroyMe();
         }
         ActivityAudioSources.Clear();
 
@@ -387,7 +389,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         {
             ActivityMediaPlayers[i].GetComponent<UIActivitySetup>().DestroyMe();
         }
-        ActivityAudioSources.Clear();
+        ActivityMediaPlayers.Clear();
 
         //Clear all media players from player controller
         PlayerParent.GetComponent<UIPlayerController>().ActivityPlayers.Clear();

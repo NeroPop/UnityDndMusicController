@@ -383,4 +383,10 @@ public class ActivityController : MonoBehaviour
         int seconds = Mathf.FloorToInt(time % 60);
         return $"{minutes:00}:{seconds:00}";
     }
+
+    public void DestroyMe()
+    {
+        Debug.LogWarning("Destroying Activity");
+        Destroy(gameObject);
+    }
 }
