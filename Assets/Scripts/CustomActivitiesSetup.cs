@@ -132,7 +132,6 @@ public class CustomActivitiesSetup : MonoBehaviour
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
         newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
 
-
         //Create a new Media Player for the activity
         GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
         newActivityPlayer.name = ActivityName + " Media Player";
@@ -196,15 +195,13 @@ public class CustomActivitiesSetup : MonoBehaviour
                 GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
                 newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
                 newActivityButton.name = "Button " + FolderName;
-                Debug.Log("New Activity Button Name = Button " + FolderName);
 
                 //Add the button to the list
                 Button buttonComponent = newActivityButton.GetComponent<Button>();
                 ActivityButtons.Add(buttonComponent);
 
-                //Create the new Activity game object
-                GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
-                newActivity.name = FolderName;
+                //Add the button to the Activity Manager list
+                ActivityManager.ActivityButtons.Add(newActivityButton);
 
                 //Assign the button index correctly
                 int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
@@ -212,6 +209,19 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                 //Ensure that on click it triggers the correct Activity
                 buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
+
+                //Create the new Activity game object
+                GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
+                newActivity.name = FolderName;
+
+                //Assign the audio clip to the audio source
+                Debug.Log($"Preloaded Activities = {PreloadedActivities} and Number of activity clips is {ActivityClips.Count}");
+
+                if (ActivityClips.Count > 0)
+                {
+                    ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
+                    newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
+                }
 
                 //Create a new Media Player for the activity
                 GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);
@@ -269,12 +279,19 @@ public class CustomActivitiesSetup : MonoBehaviour
                         Button buttonComponent = newActivityButton.GetComponent<Button>();
                         ActivityButtons.Add(buttonComponent);
 
+                        //Add the button to the Activity Manager list
+                        ActivityManager.ActivityButtons.Add(newActivityButton);
+
                         //Create the new Activity game object
                         GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
                         newActivity.name = FolderName;
 
+                        //Assign the audio clip to the audio source
+                        ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
+                        newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities - 1];
+
                         //Assign the button index correctly
-                        int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
+                        int buttonIndex = PreloadedActivities + PreloadedActivities - 1; //Use the last index in the list
                         newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
                         //Ensure that on click it triggers the correct Activity
