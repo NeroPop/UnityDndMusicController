@@ -128,12 +128,13 @@ public class CustomActivitiesSetup : MonoBehaviour
         GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
         newActivity.name = ActivityName;
 
-        //Assign the new Activity to the Activity Manager list
+        //Assign the new Activity to the Activity Manager and FileSelector list
         ActivityManager.ActivitiesList.Add(newActivity);
+        gameObject.GetComponent<ActivityFileSelector>().NewActivity = newActivity;
+        newActivity.GetComponent<ActivityController>().Tracks.Add(ActivityClips[ActivityClips.Count - 1]);
 
         //Assign the audio clip to the audio source
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
-        newActivity.GetComponent<AudioSource>().clip = ActivityClips[NewActivityInt - 1];
 
         //Create a new Media Player for the activity
         GameObject newActivityPlayer = Instantiate(ActivityPlayerPrefab, PlayerParent.transform);

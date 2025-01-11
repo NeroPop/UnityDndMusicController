@@ -118,7 +118,7 @@ public class ActivityFileSelector : MonoBehaviour
 
     private IEnumerator AddAudioClipToList(string fileName)
     {
-        string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
+        string relativePath = Path.Combine("Assets", targetFolderPath, ActivityName, fileName);
 
 #if UNITY_EDITOR
         // Use the AssetDatabase in the editor to load the clip
@@ -126,9 +126,9 @@ public class ActivityFileSelector : MonoBehaviour
 
         if (clip != null)
         {
-            //Assign the clip to the local list and the Tracks list
+            //Assign the clip to the various other scripts
+            gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Add(clip);
             ActivityaudioClips.Add(clip);
-            NewActivity.GetComponent<ActivityController>().Tracks.Add(clip);
 
             Debug.Log($"AudioClip successfully added: {clip.name}");
         }
