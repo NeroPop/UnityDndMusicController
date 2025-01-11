@@ -33,6 +33,7 @@ public class SceneController : MonoBehaviour
         MusicManager.GetComponent<CustomActivitiesSetup>().SceneName = SceneName;
         MusicManager.GetComponent<OneshotFileSelector>().SceneName = SceneName;
         MusicManager.GetComponent<AmbienceFileSelector>().SceneName = SceneName;
+        MusicManager.GetComponent<ActivityFileSelector>().SceneName = SceneName;
         MusicManager.GetComponent<OneShotManager>().SceneName = SceneName;
         MusicManager.GetComponent<AmbienceManager>().SceneName = SceneName;
         SceneTitleTxt.text = SceneName;
