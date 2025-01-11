@@ -131,7 +131,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Assign the new Activity to the Activity Manager and FileSelector list
         ActivityManager.ActivitiesList.Add(newActivity);
         gameObject.GetComponent<ActivityFileSelector>().NewActivity = newActivity;
-        newActivity.GetComponent<ActivityController>().Tracks.Add(ActivityClips[ActivityClips.Count - 1]);
+        gameObject.GetComponent<ActivityFileSelector>().NewActivityClipLoader();
 
         //Assign the audio clip to the audio source and set the volume to 0
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
