@@ -317,7 +317,6 @@ public class CustomActivitiesSetup : MonoBehaviour
                             //Assign the button index correctly
                             int buttonIndex = PreloadedActivities; //Use the last index in the list
                             newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
-                            Debug.Log($"Button Index is {buttonIndex}");
 
                             //Create the new Activity game object
                             GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
@@ -328,15 +327,12 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                             //Assign the new Activity to the Activity Manager list
                             ActivityManager.ActivitiesList.Add(newActivity);
-                            Debug.Log($"Added {newActivity.name} to activity manager list");
 
-                            //Assign the audio clip to the audio source
-                            Debug.Log($"Activity clips for audio source count is {ActivityClips.Count}");
+                            //Assign the audio clip to the audio source || I think this can be deleted maybe? not sure what it does
                             if (ActivityClips.Count > 0)
                             {
                                 ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
                                 newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
-                                Debug.Log($"Added {ActivityClips[PreloadedActivities]} to {newActivity.name}'s Audio Source");
                             }
 
                             //Ensure that on click it triggers the correct Activity
@@ -363,13 +359,6 @@ public class CustomActivitiesSetup : MonoBehaviour
                             //Begins loading all the clips
                             newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
                             newActivity.GetComponent<ActivityClipLoader>().LoadClips();
-
-                            //Testing Debugs which can be removed when it works
-                            Debug.Log($"ActivityButtons.Count: {ActivityButtons.Count}");
-                            Debug.Log($"ActivityIndex: {buttonIndex}");
-                            Debug.Log($"ActivityClips.Count: {ActivityClips.Count}");
-                            Debug.Log($"NewActivityInt: {NewActivityInt}");
-                            Debug.Log($"PreloadedActivities: {PreloadedActivities}");
                         }
                         else
                         {
@@ -427,7 +416,6 @@ public class CustomActivitiesSetup : MonoBehaviour
 
         //Sets clean to true and loads the correct buttons back in
         clean = true;
-        Debug.Log("Cleaned everything");
         LoadExistingWavFiles();
     }
 }
