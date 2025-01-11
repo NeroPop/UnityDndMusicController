@@ -119,7 +119,7 @@ public class UnityActivityManager : MonoBehaviour
                 ActivitiesList[PrevAct - 1].GetComponent<ActivityController>().ActSelected = false;
 
                 PlayerController.Act = PrevAct - 1;
-                PlayerController.ActivityOff(true);
+                PlayerController.ActivityOff(false);
             }
             //Debug.Log("Playing activity " + ActivityNumber);
         }
