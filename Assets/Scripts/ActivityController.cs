@@ -297,10 +297,10 @@ public class ActivityController : MonoBehaviour
         AudioSource audio = GetComponent<AudioSource>();
 
         //Starts the coroutine again and unpauses the audio
+        audio.time = CurrentTime;
         StartCoroutine(Playing());
         Paused = false;
         audio.UnPause();
-        audio.time = CurrentTime;
 
         //Switches the pause & resume buttons for UX
         PauseButton.SetActive(true);
