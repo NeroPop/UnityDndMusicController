@@ -71,9 +71,9 @@ public class UIActivitySetup : MonoBehaviour
 
         //Hides the Activity Controls
         ActSelected = false;
-        //ActivityPlayerControls.SetActive(false);
         DisabledPlayerControls.SetActive(true);
         ActivityController.ActSelected = ActSelected;
+        gameObject.SetActive(false);
 
         //Starts the song
         ActivityController.PlaySong();
