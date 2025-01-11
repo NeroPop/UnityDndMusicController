@@ -6060,16 +6060,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 13
-    m_Right: 20
-    m_Top: 50
+    m_Right: 10
+    m_Top: 70
     m_Bottom: 100
-  m_ChildAlignment: 3
+  m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 110}
-  m_Spacing: {x: 25, y: 10}
+  m_CellSize: {x: 85, y: 85}
+  m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
-  m_ConstraintCount: 1
+  m_ConstraintCount: 3
 --- !u!222 &5558738692162257617
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8249,7 +8249,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 98.45
+  m_fontSize: 76.05
   m_fontSizeBase: 65.38
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11237,6 +11237,7 @@ MonoBehaviour:
   selectedFilePath: 
   SceneName: 
   ActivityaudioClips: []
+  NewActivity: {fileID: 0}
   ActivityName: 
 --- !u!114 &2665321583816548207
 MonoBehaviour:
