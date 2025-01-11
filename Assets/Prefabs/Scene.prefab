@@ -11234,7 +11234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFolderPath: ActivityAudioFiles
-  selectedFilePath: 
+  selectedFilePaths: []
   SceneName: 
   ActivityaudioClips: []
   NewActivity: {fileID: 0}

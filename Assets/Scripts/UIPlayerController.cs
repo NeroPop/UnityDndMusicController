@@ -15,6 +15,7 @@ public class UIPlayerController : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
         if (ActivityPlayers.Count > 0)
         {
             foreach (GameObject player in ActivityPlayers)
@@ -22,6 +23,7 @@ public class UIPlayerController : MonoBehaviour
                 player.GetComponent<UIActivitySetup>().LoadActivity();
             }
         }
+#endif
     }
     public void ToggleActivity(int Act)
     {

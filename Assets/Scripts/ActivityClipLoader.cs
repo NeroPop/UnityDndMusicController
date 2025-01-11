@@ -48,8 +48,8 @@ public class ActivityClipLoader : MonoBehaviour
                 ActivityClips.Add(clip); //Add the clip to the list of clips
                 Debug.Log("Number of ActivityClips: " + ActivityClips.Count);
                 ActivityController.Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
-                gameObject.GetComponent<AudioSource>().clip = clip;
-                gameObject.GetComponent<ActivityController>().LoadMusicPlayer();
+               // gameObject.GetComponent<AudioSource>().clip = clip;
+                gameObject.GetComponent<ActivityController>().PlaySong();
                 Debug.Log("Added Clip " + clip.name);
                 AssetDatabase.Refresh();
             }
@@ -92,8 +92,8 @@ public class ActivityClipLoader : MonoBehaviour
                 ActivityClips.Add(clip); // Add the clip to the list of clips
                 Debug.Log("Number of ActivityClips: " + ActivityClips.Count);
                 gameObject.GetComponent<ActivityController>().Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
-                gameObject.GetComponent<AudioSource>().clip = clip;
-                gameObject.GetComponent<ActivityController>().LoadMusicPlayer();
+               // gameObject.GetComponent<AudioSource>().clip = clip;
+                gameObject.GetComponent<ActivityController>().PlaySong();
                 Debug.Log("Added Clip " + clip.name);
             }
             else

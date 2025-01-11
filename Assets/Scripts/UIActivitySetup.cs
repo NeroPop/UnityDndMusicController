@@ -30,6 +30,9 @@ public class UIActivitySetup : MonoBehaviour
 
     private ActivityController ActivityController;
 
+    //debuging
+    private int ActivityLoads;
+
     public void LoadActivity()
     {
         ActivityController = Activity.GetComponent<ActivityController>();
@@ -77,6 +80,10 @@ public class UIActivitySetup : MonoBehaviour
 
         //Starts the song
         ActivityController.PlaySong();
+
+        ActivityLoads++;
+        Debug.Log($"This UIActivitySetup has been called {ActivityLoads} times");
+        Debug.Log($"Skip Button Event is {Skip.onClick.GetPersistentEventCount()}");
     }
 
     public void DestroyMe()

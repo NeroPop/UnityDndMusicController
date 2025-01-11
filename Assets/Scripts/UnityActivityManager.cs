@@ -71,6 +71,7 @@ public class UnityActivityManager : MonoBehaviour
     }
     public void TriggerActivity(int ActivityNumber)
     {
+        Debug.Log($"Triggered Activity {ActivityNumber}");
         if (RemainingVol > 0 && FadingAct > 0)
         {
             //sets the old old previous activity volume to 0.
@@ -121,7 +122,7 @@ public class UnityActivityManager : MonoBehaviour
                 PlayerController.Act = PrevAct - 1;
                 PlayerController.ActivityOff(false);
             }
-            //Debug.Log("Playing activity " + ActivityNumber);
+            Debug.Log("Playing activity " + ActivityNumber);
         }
 
         //Runs if the button has already been pressed
