@@ -196,6 +196,7 @@ public class CustomActivitiesSetup : MonoBehaviour
                 // Extract folder name
                 FolderName = System.IO.Path.GetFileName(folderPath);
                 Debug.Log($"Loading folder {FolderName}");
+                ActivityName = FolderName;
 
                 PreloadedActivities++; //Increment the counter for loaded activities
 
@@ -287,6 +288,7 @@ public class CustomActivitiesSetup : MonoBehaviour
                     foreach (string folderPath in folders)
                     {
                         FolderName = Path.GetFileName(folderPath);
+                        ActivityName = FolderName;
 
                         Debug.Log("Found folder " + FolderName + " at " + folderPath);
 

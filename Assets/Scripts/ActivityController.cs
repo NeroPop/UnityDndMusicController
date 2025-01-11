@@ -386,7 +386,6 @@ public class ActivityController : MonoBehaviour
 
     public void DestroyMe()
     {
-        Debug.LogWarning("Destroying Activity");
         Destroy(gameObject);
     }
 }
