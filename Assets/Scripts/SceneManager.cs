@@ -38,6 +38,7 @@ public class SceneManager : MonoBehaviour
         else if (PrevScene == CurScene)
         {
             SceneSelectUI.SetActive(false);
+            Scenes[CurScene].SetActive(true);
         }
     }
 
