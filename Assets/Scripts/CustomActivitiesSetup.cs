@@ -65,7 +65,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         UnityActivityManager ActivityManager = gameObject.GetComponent<UnityActivityManager>();
 
         //Sets the Activity number and then triggers it
-        ActivityNumber++;
+        ActivityNumber = ActivityNumber + 1;
         ActivityManager.TriggerActivity(ActivityNumber);
 
         Debug.Log($"Activity {ActivityNumber} Triggered play");
@@ -270,9 +270,9 @@ public class CustomActivitiesSetup : MonoBehaviour
             //Sets the Folder path for in Build
             FolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities");
 
-            if (!Directory.Exists(FilePath)) //Checks that the file path exists
+            if (!Directory.Exists(FolderPath)) //Checks that the file path exists
             {
-                Debug.LogWarning($"The specified directory does not exist: {FilePath}");
+                Debug.LogWarning($"The specified directory does not exist: {FolderPath}");
                 return;
             }
 
@@ -319,6 +319,7 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                             //Assign the new Activity to the Activity Manager list
                             ActivityManager.ActivitiesList.Add(newActivity);
+                            Debug.Log($"Added {newActivity.name} to activity manager list");
 
                             //Assign the audio clip to the audio source
                             if (ActivityClips.Count > 0)
@@ -412,6 +413,7 @@ public class CustomActivitiesSetup : MonoBehaviour
 
         //Sets clean to true and loads the correct buttons back in
         clean = true;
+        Debug.Log("Cleaned everything");
         LoadExistingWavFiles();
     }
 }
