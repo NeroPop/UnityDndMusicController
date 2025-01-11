@@ -15,7 +15,10 @@ public class SceneManager : MonoBehaviour
     private void Start()
     {
         CurScene = 0;
-        Scenes[CurScene].SetActive(true);
+        if (Scenes.Count > 0)
+        {
+            Scenes[CurScene].SetActive(true);
+        }
         SceneSelectUI.SetActive(true);
     }
     public void ChangeScene(int SelScene)
