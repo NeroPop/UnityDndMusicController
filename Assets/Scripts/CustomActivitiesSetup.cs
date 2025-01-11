@@ -65,7 +65,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         UnityActivityManager ActivityManager = gameObject.GetComponent<UnityActivityManager>();
 
         //Sets the Activity number and then triggers it
-        ActivityNumber = ActivityNumber + 1;
+        //int _activityNumber = ActivityNumber + 1;
         ActivityManager.TriggerActivity(ActivityNumber);
 
         Debug.Log($"Activity {ActivityNumber} Triggered play");
@@ -118,7 +118,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         ActivityManager.ActivityButtons.Add(newActivityButton);
 
         //Assign the button index correctly
-        int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
+        int buttonIndex = NewActivityInt + PreloadedActivities; //Use the last index in the list
         newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
         //Ensure that on click it triggers the correct Activity
@@ -213,6 +213,7 @@ public class CustomActivitiesSetup : MonoBehaviour
                 ActivityManager.ActivitiesList.Add(newActivity);
 
                 //Assign the audio clip to the audio source
+                Debug.Log($"Activity clips for audio source count is {ActivityClips.Count}");
                 if (ActivityClips.Count > 0)
                 {
                     newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
@@ -231,7 +232,7 @@ public class CustomActivitiesSetup : MonoBehaviour
                 ActivityManager.ActivityButtons.Add(newActivityButton);
 
                 //Assign the button index correctly
-                int buttonIndex = NewActivityInt + PreloadedActivities - 1; //Use the last index in the list
+                int buttonIndex = PreloadedActivities; //Use the last index in the list
                 newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
                 //Ensure that on click it triggers the correct Activity
@@ -298,6 +299,9 @@ public class CustomActivitiesSetup : MonoBehaviour
                         if (!string.IsNullOrEmpty(FolderName))
                         {
                             //Sets everything up
+
+                            PreloadedActivities++; //Increment the counter for loaded activities
+
                             //Create the new button for each loaded clip
                             GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
                             newActivityButton.GetComponentInChildren<TMP_Text>().text = FolderName;
@@ -309,6 +313,11 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                             //Add the button to the Activity Manager list
                             ActivityManager.ActivityButtons.Add(newActivityButton);
+
+                            //Assign the button index correctly
+                            int buttonIndex = PreloadedActivities; //Use the last index in the list
+                            newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
+                            Debug.Log($"Button Index is {buttonIndex}");
 
                             //Create the new Activity game object
                             GameObject newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
@@ -322,15 +331,13 @@ public class CustomActivitiesSetup : MonoBehaviour
                             Debug.Log($"Added {newActivity.name} to activity manager list");
 
                             //Assign the audio clip to the audio source
+                            Debug.Log($"Activity clips for audio source count is {ActivityClips.Count}");
                             if (ActivityClips.Count > 0)
                             {
                                 ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
                                 newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
+                                Debug.Log($"Added {ActivityClips[PreloadedActivities]} to {newActivity.name}'s Audio Source");
                             }
-
-                            //Assign the button index correctly
-                            int buttonIndex = PreloadedActivities + PreloadedActivities - 1; //Use the last index in the list
-                            newActivityButton.GetComponent<ActivityButtonController>().ButtonIndex = buttonIndex;
 
                             //Ensure that on click it triggers the correct Activity
                             buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
@@ -356,6 +363,13 @@ public class CustomActivitiesSetup : MonoBehaviour
                             //Begins loading all the clips
                             newActivity.GetComponent<ActivityClipLoader>().ActivityName = ActivityName;
                             newActivity.GetComponent<ActivityClipLoader>().LoadClips();
+
+                            //Testing Debugs which can be removed when it works
+                            Debug.Log($"ActivityButtons.Count: {ActivityButtons.Count}");
+                            Debug.Log($"ActivityIndex: {buttonIndex}");
+                            Debug.Log($"ActivityClips.Count: {ActivityClips.Count}");
+                            Debug.Log($"NewActivityInt: {NewActivityInt}");
+                            Debug.Log($"PreloadedActivities: {PreloadedActivities}");
                         }
                         else
                         {
