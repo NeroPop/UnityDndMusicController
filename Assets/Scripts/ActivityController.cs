@@ -102,33 +102,30 @@ public class ActivityController : MonoBehaviour
 
     private void Update()
     {
-        if (ActSelected)
+        //Get's a reference for the AudioSource
+        AudioSource audio = this.GetComponent<AudioSource>();
+
+        //Figures out the track length of the audio clip
+        TrackLength = audio.clip.length;
+
+        //checks if the music is paused
+        if (!Paused)
         {
-            //Get's a reference for the AudioSource
-            AudioSource audio = this.GetComponent<AudioSource>();
+            //Adds 1 second to current time every second
+            OnUpdate?.Invoke(Time.deltaTime);
+            CurrentTime += Time.deltaTime;
 
-            //Figures out the track length of the audio clip
-            TrackLength = audio.clip.length;
-
-            //checks if the music is paused
-            if (!Paused)
+            //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
+            if (!isDragging)
             {
-                //Adds 1 second to current time every second
-                OnUpdate?.Invoke(Time.deltaTime);
-                CurrentTime += Time.deltaTime;
-
-                //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
-                if (!isDragging)
-                {
-                    //AudioSlider.value = CurrentTime;
-                    TimePercent = (CurrentTime / TrackLength) * 100;
-                }
+                //AudioSlider.value = CurrentTime;
+                TimePercent = (CurrentTime / TrackLength) * 100;
             }
-            //Displays the current and remaining times
-            DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
-            DisplayTime.text = FormatTime(CurrentTime);
-            AudioSlider.value = CurrentTime;
         }
+        //Displays the current and remaining times
+        DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
+        DisplayTime.text = FormatTime(CurrentTime);
+        AudioSlider.value = CurrentTime;
     }
 
     IEnumerator Playing()
@@ -217,6 +214,7 @@ public class ActivityController : MonoBehaviour
         Debug.Log($"This Activity Controller has {Tracks.Count} Tracks loaded");
         Debug.Log($"Playing {audio.clip.name}");
         Debug.Log($"Playing Track {TrackNumber}");
+        Debug.Log($"Is it paused? {Paused}");
 
         //Starts the playing couroutine if it's not paused
         if (!Paused)

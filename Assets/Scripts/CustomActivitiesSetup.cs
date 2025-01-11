@@ -70,7 +70,7 @@ public class CustomActivitiesSetup : MonoBehaviour
         ActivityManager.TriggerActivity(ActivityNumber);
 
 
-        Debug.Log($"Activity {ActivityNumber} Triggered play");
+        Debug.LogError($"Activity {ActivityNumber} Triggered play");
     }
 
     public void SetupNewActivity() //Opens up the New Activity sound setup menu
