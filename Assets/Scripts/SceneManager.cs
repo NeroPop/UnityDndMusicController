@@ -9,14 +9,14 @@ public class SceneManager : MonoBehaviour
     public GameObject SceneSelectUI;
 
     public int CurScene;
-    public int PrevScene;
+    public int PrevScene = 999;
     public int NewSceneInt;
 
     private void Start()
     {
-        CurScene = 0;
         if (Scenes.Count > 0)
         {
+            CurScene = 0;
             Scenes[CurScene].SetActive(true);
         }
         SceneSelectUI.SetActive(true);
@@ -33,9 +33,8 @@ public class SceneManager : MonoBehaviour
             SceneSelectUI.SetActive(false);
             Scenes[CurScene].GetComponent<SceneController>().ActivateScene();
             Scenes[PrevScene].GetComponent<SceneController>().DeactivateScene();
-
-            Debug.Log("Selected Scene " + CurScene);
         }
+
         else if (PrevScene == CurScene)
         {
             SceneSelectUI.SetActive(false);

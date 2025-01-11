@@ -27,7 +27,7 @@ public class NewSceneGenerator : MonoBehaviour
     [SerializeField]
     private string NewSceneName;
 
-    public int NewSceneInt;
+    public int NewSceneInt = 0;
 
     private SceneManager SceneManager;
 
@@ -112,7 +112,7 @@ public class NewSceneGenerator : MonoBehaviour
         newScene.name = NewSceneName;
         newScene.GetComponent<SceneController>().SceneName = NewSceneName;
         SceneManager.Scenes.Add(newScene);
-        newScene.SetActive(false);
+        newScene.SetActive(true);
 
 #if UNITY_EDITOR
         string folderPath = AssetDatabase.GenerateUniqueAssetPath(EditorFilePath + "/" + NewSceneName);
@@ -148,6 +148,6 @@ public class NewSceneGenerator : MonoBehaviour
 
         //Add to the SceneManager list
         SceneManager.Scenes.Add(newScene);
-        newScene.SetActive(false);
+        newScene.SetActive(true);
     }
 }
