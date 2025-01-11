@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.Networking;
 using System.Collections;
+using Unity.VisualScripting;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -17,10 +19,13 @@ public class ActivityFileSelector : MonoBehaviour
     [HideInInspector] public string selectedFilePath;
 
     [Tooltip("Scene name to organize custom audio.")]
-    [HideInInspector] public string SceneName;
+    public string SceneName;
 
     [Tooltip("List of loaded audio clips.")]
     public List<AudioClip> ActivityaudioClips = new List<AudioClip>();
+
+    [Tooltip("New Activity")]
+    public GameObject NewActivity;
 
     [HideInInspector] public string ActivityName;
 
@@ -77,7 +82,7 @@ public class ActivityFileSelector : MonoBehaviour
         }
 
         // Create the full path in the Unity project
-        string targetPath = Path.Combine(Application.dataPath, targetFolderPath);
+        string targetPath = Path.Combine(Application.dataPath, targetFolderPath, ActivityName);
 
         // Ensure the folder exists
         if (!Directory.Exists(targetPath))
@@ -121,7 +126,10 @@ public class ActivityFileSelector : MonoBehaviour
 
         if (clip != null)
         {
+            //Assign the clip to the local list and the Tracks list
             ActivityaudioClips.Add(clip);
+            NewActivity.GetComponent<ActivityController>().Tracks.Add(clip);
+
             Debug.Log($"AudioClip successfully added: {clip.name}");
         }
         else
@@ -130,8 +138,8 @@ public class ActivityFileSelector : MonoBehaviour
         }
 
 #else
-    // For builds, load the audio clip using UnityWebRequest
-    string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
+        // For builds, load the audio clip using UnityWebRequest
+        string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
 
     // Ensure the file path starts with file:// for UnityWebRequest
     string fileUrl = "file:///" + filePath.Replace("\\", "/");
@@ -144,7 +152,9 @@ public class ActivityFileSelector : MonoBehaviour
         AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
         if (clip != null)
         {
-            ActivityaudioClips.Add(clip);
+                //Assign the clip to the local list and the Tracks list
+                ActivityaudioClips.Add(clip);
+                NewActivity.GetComponent<ActivityController>().Tracks.Add(clip);
         }
         else
         {
