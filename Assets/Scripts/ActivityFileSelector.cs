@@ -161,9 +161,9 @@ public class ActivityFileSelector : MonoBehaviour
             AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
             if (clip != null)
             {
-                // Assign the clip to the local list and the Tracks list
+                // Assign the clip to the various other scripts
+                gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Add(clip);
                 ActivityaudioClips.Add(clip);
-                NewActivity.GetComponent<ActivityController>().Tracks.Add(clip);
             }
             else
             {
