@@ -139,8 +139,6 @@ public class ActivityFileSelector : MonoBehaviour
             // Assign the clip to the various other scripts
             gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Add(clip);
             ActivityaudioClips.Add(clip);
-
-            Debug.Log($"AudioClip successfully added: {clip.name}");
         }
         else
         {
@@ -184,6 +182,13 @@ public class ActivityFileSelector : MonoBehaviour
         foreach (AudioClip clip in ActivityaudioClips)
         {
             NewActivity.GetComponent<ActivityController>().Tracks.Add(clip);
+            Debug.Log($"Added {clip.name} to Tracks");
         }
+
+        //Clears all the clips in the list
+        ActivityaudioClips.Clear();
+        gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Clear();
+        selectedFilePaths.Clear();
+
     }
 }
