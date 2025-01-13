@@ -128,6 +128,10 @@ public class UnityActivityManager : MonoBehaviour
             {
                 ActivitiesList[Act - 1].GetComponent<ActivityController>().Resume();
             }
+            else
+            {
+                ActivitiesList[Act - 1].GetComponent<ActivityController>().PlaySong();
+            }
 
             Debug.Log("Playing activity " + ActivityNumber);
         }
