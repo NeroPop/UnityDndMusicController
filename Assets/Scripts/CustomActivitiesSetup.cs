@@ -129,7 +129,6 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Assign the new Activity to the Activity Manager and FileSelector list
         ActivityManager.ActivitiesList.Add(newActivity);
         gameObject.GetComponent<ActivityFileSelector>().NewActivity = newActivity;
-        gameObject.GetComponent<ActivityFileSelector>().NewActivityClipLoader();
 
         //Assign the audio clip to the audio source and set the volume to 0
         ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
@@ -149,6 +148,9 @@ public class CustomActivitiesSetup : MonoBehaviour
 
         //Adds media player to Player Controller list
         PlayerParent.GetComponent<UIPlayerController>().ActivityPlayers.Add(newActivityPlayer);
+
+        //Start new activity clip loader
+        gameObject.GetComponent<ActivityFileSelector>().NewActivityClipLoader();
 
         //disable the media player
         newActivityPlayer.SetActive(false);

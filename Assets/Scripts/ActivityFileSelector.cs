@@ -158,6 +158,8 @@ public class ActivityFileSelector : MonoBehaviour
             AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
             if (clip != null)
             {
+                clip.name = fileName; // Manually set the clip name
+
                 // Assign the clip to the various other scripts
                 ActivityaudioClips.Add(clip);
             }
@@ -186,6 +188,5 @@ public class ActivityFileSelector : MonoBehaviour
         ActivityaudioClips.Clear();
         gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Clear();
         selectedFilePaths.Clear();
-
     }
 }
