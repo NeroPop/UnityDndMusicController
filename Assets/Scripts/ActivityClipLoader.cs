@@ -26,13 +26,11 @@ public class ActivityClipLoader : MonoBehaviour
 
     public void LoadClips()
     {
-        Debug.Log("LoadClips triggered in " + ActivityName);
         ActivityController ActivityController = gameObject.GetComponent<ActivityController>();
         SceneName = GetComponentInParent<SceneNameHolder>().SceneName;
 #if UNITY_EDITOR
         //Sets the folder path to find the audio clips
         ActivityFolderPath = "Assets/CustomAudio/" + SceneName + "/Activities/" + ActivityName;
-        Debug.Log("ActivityFolderPath: " + ActivityFolderPath);
 
         //Finds the wav files in the folder
         string[] wavFiles = Directory.GetFiles(ActivityFolderPath, "*.wav");
@@ -46,11 +44,9 @@ public class ActivityClipLoader : MonoBehaviour
             if (clip != null)
             {
                 ActivityClips.Add(clip); //Add the clip to the list of clips
-                Debug.Log("Number of ActivityClips: " + ActivityClips.Count);
                 ActivityController.Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
                // gameObject.GetComponent<AudioSource>().clip = clip;
                gameObject.GetComponent<ActivityController>().PlaySong();
-                Debug.Log("Added Clip " + clip.name);
                 AssetDatabase.Refresh();
             }
             else
@@ -90,11 +86,9 @@ public class ActivityClipLoader : MonoBehaviour
                 clip.name = fileName; // Manually set the clip name
 
                 ActivityClips.Add(clip); // Add the clip to the list of clips
-                Debug.Log("Number of ActivityClips: " + ActivityClips.Count);
                 gameObject.GetComponent<ActivityController>().Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
                // gameObject.GetComponent<AudioSource>().clip = clip;
                gameObject.GetComponent<ActivityController>().PlaySong();
-                Debug.Log("Added Clip " + clip.name);
             }
             else
             {

@@ -199,9 +199,6 @@ public class ActivityController : MonoBehaviour
         //Displays the song name
         DisplayName.text = audio.clip.name;
 
-        Debug.Log($"Playing {DisplayName.text}");
-
-
         // Set the slider's max value to the length of the audio clip
         AudioSlider.maxValue = audio.clip.length;
 
@@ -210,11 +207,6 @@ public class ActivityController : MonoBehaviour
 
         //Figures out how long is left of the audio clip
         ClipTime = audio.clip.length - CurrentTime;
-
-        Debug.Log($"This Activity Controller has {Tracks.Count} Tracks loaded");
-        Debug.Log($"Playing {audio.clip.name}");
-        Debug.Log($"Playing Track {TrackNumber}");
-        Debug.Log($"Is it paused? {Paused}");
 
         //Starts the playing couroutine if it's not paused
         if (!Paused)
@@ -231,7 +223,6 @@ public class ActivityController : MonoBehaviour
 
     public void Skip()
     {
-        Debug.Log("Skip triggered");
         StopCoroutine(Playing());
 
         //Plays the next song
@@ -239,7 +230,6 @@ public class ActivityController : MonoBehaviour
         if (!Shuffle)
         {
             TrackNumber = (TrackNumber + 1) % Tracks.Count;
-            Debug.Log($"Track number is {TrackNumber}");
             PlaySong();
         }
 
@@ -393,6 +383,5 @@ public class ActivityController : MonoBehaviour
     public void DestroyMe()
     {
         Destroy(gameObject);
-        Debug.Log($"Destroyed Activity {gameObject.name}");
     }
 }

@@ -82,8 +82,6 @@ public class UIActivitySetup : MonoBehaviour
         ActivityController.PlaySong();
 
         ActivityLoads++;
-        Debug.Log($"This UIActivitySetup has been called {ActivityLoads} times");
-        Debug.Log($"Skip Button Event is {Skip.onClick.GetPersistentEventCount()}");
     }
 
     public void DestroyMe()

@@ -58,7 +58,6 @@ public class SceneController : MonoBehaviour
         //Gives CustomActivitiesSetup the Scene name and triggers it to load existing Activities
         MusicManager.GetComponent<CustomActivitiesSetup>().SceneName = SceneName;
         MusicManager.GetComponent<CustomActivitiesSetup>().LoadExistingWavFiles();
-        Debug.Log("Called CustomActivitiesSetup");
 
         //Gives Oneshot Manager the Scene name and triggers it to load existing Oneshots
         MusicManager.GetComponent<OneShotManager>().SceneName = SceneName;
@@ -75,6 +74,5 @@ public class SceneController : MonoBehaviour
         MusicManager.GetComponent<CustomActivitiesSetup>().clean = false;
         MusicManager.GetComponent<OneShotManager>().clean = false;
         MusicManager.GetComponent<AmbienceManager>().clean = false;
-        Debug.Log($"{SceneName} Deactivated");
     }
 }
