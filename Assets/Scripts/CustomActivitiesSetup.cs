@@ -68,9 +68,6 @@ public class CustomActivitiesSetup : MonoBehaviour
         //Sets the Activity number and then triggers it
         //int _activityNumber = ActivityNumber + 1;
         ActivityManager.TriggerActivity(ActivityNumber);
-
-
-        Debug.LogError($"Activity {ActivityNumber} Triggered play");
     }
 
     public void SetupNewActivity() //Opens up the New Activity sound setup menu
@@ -88,7 +85,6 @@ public class CustomActivitiesSetup : MonoBehaviour
     public void NewActivityName() //Sets the Activity Name to whatever you called it
     {
         ActivityName = ActivityNameInput.text;
-        Debug.Log("New Activity Name is " + ActivityName);
     }
 
     //Gets the audio clips that were selected from the file selector and saves them to the list
@@ -157,18 +153,9 @@ public class CustomActivitiesSetup : MonoBehaviour
         //disable the media player
         newActivityPlayer.SetActive(false);
 
-        //Testing Debugs which can be removed when it works
-        Debug.Log($"ActivityButtons.Count: {ActivityButtons.Count}");
-        Debug.Log($"ActivityIndex: {buttonIndex}");
-        Debug.Log($"ActivityClips.Count: {ActivityClips.Count}");
-        Debug.Log($"NewActivityInt: {NewActivityInt}");
-        Debug.Log($"PreloadedActivities: {PreloadedActivities}");
-
         //Hide the customisation menus
         CustomisationMenuUI.SetActive(false);
         NewActivityUI.SetActive(false);
-
-        Debug.Log($"Created new Activity: {ActivityName} (Index: {buttonIndex})");
     }
 
     //Loads existing .wav files from the specified FilePath and creates buttons for them. triggered by scene controller
@@ -185,7 +172,6 @@ public class CustomActivitiesSetup : MonoBehaviour
 
         else
         {
-            Debug.Log("Triggered LoadExistingWavFiles");
 #if UNITY_EDITOR
             //Sets the Folder path for in editor
             FolderPath = "Assets\\CustomAudio\\" + SceneName + "\\Activities";
@@ -199,7 +185,6 @@ public class CustomActivitiesSetup : MonoBehaviour
 
                 // Extract folder name
                 FolderName = System.IO.Path.GetFileName(folderPath);
-                Debug.Log($"Loading folder {FolderName}");
                 ActivityName = FolderName;
 
                 PreloadedActivities++; //Increment the counter for loaded activities
@@ -215,7 +200,6 @@ public class CustomActivitiesSetup : MonoBehaviour
                 ActivityManager.ActivitiesList.Add(newActivity);
 
                 //Assign the audio clip to the audio source
-                Debug.Log($"Activity clips for audio source count is {ActivityClips.Count}");
                 if (ActivityClips.Count > 0)
                 {
                     newActivity.GetComponent<AudioSource>().clip = ActivityClips[PreloadedActivities];
@@ -287,8 +271,6 @@ public class CustomActivitiesSetup : MonoBehaviour
                 {
                     FolderName = Path.GetFileName(folderPath);
                     ActivityName = FolderName;
-
-                    Debug.Log("Found folder " + FolderName + " at " + folderPath);
 
                     // Ensure folder exists and is valid
                     if (!string.IsNullOrEmpty(FolderName))
