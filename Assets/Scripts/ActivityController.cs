@@ -54,8 +54,7 @@ public class ActivityController : MonoBehaviour
     private bool Shuffle = false;
 
     [ReadOnly]
-    [SerializeField]
-    private bool Paused = false;
+    public bool Paused = false;
 
     [ReadOnly]
     [SerializeField]

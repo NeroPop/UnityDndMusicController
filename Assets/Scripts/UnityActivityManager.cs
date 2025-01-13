@@ -122,6 +122,13 @@ public class UnityActivityManager : MonoBehaviour
                 PlayerController.Act = PrevAct - 1;
                 PlayerController.ActivityOff(false);
             }
+
+            //Resumes the activity if its paused
+            if (ActivitiesList[Act - 1].GetComponent<ActivityController>().Paused)
+            {
+                ActivitiesList[Act - 1].GetComponent<ActivityController>().Resume();
+            }
+
             Debug.Log("Playing activity " + ActivityNumber);
         }
 
