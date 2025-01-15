@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Testing/Feature Scene/CustomActivities.unity
-    guid: 487e95fbea0f38b429b91ab8638646b1
+    path: Assets/Scenes/Master.unity
+    guid: cf7b3ccf0d76878478d1e5abbf1e87f3
   m_configObjects: {}
