@@ -39,6 +39,12 @@ public class AmbienceManager : MonoBehaviour
     private string AudioFolderPath;
     public bool clean = true;
 
+
+    private void Start()
+    {
+        LoadExistingWavFiles();
+    }
+
     //Plays or stops playing the Ambient Sound when you click on the button.
     public void ToggleAmbientAudio(int AmbientButton)
     {

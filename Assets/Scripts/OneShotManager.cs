@@ -41,6 +41,7 @@ public class OneShotManager : MonoBehaviour
     {
         audioFolderPath = gameObject.GetComponent<OneshotFileSelector>().targetFolderPath;
         //FilePath = "Assets\\CustomAudio\\" + SceneName + "\\One-Shots";
+        LoadExistingWavFiles();
     }
 
     //Plays the Oneshot Sound when you click on the button.
