@@ -10,7 +10,8 @@ using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine.Networking;
 
-
+namespace MusicMixer.Actions
+{
     public class OneShotManager : MonoBehaviour
     {
         [Header("Prefabs")]
@@ -278,3 +279,4 @@ using UnityEngine.Networking;
             OneshotAudioSources.Add(audioSource);
         }
     }
+}
