@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using MusicMixer.Actions;
 using MusicMixer.Ambience;
+using MusicMixer.Activities;
 
 public class SceneController : MonoBehaviour
 {

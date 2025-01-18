@@ -8,46 +8,48 @@ using System.Collections;
 using UnityEditor;
 #endif
 
-public class ActivityFileSelector : MonoBehaviour
+namespace MusicMixer.Activities
 {
-    [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav files will be copied.")]
-    [HideInInspector] public string targetFolderPath = "ActivityAudioFiles";
-
-    [Tooltip("The selected file paths (for debugging purposes).")]
-    [HideInInspector] public List<string> selectedFilePaths = new List<string>();
-
-    [Tooltip("Scene name to organize custom audio.")]
-    public string SceneName;
-
-    [Tooltip("List of loaded audio clips.")]
-    public List<AudioClip> ActivityaudioClips = new List<AudioClip>();
-
-    public GameObject NewActivity;
-    [HideInInspector] public string ActivityName;
-
-    public void OpenFileDialog() // Open the file inspector and select files
+    public class ActivityFileSelector : MonoBehaviour
     {
-        //Sets the activity name
-        ActivityName = gameObject.GetComponent<CustomActivitiesSetup>().ActivityName;
+        [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav files will be copied.")]
+        [HideInInspector] public string targetFolderPath = "ActivityAudioFiles";
+
+        [Tooltip("The selected file paths (for debugging purposes).")]
+        [HideInInspector] public List<string> selectedFilePaths = new List<string>();
+
+        [Tooltip("Scene name to organize custom audio.")]
+        public string SceneName;
+
+        [Tooltip("List of loaded audio clips.")]
+        public List<AudioClip> ActivityaudioClips = new List<AudioClip>();
+
+        public GameObject NewActivity;
+        [HideInInspector] public string ActivityName;
+
+        public void OpenFileDialog() // Open the file inspector and select files
+        {
+            //Sets the activity name
+            ActivityName = gameObject.GetComponent<CustomActivitiesSetup>().ActivityName;
 
 #if UNITY_EDITOR
-        // Setup the audio folder path
-        targetFolderPath = "CustomAudio/" + SceneName + "/Activities/" + ActivityName;
+            // Setup the audio folder path
+            targetFolderPath = "CustomAudio/" + SceneName + "/Activities/" + ActivityName;
 
-        bool selectMoreFiles = true;
+            bool selectMoreFiles = true;
 
-        // Use a loop to allow selecting multiple files
-        while (selectMoreFiles)
-        {
-            string filePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
-            if (!string.IsNullOrEmpty(filePath))
+            // Use a loop to allow selecting multiple files
+            while (selectMoreFiles)
             {
-                selectedFilePaths.Add(filePath);
-            }
+                string filePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    selectedFilePaths.Add(filePath);
+                }
 
-            // Ask if the user wants to select more files
-            selectMoreFiles = EditorUtility.DisplayDialog("Select More Files?", "Do you want to select another WAV file?", "Yes", "No");
-        }
+                // Ask if the user wants to select more files
+                selectMoreFiles = EditorUtility.DisplayDialog("Select More Files?", "Do you want to select another WAV file?", "Yes", "No");
+            }
 #else
     // Setup the audio folder path
     targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities", ActivityName);
@@ -66,83 +68,83 @@ public class ActivityFileSelector : MonoBehaviour
     }
 #endif
 
-        // If files are selected, copy them to the target folder
-        if (selectedFilePaths.Count > 0)
-        {
-            foreach (string filePath in selectedFilePaths)
+            // If files are selected, copy them to the target folder
+            if (selectedFilePaths.Count > 0)
             {
-                CopyFileToTargetFolder(filePath);
+                foreach (string filePath in selectedFilePaths)
+                {
+                    CopyFileToTargetFolder(filePath);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("No files were selected.");
             }
         }
-        else
-        {
-            Debug.LogWarning("No files were selected.");
-        }
-    }
 
-    private void CopyFileToTargetFolder(string filePath) // Copy the file to the selected place
-    {
-        // Logs errors if there is no target folder or Activity name
-        if (string.IsNullOrEmpty(ActivityName))
+        private void CopyFileToTargetFolder(string filePath) // Copy the file to the selected place
         {
-            Debug.LogError("Activity is not set. Please provide a valid name.");
-            return;
-        }
-        if (string.IsNullOrEmpty(targetFolderPath))
-        {
-            Debug.LogError("Target folder path is not set.");
-            return;
-        }
+            // Logs errors if there is no target folder or Activity name
+            if (string.IsNullOrEmpty(ActivityName))
+            {
+                Debug.LogError("Activity is not set. Please provide a valid name.");
+                return;
+            }
+            if (string.IsNullOrEmpty(targetFolderPath))
+            {
+                Debug.LogError("Target folder path is not set.");
+                return;
+            }
 
-        // Create the full path in the Unity project
-        string targetPath = Path.Combine(Application.dataPath, targetFolderPath);
+            // Create the full path in the Unity project
+            string targetPath = Path.Combine(Application.dataPath, targetFolderPath);
 
-        // Ensure the folder exists
-        if (!Directory.Exists(targetPath))
-        {
-            Directory.CreateDirectory(targetPath);
-        }
+            // Ensure the folder exists
+            if (!Directory.Exists(targetPath))
+            {
+                Directory.CreateDirectory(targetPath);
+            }
 
-        // Get the original file name
-        string fileName = Path.GetFileName(filePath);
-        string destinationPath = Path.Combine(targetPath, fileName);
+            // Get the original file name
+            string fileName = Path.GetFileName(filePath);
+            string destinationPath = Path.Combine(targetPath, fileName);
 
-        try
-        {
-            // Copy the file without renaming
-            File.Copy(filePath, destinationPath, true);
-            Debug.Log($"File successfully copied: {destinationPath}");
+            try
+            {
+                // Copy the file without renaming
+                File.Copy(filePath, destinationPath, true);
+                Debug.Log($"File successfully copied: {destinationPath}");
 
 #if UNITY_EDITOR
-            // Refresh the Asset Database so Unity detects the new file
-            AssetDatabase.Refresh();
+                // Refresh the Asset Database so Unity detects the new file
+                AssetDatabase.Refresh();
 #endif
-            // Load the AudioClip and add it to the list
-            StartCoroutine(AddAudioClipToList(fileName));
+                // Load the AudioClip and add it to the list
+                StartCoroutine(AddAudioClipToList(fileName));
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"Failed to copy file: {ex.Message}");
+            }
         }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"Failed to copy file: {ex.Message}");
-        }
-    }
 
-    private IEnumerator AddAudioClipToList(string fileName)
-    {
-        string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
+        private IEnumerator AddAudioClipToList(string fileName)
+        {
+            string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
 
 #if UNITY_EDITOR
-        // Use the AssetDatabase in the editor to load the clip
-        AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+            // Use the AssetDatabase in the editor to load the clip
+            AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
 
-        if (clip != null)
-        {
-            // Assign the clip to the various other scripts
-            ActivityaudioClips.Add(clip);
-        }
-        else
-        {
-            Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
-        }
+            if (clip != null)
+            {
+                // Assign the clip to the various other scripts
+                ActivityaudioClips.Add(clip);
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
+            }
 #else
         // For builds, load the audio clip using UnityWebRequest
         string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
@@ -173,20 +175,21 @@ public class ActivityFileSelector : MonoBehaviour
             Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
         }
 #endif
-        yield break; // Ensures the coroutine exits cleanly
-    }
-
-    public void NewActivityClipLoader()
-    {
-        //Set each audio clip into ActivityController
-        foreach (AudioClip clip in ActivityaudioClips)
-        {
-            NewActivity.GetComponent<ActivityController>().Tracks.Add(clip);
+            yield break; // Ensures the coroutine exits cleanly
         }
 
-        //Clears all the clips in the list
-        ActivityaudioClips.Clear();
-        gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Clear();
-        selectedFilePaths.Clear();
+        public void NewActivityClipLoader()
+        {
+            //Set each audio clip into ActivityController
+            foreach (AudioClip clip in ActivityaudioClips)
+            {
+                NewActivity.GetComponent<ActivityController>().Tracks.Add(clip);
+            }
+
+            //Clears all the clips in the list
+            ActivityaudioClips.Clear();
+            gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Clear();
+            selectedFilePaths.Clear();
+        }
     }
 }

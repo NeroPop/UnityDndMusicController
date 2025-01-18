@@ -9,51 +9,48 @@ using System.Collections;
 using UnityEngine.Networking;
 using TMPro;
 
-public class ActivityClipLoader : MonoBehaviour
+namespace MusicMixer.Activities
 {
-    [Header("Activity Properties")]
-    public List<AudioClip> ActivityClips = new List<AudioClip>();
-    public string ActivityName;
-
-    [Header("References")]
-    [HideInInspector] public string ActivityFolderPath = "ActivityAudioFiles";
-    [HideInInspector] public string SceneName;
-
-    private void Start()
+    public class ActivityClipLoader : MonoBehaviour
     {
-       // LoadClips();
-    }
+        [Header("Activity Properties")]
+        public List<AudioClip> ActivityClips = new List<AudioClip>();
+        public string ActivityName;
 
-    public void LoadClips()
-    {
-        ActivityController ActivityController = gameObject.GetComponent<ActivityController>();
-        SceneName = GetComponentInParent<SceneNameHolder>().SceneName;
-#if UNITY_EDITOR
-        //Sets the folder path to find the audio clips
-        ActivityFolderPath = "Assets/CustomAudio/" + SceneName + "/Activities/" + ActivityName;
+        [Header("References")]
+        [HideInInspector] public string ActivityFolderPath = "ActivityAudioFiles";
+        [HideInInspector] public string SceneName;
 
-        //Finds the wav files in the folder
-        string[] wavFiles = Directory.GetFiles(ActivityFolderPath, "*.wav");
-
-        foreach (string filePath in wavFiles) //Does the following for each wav file
+        public void LoadClips()
         {
-            //Checks if its in the correct place and then uses it as a clip
-            string relativePath = filePath.Replace(Application.dataPath, "Assets");
-            AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+            ActivityController ActivityController = gameObject.GetComponent<ActivityController>();
+            SceneName = GetComponentInParent<SceneNameHolder>().SceneName;
+#if UNITY_EDITOR
+            //Sets the folder path to find the audio clips
+            ActivityFolderPath = "Assets/CustomAudio/" + SceneName + "/Activities/" + ActivityName;
 
-            if (clip != null)
+            //Finds the wav files in the folder
+            string[] wavFiles = Directory.GetFiles(ActivityFolderPath, "*.wav");
+
+            foreach (string filePath in wavFiles) //Does the following for each wav file
             {
-                ActivityClips.Add(clip); //Add the clip to the list of clips
-                ActivityController.Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
-               // gameObject.GetComponent<AudioSource>().clip = clip;
-               gameObject.GetComponent<ActivityController>().PlaySong();
-                AssetDatabase.Refresh();
+                //Checks if its in the correct place and then uses it as a clip
+                string relativePath = filePath.Replace(Application.dataPath, "Assets");
+                AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+
+                if (clip != null)
+                {
+                    ActivityClips.Add(clip); //Add the clip to the list of clips
+                    ActivityController.Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
+                                                         // gameObject.GetComponent<AudioSource>().clip = clip;
+                    gameObject.GetComponent<ActivityController>().PlaySong();
+                    AssetDatabase.Refresh();
+                }
+                else
+                {
+                    Debug.LogWarning($"Failed to load AudioClip at path: {relativePath} Failed when loading clips");
+                }
             }
-            else
-            {
-                Debug.LogWarning($"Failed to load AudioClip at path: {relativePath} Failed when loading clips");
-            }
-        }
 
 #else
         //Sets the folder path to find the audio clips
@@ -67,38 +64,39 @@ public class ActivityClipLoader : MonoBehaviour
             StartCoroutine(LoadAudioClip(filePath));
         }
 #endif
-        ActivityController.loadCustomTrack(); //Load the custom tracks in ActivityController
-    }
+            ActivityController.loadCustomTrack(); //Load the custom tracks in ActivityController
+        }
 
-    private IEnumerator LoadAudioClip(string filePath)
-    {
-        string url = $"file://{filePath}";
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.WAV))
+        private IEnumerator LoadAudioClip(string filePath)
         {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
+            string url = $"file://{filePath}";
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.WAV))
             {
-                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                yield return www.SendWebRequest();
 
-                // Extract file name from the path
-                string fileName = Path.GetFileNameWithoutExtension(filePath);
-                clip.name = fileName; // Manually set the clip name
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
 
-                ActivityClips.Add(clip); // Add the clip to the list of clips
-                gameObject.GetComponent<ActivityController>().Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
-               // gameObject.GetComponent<AudioSource>().clip = clip;
-               gameObject.GetComponent<ActivityController>().PlaySong();
-            }
-            else
-            {
-                Debug.LogError($"Failed to load AudioClip: {filePath}. Error: {www.error}");
+                    // Extract file name from the path
+                    string fileName = Path.GetFileNameWithoutExtension(filePath);
+                    clip.name = fileName; // Manually set the clip name
+
+                    ActivityClips.Add(clip); // Add the clip to the list of clips
+                    gameObject.GetComponent<ActivityController>().Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
+                                                                                    // gameObject.GetComponent<AudioSource>().clip = clip;
+                    gameObject.GetComponent<ActivityController>().PlaySong();
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load AudioClip: {filePath}. Error: {www.error}");
+                }
             }
         }
-    }
 
-    public void Clean()
-    {
-        ActivityClips.Clear();
+        public void Clean()
+        {
+            ActivityClips.Clear();
+        }
     }
 }

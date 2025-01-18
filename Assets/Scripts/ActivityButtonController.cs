@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivityButtonController : MonoBehaviour
+namespace MusicMixer.Activities
 {
-    public int ButtonIndex;
-
-    public void DestroyMe()
+    public class ActivityButtonController : MonoBehaviour
     {
-        Destroy(gameObject);
+        public int ButtonIndex;
+
+        public void DestroyMe()
+        {
+            Destroy(gameObject);
+        }
     }
 }
