@@ -8,31 +8,33 @@ using System.Collections;
 using UnityEditor;
 #endif
 
-public class AmbienceFileSelector : MonoBehaviour
+namespace MusicMixer.Ambience
 {
-    [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav file will be copied.")]
-    [HideInInspector] public string targetFolderPath = "AmbientAudioFiles";
-
-    [Tooltip("The selected file path (for debugging purposes).")]
-    [HideInInspector] public string selectedFilePath;
-
-    [Tooltip("Scene name to organize custom audio.")]
-    [HideInInspector] public string SceneName;
-
-    [Tooltip("List of loaded audio clips.")]
-    public List<AudioClip> AmbientaudioClips = new List<AudioClip>();
-
-    [HideInInspector] public string AmbientName;
-
-    //Open the file inspector and select a file
-    public void OpenFileDialog()
+    public class AmbienceFileSelector : MonoBehaviour
     {
-#if UNITY_EDITOR
-        // Setup the audio folder path
-        targetFolderPath = "CustomAudio/" + SceneName + "/Ambience";
+        [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav file will be copied.")]
+        [HideInInspector] public string targetFolderPath = "AmbientAudioFiles";
 
-        // Use UnityEditor file dialog for editor and select only wav files
-        selectedFilePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
+        [Tooltip("The selected file path (for debugging purposes).")]
+        [HideInInspector] public string selectedFilePath;
+
+        [Tooltip("Scene name to organize custom audio.")]
+        [HideInInspector] public string SceneName;
+
+        [Tooltip("List of loaded audio clips.")]
+        public List<AudioClip> AmbientaudioClips = new List<AudioClip>();
+
+        [HideInInspector] public string AmbientName;
+
+        //Open the file inspector and select a file
+        public void OpenFileDialog()
+        {
+#if UNITY_EDITOR
+            // Setup the audio folder path
+            targetFolderPath = "CustomAudio/" + SceneName + "/Ambience";
+
+            // Use UnityEditor file dialog for editor and select only wav files
+            selectedFilePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
 #else
         // Setup the audio folder path
         targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Ambience");
@@ -49,87 +51,87 @@ public class AmbienceFileSelector : MonoBehaviour
             }
         }
 #endif
-        // If a file is selected, copy it to the target folder
-        if (!string.IsNullOrEmpty(selectedFilePath))
-        {
-            CopyFileToTargetFolder(selectedFilePath);
-        }
-        else
-        {
-            Debug.LogWarning("No file was selected.");
-        }
-    }
-
-    //Copy the file over to the selected place and rename
-    private void CopyFileToTargetFolder(string filePath)
-    {
-        // Get the AmbientName from the AmbienceManager
-        AmbientName = gameObject.GetComponent<AmbienceManager>().AmbientName;
-
-        //Logs errors if there is no target folder or ambient name
-        if (string.IsNullOrEmpty(AmbientName))
-        {
-            Debug.LogError("Ambient is not set. Please provide a valid name.");
-            return;
-        }
-        if (string.IsNullOrEmpty(targetFolderPath))
-        {
-            Debug.LogError("Target folder path is not set.");
-            return;
+            // If a file is selected, copy it to the target folder
+            if (!string.IsNullOrEmpty(selectedFilePath))
+            {
+                CopyFileToTargetFolder(selectedFilePath);
+            }
+            else
+            {
+                Debug.LogWarning("No file was selected.");
+            }
         }
 
-        // Create the full path in the Unity project
-        string targetPath = Path.Combine(Application.dataPath, targetFolderPath);
-
-        // Ensure the folder exists
-        if (!Directory.Exists(targetPath))
+        //Copy the file over to the selected place and rename
+        private void CopyFileToTargetFolder(string filePath)
         {
-            Directory.CreateDirectory(targetPath);
-        }
+            // Get the AmbientName from the AmbienceManager
+            AmbientName = gameObject.GetComponent<AmbienceManager>().AmbientName;
 
-        // Get the extension of the original file (e.g., ".wav")
-        string fileExtension = Path.GetExtension(filePath);
+            //Logs errors if there is no target folder or ambient name
+            if (string.IsNullOrEmpty(AmbientName))
+            {
+                Debug.LogError("Ambient is not set. Please provide a valid name.");
+                return;
+            }
+            if (string.IsNullOrEmpty(targetFolderPath))
+            {
+                Debug.LogError("Target folder path is not set.");
+                return;
+            }
 
-        // Set the destination file name to use OneshotName
-        string destinationFileName = $"{AmbientName}{fileExtension}";
-        string destinationPath = Path.Combine(targetPath, destinationFileName);
+            // Create the full path in the Unity project
+            string targetPath = Path.Combine(Application.dataPath, targetFolderPath);
 
-        try
-        {
-            // Copy the file and rename it
-            File.Copy(filePath, destinationPath, true);
-            Debug.Log($"File successfully copied and renamed to: {destinationPath}");
+            // Ensure the folder exists
+            if (!Directory.Exists(targetPath))
+            {
+                Directory.CreateDirectory(targetPath);
+            }
+
+            // Get the extension of the original file (e.g., ".wav")
+            string fileExtension = Path.GetExtension(filePath);
+
+            // Set the destination file name to use OneshotName
+            string destinationFileName = $"{AmbientName}{fileExtension}";
+            string destinationPath = Path.Combine(targetPath, destinationFileName);
+
+            try
+            {
+                // Copy the file and rename it
+                File.Copy(filePath, destinationPath, true);
+                Debug.Log($"File successfully copied and renamed to: {destinationPath}");
 
 #if UNITY_EDITOR
-            // Refresh the Asset Database so Unity detects the new file
-            AssetDatabase.Refresh();
+                // Refresh the Asset Database so Unity detects the new file
+                AssetDatabase.Refresh();
 #endif
-            // Load the renamed AudioClip and add it to the list
-            StartCoroutine(AddAudioClipToList(destinationFileName));
+                // Load the renamed AudioClip and add it to the list
+                StartCoroutine(AddAudioClipToList(destinationFileName));
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"Failed to copy and rename file: {ex.Message}");
+            }
         }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"Failed to copy and rename file: {ex.Message}");
-        }
-    }
 
-    private IEnumerator AddAudioClipToList(string fileName)
-    {
-        string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
+        private IEnumerator AddAudioClipToList(string fileName)
+        {
+            string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
 
 #if UNITY_EDITOR
-        // Use the AssetDatabase in the editor to load the clip
-        AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+            // Use the AssetDatabase in the editor to load the clip
+            AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
 
-        if (clip != null)
-        {
-            AmbientaudioClips.Add(clip);
-            Debug.Log($"AudioClip successfully added: {clip.name}");
-        }
-        else
-        {
-            Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
-        }
+            if (clip != null)
+            {
+                AmbientaudioClips.Add(clip);
+                Debug.Log($"AudioClip successfully added: {clip.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
+            }
 
 #else
     // For builds, load the audio clip using UnityWebRequest
@@ -159,6 +161,7 @@ public class AmbienceFileSelector : MonoBehaviour
         Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
     }
 #endif
-        yield break; // Ensures the coroutine exits cleanly
+            yield break; // Ensures the coroutine exits cleanly
+        }
     }
 }

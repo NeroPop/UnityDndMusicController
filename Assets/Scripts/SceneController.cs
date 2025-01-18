@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MusicMixer.Actions;
+using MusicMixer.Ambience;
 
 public class SceneController : MonoBehaviour
 {

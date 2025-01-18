@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmbientButtonController : MonoBehaviour
+namespace MusicMixer.Ambience
 {
-    public int ButtonIndex;
-
-    public void DestroyMe()
+    public class AmbientButtonController : MonoBehaviour
     {
-        Destroy(gameObject);
+        public int ButtonIndex;
+
+        public void DestroyMe()
+        {
+            Destroy(gameObject);
+        }
     }
 }
