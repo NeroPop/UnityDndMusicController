@@ -92,32 +92,14 @@ public class AmbienceManager : MonoBehaviour
         //Ensure that audio files are loaded
         LoadAudioFiles();
 
-        //Create the new button for the ambience
-        GameObject newAmbientButton = Instantiate(AmbientButtonPrefab, AmbientButtonGroup.transform);
-        newAmbientButton.GetComponentInChildren<TMP_Text>().text = AmbientName;
-        newAmbientButton.name = "Button " + AmbientName;
-
-        //Add the button to the list
-        Button buttonComponent = newAmbientButton.GetComponent<Button>();
-        AmbientButtons.Add(buttonComponent);
-
-        //Assign the button index correctly
+        //Create the button index
         int buttonIndex = NewAmbientInt + PreloadedAmbience - 1; //Use the last index in the list
-        newAmbientButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
 
-        //Ensure that on click it triggers the correct ambience
-        buttonComponent.onClick.AddListener(() => ToggleAmbientAudio(buttonIndex));
+        //Create a new Ambient button
+        NewAmbientButton(buttonIndex);
 
         //Create the new Ambient game object
-        GameObject newAmbient = Instantiate(AmbientPrefab, AmbienceParent.transform);
-        newAmbient.name = AmbientName;
-
-        //Assign the audio clip to the audio source
-        AmbientAudioSources.Add(newAmbient.GetComponent<AudioSource>());
-        newAmbient.GetComponent<AudioSource>().clip = AmbientClips[NewAmbientInt - 1];
-
-        //Assign the Fade time to the Ambient Controller
-        newAmbient.GetComponent<AmbientController>().FadeDuration = FadeDuration;
+        NewAmbientGameObject(AmbientClips[NewAmbientInt - 1]);
 
         //Hide the customisation menus
         CustomisationMenuUI.SetActive(false);
@@ -170,35 +152,18 @@ public class AmbienceManager : MonoBehaviour
 
                     PreloadedAmbience++; //Increment the counter for loaded ambient
 
-                    //Create the new button for each loaded clip
-                    GameObject newAmbientButton = Instantiate(AmbientButtonPrefab, AmbientButtonGroup.transform);
-                    newAmbientButton.GetComponentInChildren<TMP_Text>().text = clip.name;
-                    newAmbientButton.name = "Button " + clip.name;
-
-                    //Add the button to the list
-                    Button buttonComponent = newAmbientButton.GetComponent<Button>();
-                    AmbientButtons.Add(buttonComponent);
+                    AmbientName = clip.name; //Gets the AmbientName
 
                     //Create the new Ambient game object
-                    GameObject newAmbient = Instantiate(AmbientPrefab, AmbienceParent.transform);
-                    newAmbient.name = clip.name;
+                    NewAmbientGameObject(clip);
 
-                    //Assign the audio clip to the audio source
-                    AudioSource audioSource = newAmbient.GetComponent<AudioSource>();
-                    audioSource.clip = clip;
-                    AmbientAudioSources.Add(audioSource);
-
-                    //Assign the Fade time to the Ambient Controller
-                    newAmbient.GetComponent<AmbientController>().FadeDuration = FadeDuration;
-
-                    //Assign the button index correctly
+                    //Create the button index
                     int buttonIndex = AmbientAudioSources.Count - 1;
-                    newAmbientButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
 
-                    //Ensure that on click it triggers the correct ambience
-                    buttonComponent.onClick.AddListener(() => ToggleAmbientAudio(buttonIndex));
+                    //Create a new Ambient Button
+                    NewAmbientButton(buttonIndex);
 
-                    Debug.Log($"Loaded Ambient: {clip.name}");
+                    Debug.Log($"Loaded Ambient: {AmbientName}");
                 }
                 else
                 {
@@ -247,35 +212,18 @@ public class AmbienceManager : MonoBehaviour
 
                 PreloadedAmbience++; // Increment the counter for loaded ambient
 
-                // Create a button for each loaded clip
-                GameObject newAmbientButton = Instantiate(AmbientButtonPrefab, AmbientButtonGroup.transform);
-                newAmbientButton.GetComponentInChildren<TMP_Text>().text = clip.name;
-                newAmbientButton.name = "Button " + clip.name;
-
-                //Add the button to the list
-                Button buttonComponent = newAmbientButton.GetComponent<Button>();
-                AmbientButtons.Add(buttonComponent);
+                AmbientName = clip.name; //Gets the AmbientName
 
                 //Create the new Ambient game object
-                GameObject newAmbient = Instantiate(AmbientPrefab, AmbienceParent.transform);
-                newAmbient.name = clip.name;
+                NewAmbientGameObject(clip);
 
-                //Assign the audio clip to the audio source
-                AudioSource audioSource = newAmbient.GetComponent<AudioSource>();
-                audioSource.clip = clip;
-                AmbientAudioSources.Add(audioSource);
-
-                //Assign the Fade time to the Ambient Controller
-                newAmbient.GetComponent<AmbientController>().FadeDuration = FadeDuration;
-
-                //Assign the button index correctly
+                //Create the button index
                 int buttonIndex = AmbientAudioSources.Count - 1;
-                newAmbientButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
 
-                //Ensure that on click it triggers the correct ambience
-                buttonComponent.onClick.AddListener(() => ToggleAmbientAudio(buttonIndex));
+                //Create a new Ambient Button
+                NewAmbientButton(buttonIndex);
 
-                Debug.Log($"Loaded Ambient: {clip.name}");
+                Debug.Log($"Loaded Ambient: {AmbientName}");
             }
             else
             {
@@ -311,5 +259,38 @@ public class AmbienceManager : MonoBehaviour
         //Sets clean to true and loads the correct buttons back in
         clean = true;
         LoadExistingWavFiles();
+    }
+
+    private void NewAmbientButton(int buttonIndex)
+    {
+        //Create the new button for the ambience
+        GameObject newAmbientButton = Instantiate(AmbientButtonPrefab, AmbientButtonGroup.transform);
+        newAmbientButton.GetComponentInChildren<TMP_Text>().text = AmbientName;
+        newAmbientButton.name = "Button " + AmbientName;
+
+        //Add the button to the list
+        Button buttonComponent = newAmbientButton.GetComponent<Button>();
+        AmbientButtons.Add(buttonComponent);
+
+        //Assign the button index
+        newAmbientButton.GetComponent<AmbientButtonController>().ButtonIndex = buttonIndex;
+
+        //Ensure that on click it triggers the correct ambience
+        buttonComponent.onClick.AddListener(() => ToggleAmbientAudio(buttonIndex));
+    }
+
+    private void NewAmbientGameObject(AudioClip clip)
+    {
+        //Create the new Ambient game object
+        GameObject newAmbient = Instantiate(AmbientPrefab, AmbienceParent.transform);
+        newAmbient.name = AmbientName;
+
+        //Assign the audio clip to the audio source
+        AudioSource audioSource = newAmbient.GetComponent<AudioSource>();
+        audioSource.clip = clip;
+        AmbientAudioSources.Add(audioSource);
+
+        //Assign the Fade time to the Ambient Controller
+        newAmbient.GetComponent<AmbientController>().FadeDuration = FadeDuration;
     }
 }
