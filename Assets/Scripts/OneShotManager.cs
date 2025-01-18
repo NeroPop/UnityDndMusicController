@@ -86,13 +86,8 @@ namespace MusicMixer.Actions
             //Create a new button for the Oneshot
             NewButtonSetup(buttonIndex);
 
-            // Create the new oneshot game object
-            GameObject newOneshot = Instantiate(OneshotPrefab, Oneshots.transform);
-            newOneshot.name = OneshotName;
-
-            // Assign the audio clip to the audio source (Different to when loading an Action)
-            OneshotAudioSources.Add(newOneshot.GetComponent<AudioSource>());
-            newOneshot.GetComponent<AudioSource>().clip = Oneshotclips[NewOneshotInt - 1];
+            //Create the new oneshot game object
+            NewActionObject(Oneshotclips[NewOneshotInt - 1]);
 
             // Hide the customisation menus
             CustomisationMenuUI.SetActive(false);
