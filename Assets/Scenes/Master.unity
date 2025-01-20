@@ -304,6 +304,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5076735942364590114, guid: 75012b366a584474c99c1603311b659c, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5976598173216110783, guid: 75012b366a584474c99c1603311b659c, type: 3}
       propertyPath: m_IsActive
       value: 1
