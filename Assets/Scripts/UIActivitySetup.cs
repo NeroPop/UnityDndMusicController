@@ -39,7 +39,7 @@ public class UIActivitySetup : MonoBehaviour
 
         //Find the disabled activity controller via the parent of the current activity
         Transform parent = transform.parent;
-        DisabledPlayerControls = parent.Find("Inactive Player").gameObject;
+        DisabledPlayerControls = parent.Find("New Inactive Player").gameObject;
 
         //Sets up Activity references
         ActivityController.DisplayName = CurrentSong;
