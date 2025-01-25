@@ -293,12 +293,12 @@ namespace MusicMixer.Activities
             newActivity = Instantiate(ActivityPrefab, ActivitiesParent.transform);
             newActivity.name = ActivityName;
 
-            //Assign the new Activity to the Activity Manager and FileSelector list
+            //Assign the new Activity to various lists
+            ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
             ActivityManager.ActivitiesList.Add(newActivity);
             gameObject.GetComponent<ActivityFileSelector>().NewActivity = newActivity;
 
-            //Assign the audio clip to the audio source and set the volume to 0
-            ActivityAudioSources.Add(newActivity.GetComponent<AudioSource>());
+            //set the activity volume to 0
             newActivity.GetComponent<AudioSource>().volume = 0;
         }
 
