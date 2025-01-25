@@ -298,11 +298,14 @@ namespace MusicMixer.Activities
         {
             //Sets the previous track to the current track number
             PrevTrack = TrackNumber;
-            do
+
+            //randomises the next track from the tracks list
+            TrackNumber = Random.Range(0, Tracks.Count);
+
+            if (TrackNumber == PrevTrack)
             {
-                //randomises the next track from the tracks list
-                TrackNumber = Random.Range(0, Tracks.Count);
-            } while (TrackNumber == PrevTrack);
+                Shuffled();
+            }
 
             //plays the random song
             PlaySong();
