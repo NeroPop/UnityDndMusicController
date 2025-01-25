@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MusicMixer.Activities
 {
@@ -186,8 +187,8 @@ namespace MusicMixer.Activities
             //Resets the dial back to 0
             ResetDial.Invoke();
 
-            //Displays the song name
-            DisplayName.text = audio.clip.name;
+            //Displays the song name without .wav
+            DisplayName.text = Path.GetFileNameWithoutExtension(audio.clip.name.Trim());
 
             // Set the slider's max value to the length of the audio clip
             AudioSlider.maxValue = audio.clip.length;

@@ -84,7 +84,6 @@ namespace MusicMixer.Activities
 
                     ActivityClips.Add(clip); // Add the clip to the list of clips
                     gameObject.GetComponent<ActivityController>().Tracks.Add(clip); //Add the clip to the Activity Controllers list of clips
-                                                                                    // gameObject.GetComponent<AudioSource>().clip = clip;
                     gameObject.GetComponent<ActivityController>().PlaySong();
                 }
                 else
