@@ -71,12 +71,14 @@ namespace MusicMixer.Activities
         {
             CustomisationMenuUI.SetActive(true);
             NewActivityUI.SetActive(true);
+            GetComponent<ActivityFileSelector>().ControlCustomiseUI(true);
         }
 
         public void CancelNew() //Cancels the New Activity sound setup menu
         {
             CustomisationMenuUI.SetActive(false);
             NewActivityUI.SetActive(false);
+
         }
 
         public void NewActivityName() //Sets the Activity Name to whatever you called it
@@ -146,14 +148,14 @@ namespace MusicMixer.Activities
 
                     PreloadedActivities++; //Increment the counter for loaded activities
 
-                    //Create a new Activity game object
-                    NewActivityGameObject();
-
                     //Assign the button index correctly
                     int buttonIndex = PreloadedActivities; //Use the last index in the list
 
                     //Create a new Activity Button
                     NewActivityButton(buttonIndex);
+
+                    //Create a new Activity game object
+                    NewActivityGameObject();
 
                     //Create a new media player for the activity
                     NewActivityPlayer();
@@ -194,14 +196,14 @@ namespace MusicMixer.Activities
                         //Sets everything up
                         PreloadedActivities++; //Increment the counter for loaded activities
 
-                        //Create a new Activity game object
-                        NewActivityGameObject();
-
                         //Assign the button index correctly
                         int buttonIndex = PreloadedActivities; //Use the last index in the list
 
                         //Create a new Activity Button
                         NewActivityButton(buttonIndex);
+
+                        //Create a new Activity game object
+                        NewActivityGameObject();
 
                         //Create a new media player for the activity
                         NewActivityPlayer();

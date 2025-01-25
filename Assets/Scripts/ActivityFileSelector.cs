@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Drawing.Text;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -19,13 +21,17 @@ namespace MusicMixer.Activities
         [HideInInspector] public List<string> selectedFilePaths = new List<string>();
 
         [Tooltip("Scene name to organize custom audio.")]
-        public string SceneName;
+        [HideInInspector] public string SceneName;
 
         [Tooltip("List of loaded audio clips.")]
         public List<AudioClip> ActivityaudioClips = new List<AudioClip>();
 
-        public GameObject NewActivity;
+        [HideInInspector] public GameObject NewActivity;
         [HideInInspector] public string ActivityName;
+
+        [Header("Customisation UI References")]
+        [SerializeField] private GameObject ButtonDone;
+        [SerializeField] private GameObject ButtonCancel;
 
         public void OpenFileDialog() // Open the file inspector and select files
         {
@@ -175,6 +181,7 @@ namespace MusicMixer.Activities
             Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
         }
 #endif
+            ControlCustomiseUI(false);
             yield break; // Ensures the coroutine exits cleanly
         }
 
@@ -190,6 +197,21 @@ namespace MusicMixer.Activities
             ActivityaudioClips.Clear();
             gameObject.GetComponent<CustomActivitiesSetup>().ActivityClips.Clear();
             selectedFilePaths.Clear();
+        }
+
+        //Function to enable or disable the cancel and done buttons on the customisation interface
+        public void ControlCustomiseUI(bool active)
+        {
+            if (active)
+            {
+                ButtonDone.SetActive(true);
+                ButtonCancel.SetActive(true);
+            }
+            else
+            {
+                ButtonDone.SetActive(false);
+                ButtonCancel.SetActive(false);
+            }
         }
     }
 }
