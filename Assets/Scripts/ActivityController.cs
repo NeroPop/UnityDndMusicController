@@ -138,7 +138,7 @@ namespace MusicMixer.Activities
             audio.Play();
 
             //Sends a message to the console about what track is playing, how long it is and what time it's playing from.
-            // Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
+            Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
 
             //Waits until the end of the song
             yield return new WaitForSeconds(audio.clip.length - CurrentTime);
@@ -152,6 +152,7 @@ namespace MusicMixer.Activities
                     //Checks that the clip has definitely finished
                     if (CurrentTime >= audio.clip.length)
                     {
+                        Debug.Log($"Track {TrackNumber} finished playing");
                         //Sets the previous track as the current track before setting the current track to the next one and calling the PlaySong function
                         PrevTrack = TrackNumber;
                         TrackNumber = (TrackNumber + 1) % Tracks.Count;
@@ -182,7 +183,7 @@ namespace MusicMixer.Activities
             AudioSource audio = GetComponent<AudioSource>();
 
 
-            //Sets the track number to the last track if the current track number is somehow below 0
+            //Ensures the TrackNumber isn't below 0 but doesn't actually set it to anything
             if (TrackNumber < 0 || TrackNumber >= Tracks.Count) return;
 
             //Sets the audio clip as whatever the current track number is
@@ -214,6 +215,7 @@ namespace MusicMixer.Activities
             {
                 StartCoroutine(Playing());
             }
+            Debug.Log("Playing track number " + TrackNumber);
         }
 
         public void loadCustomTrack()
@@ -231,6 +233,7 @@ namespace MusicMixer.Activities
             if (!Shuffle)
             {
                 TrackNumber = (TrackNumber + 1) % Tracks.Count;
+                Debug.Log($"Selected track {TrackNumber} out of {Tracks.Count} tracks");
                 PlaySong();
             }
 
