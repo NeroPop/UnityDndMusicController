@@ -13728,6 +13728,8 @@ MonoBehaviour:
   ActivityaudioClips: []
   NewActivity: {fileID: 0}
   ActivityName: 
+  ButtonDone: {fileID: 8971212556078342244}
+  ButtonCancel: {fileID: 3669359746895955399}
 --- !u!114 &2665321583816548207
 MonoBehaviour:
   m_ObjectHideFlags: 0
