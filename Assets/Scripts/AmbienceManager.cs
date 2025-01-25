@@ -9,6 +9,7 @@ using System.Diagnostics.Eventing.Reader;
 using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine.Networking;
+using MusicMixer.Activities;
 
 namespace MusicMixer.Ambience
 {
@@ -71,6 +72,7 @@ namespace MusicMixer.Ambience
         {
             CustomisationMenuUI.SetActive(true);
             NewAmbientUI.SetActive(true);
+            GetComponent<AmbienceFileSelector>().ControlCustomiseUI(true);
         }
 
         //Cancels the New Ambient sound setup menu

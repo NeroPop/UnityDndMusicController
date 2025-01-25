@@ -26,6 +26,10 @@ namespace MusicMixer.Ambience
 
         [HideInInspector] public string AmbientName;
 
+        [Header("Customisation UI References")]
+        [SerializeField] private GameObject ButtonDone;
+        [SerializeField] private GameObject ButtonCancel;
+
         //Open the file inspector and select a file
         public void OpenFileDialog()
         {
@@ -161,7 +165,21 @@ namespace MusicMixer.Ambience
         Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
     }
 #endif
+            ControlCustomiseUI(false);
             yield break; // Ensures the coroutine exits cleanly
+        }
+        public void ControlCustomiseUI(bool active)
+        {
+            if (active)
+            {
+                ButtonDone.SetActive(true);
+                ButtonCancel.SetActive(true);
+            }
+            else
+            {
+                ButtonDone.SetActive(false);
+                ButtonCancel.SetActive(false);
+            }
         }
     }
 }

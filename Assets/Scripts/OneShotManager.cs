@@ -9,6 +9,7 @@ using System.Diagnostics.Eventing.Reader;
 using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine.Networking;
+using MusicMixer.Activities;
 
 namespace MusicMixer.Actions
 {
@@ -57,6 +58,7 @@ namespace MusicMixer.Actions
         {
             CustomisationMenuUI.SetActive(true);
             NewOneshotUI.SetActive(true);
+            GetComponent<OneshotFileSelector>().ControlCustomiseUI(true);
         }
 
         //Cancels the New Oneshot setup menu

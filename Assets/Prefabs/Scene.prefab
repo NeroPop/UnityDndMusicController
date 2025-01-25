@@ -13747,6 +13747,8 @@ MonoBehaviour:
   SceneName: 
   AmbientaudioClips: []
   AmbientName: 
+  ButtonDone: {fileID: 668101796378942777}
+  ButtonCancel: {fileID: 2040257184249754830}
 --- !u!114 &3873629573956951481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13764,6 +13766,8 @@ MonoBehaviour:
   SceneName: 
   OneshotaudioClips: []
   OneshotName: 
+  ButtonDone: {fileID: 7277089584653194549}
+  ButtonCancel: {fileID: 4324968235785669641}
 --- !u!1 &8813138596522640092
 GameObject:
   m_ObjectHideFlags: 0

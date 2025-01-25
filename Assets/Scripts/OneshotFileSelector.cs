@@ -26,6 +26,10 @@ namespace MusicMixer.Actions
 
         [HideInInspector] public string OneshotName;
 
+        [Header("Customisation UI References")]
+        [SerializeField] private GameObject ButtonDone;
+        [SerializeField] private GameObject ButtonCancel;
+
         public void OpenFileDialog()
         {
 #if UNITY_EDITOR
@@ -160,7 +164,21 @@ namespace MusicMixer.Actions
         Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
     }
 #endif
+            ControlCustomiseUI(false);
             yield break; // Ensures the coroutine exits cleanly
+        }
+        public void ControlCustomiseUI(bool active)
+        {
+            if (active)
+            {
+                ButtonDone.SetActive(true);
+                ButtonCancel.SetActive(true);
+            }
+            else
+            {
+                ButtonDone.SetActive(false);
+                ButtonCancel.SetActive(false);
+            }
         }
     }
 }
