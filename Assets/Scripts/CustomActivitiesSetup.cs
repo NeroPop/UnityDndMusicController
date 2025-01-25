@@ -219,6 +219,7 @@ namespace MusicMixer.Activities
                 }
             }
 #endif
+                clean = false;
             }
         }
 

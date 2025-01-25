@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    //public GameObject[] Scenes;
     public List<GameObject> Scenes = new List<GameObject>();
     public GameObject SceneSelectUI;
 
@@ -18,6 +17,7 @@ public class SceneManager : MonoBehaviour
         {
             CurScene = 0;
             Scenes[CurScene].SetActive(true);
+            Scenes[CurScene].GetComponent<SceneController>().ActivateScene();
         }
         SceneSelectUI.SetActive(true);
     }

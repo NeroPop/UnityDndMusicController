@@ -192,6 +192,7 @@ namespace MusicMixer.Ambience
                 StartCoroutine(LoadAudioClip(filePath));
             }
 #endif
+                clean = false;
             }
         }
 

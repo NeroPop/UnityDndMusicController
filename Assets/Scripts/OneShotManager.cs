@@ -173,6 +173,7 @@ namespace MusicMixer.Actions
                 StartCoroutine(LoadAudioClip(filePath));
             }
 #endif
+                clean = false;
             }
         }
 
