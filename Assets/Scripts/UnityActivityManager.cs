@@ -78,7 +78,6 @@ namespace MusicMixer.Activities
             {
                 //sets the old old previous activity volume to 0.
                 ActivitiesList[FadingAct - 1].GetComponent<AudioSource>().volume = 0;
-                // Old volume mixer code: ActivityMixers[FadingAct - 1].audioMixer.SetFloat(MixerVolNames[FadingAct - 1], Mathf.Log10(0) * 20);
             }
 
             if (FadeoutVolume > 0 && PrevAct > 0)

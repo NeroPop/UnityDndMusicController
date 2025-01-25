@@ -14,20 +14,10 @@ namespace MusicMixer.Activities
     public class ReadOnlyAttribute : PropertyAttribute { }
     public class ActivityController : MonoBehaviour
     {
-        // [Header("References")]
-        // public GameObject MusicManager;
-
-        //private UnityActivityManager activityManager;
-
         [Header("Soundtrack Audio")]
-
-        //List of all the audio tracks
-        //public AudioClip[] Tracks;
         public List<AudioClip> Tracks = new List<AudioClip>();
 
         [Header("Display Elements")]
-
-        //UI elements
         public TMP_Text DisplayName;
         public TMP_Text DisplayTime;
         public TMP_Text DisplayRemaining;
@@ -38,7 +28,6 @@ namespace MusicMixer.Activities
 
         [Header("Music Information")]
 
-        //Displays the music informaiton in the inspector. All either read only or private
         [ReadOnly]
         [SerializeField]
         int TrackNumber = 1;
@@ -138,7 +127,7 @@ namespace MusicMixer.Activities
             audio.Play();
 
             //Sends a message to the console about what track is playing, how long it is and what time it's playing from.
-            Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
+            //Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
 
             //Waits until the end of the song
             yield return new WaitForSeconds(audio.clip.length - CurrentTime);
@@ -152,10 +141,9 @@ namespace MusicMixer.Activities
                     //Checks that the clip has definitely finished
                     if (CurrentTime >= audio.clip.length)
                     {
-                        Debug.Log($"Track {TrackNumber} finished playing");
                         //Sets the previous track as the current track before setting the current track to the next one and calling the PlaySong function
                         PrevTrack = TrackNumber;
-                        TrackNumber = (TrackNumber + 1) % Tracks.Count;
+                        TrackNumber = (TrackNumber + 1) % Tracks.Count; //Increments track number by 1 and then ensures it wraps around if it reaches the end of the list.
                         PlaySong();
                         StopCoroutine(Playing());
                     }
@@ -215,7 +203,6 @@ namespace MusicMixer.Activities
             {
                 StartCoroutine(Playing());
             }
-            Debug.Log("Playing track number " + TrackNumber);
         }
 
         public void loadCustomTrack()
@@ -233,7 +220,6 @@ namespace MusicMixer.Activities
             if (!Shuffle)
             {
                 TrackNumber = (TrackNumber + 1) % Tracks.Count;
-                Debug.Log($"Selected track {TrackNumber} out of {Tracks.Count} tracks");
                 PlaySong();
             }
 
@@ -364,10 +350,6 @@ namespace MusicMixer.Activities
                 // Update the audio playback time to match the slider value
                 CurrentTime = (TimePercent / 100) * TrackLength;
                 audio.time = CurrentTime;
-
-
-                // audio.time = value;
-                // CurrentTime = value;
 
                 //update the display times to match the slider value
                 displayseconds = CurrentTime;
