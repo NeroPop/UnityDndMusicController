@@ -12,17 +12,45 @@ namespace MusicMixer
         [Header("Fading")]
         [SerializeField] private Slider ActivityFadeSlider;
 
+        public float ActivityFadeDuration;
+
+        [Header("Other")]
+        public string SceneName;
+
         private void Start()
         {
-            //Sets the Activity Fade slider to whatever value we've assigned FadeDuration in editor
-            ActivityFadeSlider.value = GetComponent<UnityActivityManager>().FadeDuration * 10;
+            LoadSettings();
+        }
+
+        public void SaveSettings()
+        {
+            SaveSystem.SaveSettings(this);
+            UpdateFadeValues();
+        }
+
+        public void LoadSettings()
+        {
+            SettingsData data = SaveSystem.LoadSettings(SceneName);
+
+            ActivityFadeDuration = data.ActivityFadeDuration;
+
+            UpdateFadeValues();
         }
 
         public void ActivityFadeUpdate() //Called when the slider value changes
         {
             //Updates the fade duration based on the current slider value.
-            float value = ActivityFadeSlider.value;
-            GetComponent<UnityActivityManager>().FadeDuration = (value / 10); //Worth noting I've devided the value by 10 as the slider's max value is set to 100 and we want integers of 0.1
+            ActivityFadeDuration = ActivityFadeSlider.value / 10; //Worth noting I've devided the value by 10 as the slider's max value is set to 100 and we want integers of 0.1
+            GetComponent<UnityActivityManager>().FadeDuration = ActivityFadeDuration;
+        }
+
+        private void UpdateFadeValues()
+        {
+            //Sets The activity fade duration to the current fade duration
+            GetComponent<UnityActivityManager>().FadeDuration = ActivityFadeDuration;
+
+            //Sets the Activity Fade slider to the Fade duration value
+            ActivityFadeSlider.value = ActivityFadeDuration * 10;
         }
     }
 }

@@ -4,6 +4,7 @@ using TMPro;
 using MusicMixer.Actions;
 using MusicMixer.Ambience;
 using MusicMixer.Activities;
+using MusicMixer;
 
 public class SceneController : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class SceneController : MonoBehaviour
         SceneManager = GameObject.Find("/SceneManager"); //Finds Scene Manager
 
         //Sets the Scene Name for various scripts
+        MusicManager.GetComponent<SettingsManager>().SceneName = SceneName;
         MusicManager.GetComponent<UnityActivityManager>().SceneName = SceneName;
         Activities.GetComponent<SceneNameHolder>().SceneName = SceneName;
         MusicManager.GetComponent<CustomActivitiesSetup>().SceneName = SceneName;
@@ -51,6 +53,10 @@ public class SceneController : MonoBehaviour
     }
     public void ActivateScene() //Triggered when a scene is activated
     {
+        //Gives the scene settings the scene name and triggers it to load the settings
+        MusicManager.GetComponent<SettingsManager>().SceneName = SceneName;
+        MusicManager.GetComponent<SettingsManager>().LoadSettings();
+
         //Gives Activity Manager the Scene name and triggers it to restart
         MusicManager.GetComponent<UnityActivityManager>().SceneName = SceneName;
         MusicManager.GetComponent<UnityActivityManager>().NewScene();
@@ -77,5 +83,8 @@ public class SceneController : MonoBehaviour
         MusicManager.GetComponent<CustomActivitiesSetup>().clean = false;
         MusicManager.GetComponent<OneShotManager>().clean = false;
         MusicManager.GetComponent<AmbienceManager>().clean = false;
+
+        //Saves the settings again to be safe
+        MusicManager.GetComponent<SettingsManager>().SaveSettings();
     }
 }
