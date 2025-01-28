@@ -30,6 +30,8 @@ namespace MusicMixer.Actions
         [SerializeField] private GameObject ButtonDone;
         [SerializeField] private GameObject ButtonCancel;
 
+        private string MP3FilePath;
+
         public void OpenFileDialog()
         {
 #if UNITY_EDITOR
@@ -38,6 +40,7 @@ namespace MusicMixer.Actions
 
             // Use UnityEditor file dialog for editor and allow selecting both WAV and MP3 files
             selectedFilePath = EditorUtility.OpenFilePanel("Select an Audio File", "", "wav,mp3");
+
 #else
         // Setup the audio folder path
         targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "One-Shots");
@@ -95,6 +98,29 @@ namespace MusicMixer.Actions
             // Get the extension of the original file (e.g., ".wav" or ".mp3")
             string fileExtension = Path.GetExtension(filePath);
 
+            // If it's an MP3, convert to WAV before copying
+            if (fileExtension.ToLower() == ".mp3")
+            {
+                try
+                {
+                    string wavFilePath = AudioConverter.ConvertMp3ToWav(filePath, targetPath);
+                    Debug.Log($"Converted MP3 to WAV: {wavFilePath}");
+
+                    //Gets the original file name and creates a path to where it'll copy the file before converting || Used for deleting the file after
+                    string mp3Name = Path.GetFileNameWithoutExtension(filePath);
+                    MP3FilePath = Path.Combine($"Assets/{targetFolderPath}/{mp3Name}.wav");
+
+                    // Set the destination file path to the WAV file
+                    filePath = wavFilePath;
+                    fileExtension = ".wav"; // Update the extension to WAV
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Failed to convert MP3 to WAV: {ex.Message}");
+                    return; // If conversion fails, exit the method
+                }
+            }
+
             // Set the destination file name to use OneshotName
             string destinationFileName = $"{OneshotName}{fileExtension}";
             string destinationPath = Path.Combine(targetPath, destinationFileName);
@@ -104,6 +130,17 @@ namespace MusicMixer.Actions
                 // Copy the file and rename it
                 File.Copy(filePath, destinationPath, true);
                 Debug.Log($"File successfully copied and renamed to: {destinationPath}");
+
+                // Delete the original MP3 file
+                if (File.Exists(MP3FilePath))
+                {
+                    File.Delete(MP3FilePath);
+                    Debug.Log($"Deleted original MP3 file: {MP3FilePath}");
+                }
+                else
+                {
+                    Debug.LogError($"File not found at {MP3FilePath}");
+                }
 
 #if UNITY_EDITOR
                 // Refresh the Asset Database so Unity detects the new file
