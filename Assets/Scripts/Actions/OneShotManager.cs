@@ -9,7 +9,7 @@ using System.Diagnostics.Eventing.Reader;
 using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine.Networking;
-using MusicMixer.Activities;
+using System;
 
 namespace MusicMixer.Actions
 {
@@ -124,7 +124,23 @@ namespace MusicMixer.Actions
                     Debug.LogWarning($"The specified directory does not exist: {FilePath}");
                     return;
                 }
-                //Finds the wav files in the folder
+
+                // Convert .mp3 files to .wav
+                string[] mp3Files = Directory.GetFiles(FilePath, "*.mp3");
+                foreach (string mp3File in mp3Files)
+                {
+                    try
+                    {
+                        string wavFilePath = AudioConverter.ConvertMp3ToWav(mp3File, FilePath);
+                        Debug.Log($"Converted {mp3File} to {wavFilePath}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError($"Failed to convert {mp3File} to WAV: {ex.Message}");
+                    }
+                }
+
+                //Loads Wav files
                 string[] wavFiles = Directory.GetFiles(FilePath, "*.wav");
 
                 foreach (string filePath in wavFiles) //Does the following for each wav file

@@ -12,7 +12,7 @@ namespace MusicMixer.Actions
 {
     public class OneshotFileSelector : MonoBehaviour
     {
-        [Tooltip("Specify the folder (relative to the Assets folder) where the selected .wav file will be copied.")]
+        [Tooltip("Specify the folder (relative to the Assets folder) where the selected audio file will be copied.")]
         [HideInInspector] public string targetFolderPath = "OneshotAudioFiles";
 
         [Tooltip("The selected file path (for debugging purposes).")]
@@ -36,17 +36,17 @@ namespace MusicMixer.Actions
             // Setup the audio folder path
             targetFolderPath = "CustomAudio/" + SceneName + "/One-Shots";
 
-            // Use UnityEditor file dialog for editor and select only wav files
-            selectedFilePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
+            // Use UnityEditor file dialog for editor and allow selecting both WAV and MP3 files
+            selectedFilePath = EditorUtility.OpenFilePanel("Select an Audio File", "", "wav,mp3");
 #else
         // Setup the audio folder path
         targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "One-Shots");
 
-        // Use System.Windows.Forms for standalone builds and select only wav files
+        // Use System.Windows.Forms for standalone builds and select both WAV and MP3 files
         using (var fileDialog = new System.Windows.Forms.OpenFileDialog())
         {
-            fileDialog.Filter = "WAV Files (*.wav)|*.wav";
-            fileDialog.Title = "Select a WAV File";
+            fileDialog.Filter = "Audio Files (*.wav;*.mp3)|*.wav;*.mp3";
+            fileDialog.Title = "Select an Audio File";
 
             if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -92,7 +92,7 @@ namespace MusicMixer.Actions
                 Directory.CreateDirectory(targetPath);
             }
 
-            // Get the extension of the original file (e.g., ".wav")
+            // Get the extension of the original file (e.g., ".wav" or ".mp3")
             string fileExtension = Path.GetExtension(filePath);
 
             // Set the destination file name to use OneshotName
@@ -120,65 +120,42 @@ namespace MusicMixer.Actions
 
         private IEnumerator AddAudioClipToList(string fileName)
         {
-            string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
+            string filePath = Path.Combine(Application.dataPath, targetFolderPath, fileName);
+            string fileUrl = "file:///" + filePath.Replace("\\", "/");
 
-#if UNITY_EDITOR
-            // Use the AssetDatabase in the editor to load the clip
-            AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+            // Determine the audio type (WAV or MP3) based on file extension
+            string fileExtension = Path.GetExtension(fileName).ToLower();
+            AudioType audioType = fileExtension == ".mp3" ? AudioType.MPEG : AudioType.WAV;
 
-            if (clip != null)
+            // Load the audio clip using UnityWebRequest
+            UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileUrl, audioType);
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
             {
-                OneshotaudioClips.Add(clip);
-                Debug.Log($"AudioClip successfully added: {clip.name}");
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                if (clip != null)
+                {
+                    OneshotaudioClips.Add(clip);
+                    Debug.Log($"AudioClip successfully added: {clip.name}");
+                }
+                else
+                {
+                    Debug.LogWarning($"Failed to load AudioClip from path {filePath}. Ensure the file is in the correct folder.");
+                }
             }
             else
             {
-                Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
+                Debug.LogError($"Error loading AudioClip: {www.error}");
             }
 
-#else
-    // For builds, load the audio clip using UnityWebRequest
-    string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
-
-    // Ensure the file path starts with file:// for UnityWebRequest
-    string fileUrl = "file:///" + filePath.Replace("\\", "/");
-
-    UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileUrl, AudioType.WAV);
-    yield return www.SendWebRequest(); // Wait for the request to finish
-
-    if (www.result == UnityWebRequest.Result.Success)
-    {
-        AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-        if (clip != null)
-        {
-            OneshotaudioClips.Add(clip);
-            Debug.Log($"AudioClip successfully added: {clip.name}");
-        }
-        else
-        {
-            Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Ensure the file is in the correct folder.");
-        }
-    }
-    else
-    {
-        Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
-    }
-#endif
             ControlCustomiseUI(false);
-            yield break; // Ensures the coroutine exits cleanly
         }
+
         public void ControlCustomiseUI(bool active)
         {
-            if (active)
-            {
-                ButtonDone.SetActive(true);
-                ButtonCancel.SetActive(true);
-            }
-            else
-            {
-                ButtonDone.SetActive(false);
-                ButtonCancel.SetActive(false);
-            }
+            ButtonDone.SetActive(active);
+            ButtonCancel.SetActive(active);
         }
     }
 }
