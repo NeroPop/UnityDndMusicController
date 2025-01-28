@@ -9,7 +9,7 @@ using System.Diagnostics.Eventing.Reader;
 using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine.Networking;
-using System;
+using MusicMixer.Activities;
 
 namespace MusicMixer.Actions
 {
@@ -124,31 +124,7 @@ namespace MusicMixer.Actions
                     Debug.LogWarning($"The specified directory does not exist: {FilePath}");
                     return;
                 }
-
-                // Convert .mp3 files to .wav
-                string[] mp3Files = Directory.GetFiles(FilePath, "*.mp3");
-                foreach (string mp3File in mp3Files)
-                {
-                    try
-                    {
-                        // Convert MP3 to WAV
-                        string wavFilePath = AudioConverter.ConvertMp3ToWav(mp3File, FilePath);
-                        Debug.Log($"Converted {mp3File} to {wavFilePath}");
-
-                        // Delete the old MP3 file after conversion
-                        if (File.Exists(mp3File))
-                        {
-                            File.Delete(mp3File);
-                            Debug.Log($"Deleted old MP3 file: {mp3File}");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError($"Failed to convert {mp3File} to WAV: {ex.Message}");
-                    }
-                }
-
-                //Loads Wav files
+                //Finds the wav files in the folder
                 string[] wavFiles = Directory.GetFiles(FilePath, "*.wav");
 
                 foreach (string filePath in wavFiles) //Does the following for each wav file
@@ -198,21 +174,11 @@ namespace MusicMixer.Actions
             {
                 StartCoroutine(LoadAudioClip(filePath));
             }
-
-            // Find the mp3 files in the directory
-            string[] mp3Files = Directory.GetFiles(FilePath, "*.mp3");
-            Debug.Log($"Found {mp3Files.Length} .mp3 files in {FilePath}");
-
-            foreach (string mp3File in mp3Files) //handles mp3 files in the build
-            {
-                StartCoroutine(LoadMp3AudioClip(mp3File));
-            }
 #endif
                 clean = false;
             }
         }
 
-        //Coroutine to load WAV files in build 
         private IEnumerator LoadAudioClip(string filePath)
         {
             string url = $"file://{filePath}";
@@ -248,53 +214,6 @@ namespace MusicMixer.Actions
                 {
                     Debug.LogError($"Failed to load AudioClip: {filePath}. Error: {www.error}");
                 }
-            }
-        }
-
-        // Coroutine to load MP3 files in build
-        private IEnumerator LoadMp3AudioClip(string filePath)
-        {
-            string fileUrl = "file:///" + filePath.Replace("\\", "/");
-
-            // Load the audio clip using UnityWebRequest for MP3 files
-            UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileUrl, AudioType.MPEG);
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-                if (clip != null)
-                {
-                    // Extract file name from the path
-                    string fileName = Path.GetFileNameWithoutExtension(filePath);
-                    clip.name = fileName; // Manually set the clip name
-
-                    Oneshotclips.Add(clip);
-
-                    PreloadedOneshots++;
-
-                    //Sets the OneshotName to the clip name
-                    OneshotName = clip.name;
-
-                    //Create the new Action game object
-                    NewActionObject(clip);
-
-                    //Assign the new button index correctly
-                    int buttonIndex = OneshotAudioSources.Count - 1;
-
-                    //Create a new Action Button
-                    NewButtonSetup(buttonIndex);
-
-                    Debug.Log($"MP3 AudioClip successfully added: {clip.name}");
-                }
-                else
-                {
-                    Debug.LogWarning($"Failed to load MP3 AudioClip from path {filePath}. Ensure the file is in the correct folder.");
-                }
-            }
-            else
-            {
-                Debug.LogError($"Error loading MP3 AudioClip: {www.error}");
             }
         }
 
