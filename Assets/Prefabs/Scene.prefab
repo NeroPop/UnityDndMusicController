@@ -7070,7 +7070,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter One-Shot Name Here
+  m_text: Enter Action Name Here
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec0228622df36f248855bce8ac6c275b, type: 2}
   m_sharedMaterial: {fileID: -1624589393854913127, guid: ec0228622df36f248855bce8ac6c275b, type: 2}
@@ -8137,11 +8137,11 @@ RectTransform:
   m_Children:
   - {fileID: 2438265850966330174}
   - {fileID: 328397916534002307}
+  - {fileID: 370186304717290111}
   - {fileID: 3435755787576392306}
   - {fileID: 4207520918322815779}
   - {fileID: 204124599025881425}
   - {fileID: 5532323458988186594}
-  - {fileID: 370186304717290111}
   - {fileID: 1771796360099237078}
   m_Father: {fileID: 6240620233320694591}
   m_RootOrder: -1
@@ -14211,7 +14211,7 @@ GameObject:
   - component: {fileID: 4745237161092921147}
   - component: {fileID: 8334295679973381021}
   m_Layer: 5
-  m_Name: New Oneshot
+  m_Name: New Action
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
