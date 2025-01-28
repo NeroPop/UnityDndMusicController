@@ -11,8 +11,9 @@ namespace MusicMixer
     {
         [Header("Fading")]
         [SerializeField] private Slider ActivityFadeSlider;
-
+        [SerializeField] private Slider AmbienceFadeSlider;
         public float ActivityFadeDuration;
+        public float AmbienceFadeDuration;
 
         [Header("Other")]
         public string SceneName;
@@ -33,6 +34,7 @@ namespace MusicMixer
             SettingsData data = SaveSystem.LoadSettings(SceneName);
 
             ActivityFadeDuration = data.ActivityFadeDuration;
+            AmbienceFadeDuration = data.AmbienceFadeDuration;
 
             UpdateFadeValues();
         }
@@ -44,13 +46,24 @@ namespace MusicMixer
             GetComponent<UnityActivityManager>().FadeDuration = ActivityFadeDuration;
         }
 
+        public void AmbienceFadeUpdate() //Called when the slider value changes
+        {
+            //Updates the fade duration based on the current slider value.
+            AmbienceFadeDuration = AmbienceFadeSlider.value / 10; //Worth noting I've devided the value by 10 as the slider's max value is set to 100 and we want integers of 0.1
+            GetComponent<AmbienceManager>().FadeDuration = AmbienceFadeDuration;
+            GetComponent<AmbienceManager>().AmbientFadeUpdate();
+        }
+
         private void UpdateFadeValues()
         {
-            //Sets The activity fade duration to the current fade duration
+            //Sets The activity fade duration and audio slider value to the current fade duration
             GetComponent<UnityActivityManager>().FadeDuration = ActivityFadeDuration;
-
-            //Sets the Activity Fade slider to the Fade duration value
             ActivityFadeSlider.value = ActivityFadeDuration * 10;
+
+            //Sets The ambience fade duration and audio slider value to the current fade duration
+            GetComponent<AmbienceManager>().FadeDuration = AmbienceFadeDuration;
+            AmbienceFadeSlider.value = AmbienceFadeDuration * 10;
+            GetComponent<AmbienceManager>().AmbientFadeUpdate();
         }
     }
 }

@@ -14,6 +14,7 @@ public class SettingsData
     public SettingsData (SettingsManager manager)
     {
         ActivityFadeDuration = manager.ActivityFadeDuration;
+        AmbienceFadeDuration = manager.AmbienceFadeDuration;
 
         SceneName = manager.SceneName;
     }

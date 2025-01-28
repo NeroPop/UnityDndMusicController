@@ -298,5 +298,13 @@ namespace MusicMixer.Ambience
             //Assign the Fade time to the Ambient Controller
             newAmbient.GetComponent<AmbientController>().FadeDuration = FadeDuration;
         }
+
+        public void AmbientFadeUpdate()
+        {
+            for (int i = 0; i < AmbientAudioSources.Count; i++)
+            {
+                AmbientAudioSources[i].gameObject.GetComponent<AmbientController>().FadeDuration = FadeDuration;
+            }
+        }
     }
 }
