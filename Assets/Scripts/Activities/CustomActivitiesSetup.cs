@@ -267,10 +267,16 @@ namespace MusicMixer.Activities
             LoadExistingWavFiles();
         }
 
+        [SerializeField] ScrollRect activityScrollReact;
+        [SerializeField] Scrollbar activityScrollBar;
+
         private void NewActivityButton(int buttonIndex)
         {
             //Create the new button for the Activity
+            activityScrollReact.enabled = false;
             GameObject newActivityButton = Instantiate(ActivityButtonPrefab, ActivityButtonGroup.transform);
+            activityScrollReact.enabled = true;
+            activityScrollBar.value = 0;
             newActivityButton.GetComponentInChildren<TMP_Text>().text = ActivityName;
             newActivityButton.name = "Button " + ActivityName;
 
