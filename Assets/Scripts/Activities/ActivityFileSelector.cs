@@ -39,6 +39,7 @@ namespace MusicMixer.Activities
         private string destinationPath;
         private string oldDestinationPath;
         private string oldFileName;
+        private bool mp3 = false;
 
         public void OpenFileDialog() // Open the file inspector and select files
         {
@@ -148,6 +149,8 @@ namespace MusicMixer.Activities
                 destinationFileName = $"{oldFileName}_tmp{fileExtension}";
                 destinationPath = Path.Combine(targetPath, destinationFileName);
                 Debug.Log("named new file with tmp");
+
+                mp3 = true; //we are dealing with an mp3 file
             }
             else //if it's not an mp3 then name it conventionally
             {
@@ -168,6 +171,7 @@ namespace MusicMixer.Activities
                     File.Delete(MP3FilePath);
                 }
 
+#if UNITY_EDITOR
                 if (fileExtension.ToLower() == ".mp3")
                 {
                     //Renames the Activity back to normal and deletes the old one
@@ -179,11 +183,25 @@ namespace MusicMixer.Activities
                     //Deletes the duplicate file
                     File.Delete(oldDestinationPath);
                     Debug.Log($"Renamed file back to normal and deleted old file");
+                    mp3 = false;
                 }
 
-#if UNITY_EDITOR
                 // Refresh the Asset Database so Unity detects the new file
                 AssetDatabase.Refresh();
+#else 
+                if (mp3) //For some reason the editor doesn't like the bool
+                {
+                    //Renames the Activity back to normal and deletes the old one
+                    oldDestinationPath = destinationPath;
+                    destinationFileName = $"{oldFileName}{fileExtension}";
+                    destinationPath = Path.Combine(targetPath, destinationFileName);
+                    File.Copy(oldDestinationPath, destinationPath, true);
+
+                    //Deletes the duplicate file
+                    File.Delete(oldDestinationPath);
+                    Debug.Log($"Renamed file back to normal and deleted old file");
+                    mp3 = false;
+                }
 #endif
                 // Load the renamed AudioClip and add it to the list
                 StartCoroutine(AddAudioClipToList(destinationFileName));
