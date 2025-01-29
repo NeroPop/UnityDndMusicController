@@ -210,6 +210,7 @@ namespace MusicMixer.Activities
                     AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
                     if (clip != null)
                     {
+                        clip.name = Path.GetFileNameWithoutExtension(filePath);
                         ActivityaudioClips.Add(clip);
                         Debug.Log($"AudioClip successfully added: {clip.name}");
                     }
