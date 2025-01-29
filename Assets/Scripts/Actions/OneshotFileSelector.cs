@@ -31,6 +31,9 @@ namespace MusicMixer.Actions
         [SerializeField] private GameObject ButtonCancel;
 
         private string MP3FilePath;
+        private string wavFilePath;
+        private string destinationFileName;
+        private string destinationPath;
 
         public void OpenFileDialog()
         {
@@ -103,7 +106,7 @@ namespace MusicMixer.Actions
             {
                 try
                 {
-                    string wavFilePath = AudioConverter.ConvertMp3ToWav(filePath, targetPath);
+                    wavFilePath = AudioConverter.ConvertMp3ToWav(filePath, targetPath);
                     Debug.Log($"Converted MP3 to WAV: {wavFilePath}");
 
                     //Gets the original file name and creates a path to where it'll copy the file before converting || Used for deleting the file after
@@ -122,8 +125,17 @@ namespace MusicMixer.Actions
             }
 
             // Set the destination file name to use OneshotName
-            string destinationFileName = $"{OneshotName}{fileExtension}";
-            string destinationPath = Path.Combine(targetPath, destinationFileName);
+            if (Path.GetFileNameWithoutExtension(filePath) != OneshotName) //Check if the written name is the same as the file name
+            {
+                destinationFileName = $"{OneshotName}{fileExtension}";
+                destinationPath = Path.Combine(targetPath, destinationFileName);
+            }
+            else
+            {
+                destinationFileName = $"{OneshotName}_tmp{fileExtension}";
+                destinationPath = Path.Combine(targetPath, destinationFileName);
+                Debug.Log("named file with tmp");
+            }
 
             try
             {
@@ -134,12 +146,28 @@ namespace MusicMixer.Actions
                 // Delete the original MP3 file
                 if (File.Exists(MP3FilePath))
                 {
-                    File.Delete(MP3FilePath);
-                    Debug.Log($"Deleted original MP3 file: {MP3FilePath}");
+                    if (MP3FilePath != wavFilePath) //check to make sure the file name isnt the same otherwise it causes an error when deleted
+                    {
+                        File.Delete(MP3FilePath);
+                        Debug.Log($"Deleted original MP3 file: {MP3FilePath}");
+                    }
                 }
                 else
                 {
                     Debug.LogError($"File not found at {MP3FilePath}");
+                }
+
+                //If the action name is the same as the file name it renames the action back to normal and deletes the old one
+                if (Path.GetFileNameWithoutExtension(filePath) == OneshotName)
+                {
+                    string oldDestinationPath = destinationPath;
+                    destinationFileName = $"{OneshotName}{fileExtension}";
+                    destinationPath = Path.Combine(targetPath, destinationFileName);
+
+                    File.Copy(oldDestinationPath, destinationPath, true);
+                    File.Delete(oldDestinationPath);
+
+                    Debug.Log($"Renamed file back to {Path.GetFileNameWithoutExtension(destinationPath)} in {destinationPath}");
                 }
 
 #if UNITY_EDITOR
