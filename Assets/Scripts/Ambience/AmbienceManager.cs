@@ -42,6 +42,10 @@ namespace MusicMixer.Ambience
         private string AudioFolderPath;
         public bool clean = true;
 
+        [Header("Scroll Elments")]
+        [SerializeField] ScrollRect ambienceScrollReact;
+        [SerializeField] Scrollbar ambienceScrollBar;
+
 
         private void Start()
         {
@@ -266,10 +270,15 @@ namespace MusicMixer.Ambience
             LoadExistingWavFiles();
         }
 
+        
+
         private void NewAmbientButton(int buttonIndex)
         {
             //Create the new button for the ambience
+            ambienceScrollReact.enabled = false;
             GameObject newAmbientButton = Instantiate(AmbientButtonPrefab, AmbientButtonGroup.transform);
+            ambienceScrollReact.enabled = true;
+            ambienceScrollBar.value = 1;
             newAmbientButton.GetComponentInChildren<TMP_Text>().text = AmbientName;
             newAmbientButton.name = "Button " + AmbientName;
 

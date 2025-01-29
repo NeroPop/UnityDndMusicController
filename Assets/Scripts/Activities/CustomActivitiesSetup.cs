@@ -55,6 +55,10 @@ namespace MusicMixer.Activities
         private bool UIActivityCheck;
         private GameObject newActivity;
 
+        [Header("Scroll Elments")]
+        [SerializeField] ScrollRect activityScrollReact;
+        [SerializeField] Scrollbar activityScrollBar;
+
         private void Start()
         {
             ActivityManager = gameObject.GetComponent<UnityActivityManager>();
@@ -267,8 +271,7 @@ namespace MusicMixer.Activities
             LoadExistingWavFiles();
         }
 
-        [SerializeField] ScrollRect activityScrollReact;
-        [SerializeField] Scrollbar activityScrollBar;
+        
 
         private void NewActivityButton(int buttonIndex)
         {

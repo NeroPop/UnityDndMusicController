@@ -40,6 +40,10 @@ namespace MusicMixer.Actions
         private string audioFolderPath;
         [HideInInspector] public bool clean = true;
 
+        [Header("Scroll Elments")]
+        [SerializeField] ScrollRect oneShotScrollReact;
+        [SerializeField] Scrollbar oneShotScrollBar;
+
         private void Start()
         {
             audioFolderPath = gameObject.GetComponent<OneshotFileSelector>().targetFolderPath;
@@ -245,10 +249,15 @@ namespace MusicMixer.Actions
             LoadExistingWavFiles();
         }
 
+       
+
         private void NewButtonSetup(int buttonIndex)
         {
             // Create the new button for the Action
+            oneShotScrollReact.enabled = false;
             GameObject newOneshotButton = Instantiate(OneshotButtonPrefab, OneshotButtonGroup.transform);
+            oneShotScrollReact.enabled = true;
+            oneShotScrollBar.value = 1;
             newOneshotButton.GetComponentInChildren<TMP_Text>().text = OneshotName;
             newOneshotButton.name = "Button " + OneshotName;
 
