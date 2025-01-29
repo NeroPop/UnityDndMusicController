@@ -159,9 +159,6 @@ namespace MusicMixer.Activities
 
             try
             {
-                // Ensure the file is completely free before copying
-                System.Threading.Thread.Sleep(100); // Small delay
-
                 // Copy the file without renaming
                 File.Copy(filePath, destinationPath, true);
                 Debug.Log($"File successfully copied: {destinationPath}");
