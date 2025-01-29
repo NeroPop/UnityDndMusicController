@@ -39,7 +39,6 @@ namespace MusicMixer.Activities
         private string destinationPath;
         private string oldDestinationPath;
         private string oldFileName;
-        private bool sameName = false;
 
         public void OpenFileDialog() // Open the file inspector and select files
         {
@@ -62,7 +61,7 @@ namespace MusicMixer.Activities
                 }
 
                 // Ask if the user wants to select more files
-                selectMoreFiles = EditorUtility.DisplayDialog("Select More Files?", "Do you want to select another WAV file?", "Yes", "No");
+                selectMoreFiles = EditorUtility.DisplayDialog("Select More Files?", "Do you want to select another Audio file?", "Yes", "No");
             }
 #else
             // Setup the audio folder path
@@ -150,7 +149,7 @@ namespace MusicMixer.Activities
                 destinationPath = Path.Combine(targetPath, destinationFileName);
                 Debug.Log("named new file with tmp");
             }
-            else
+            else //if it's not an mp3 then name it conventionally
             {
                 // Get the original file name and set the path
                 destinationFileName = Path.GetFileName(filePath);
