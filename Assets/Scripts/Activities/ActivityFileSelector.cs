@@ -119,76 +119,76 @@ namespace MusicMixer.Activities
                 Directory.CreateDirectory(targetPath);
             }
 
-            foreach (string audioPath in selectedFilePaths)
+            // Get the extension of the original file (e.g., ".wav" or ".mp3")
+            string fileExtension = Path.GetExtension(filePath);
+
+            // If it's an MP3, convert to WAV before copying
+            if (fileExtension.ToLower() == ".mp3")
             {
-                // Get the extension of the original file (e.g., ".wav" or ".mp3")
-                string fileExtension = Path.GetExtension(audioPath);
-
-                // If it's an MP3, convert to WAV before copying
-                if (fileExtension.ToLower() == ".mp3")
-                {
-                    try
-                    {
-                        wavFilePath = AudioConverter.ConvertMp3ToWav(audioPath, targetPath);
-                        Debug.Log($"Converted MP3 to WAV: {wavFilePath}");
-
-                        //Gets the original file name and creates a path to where it'll copy the file before converting || Used for deleting the file after
-                        string mp3Name = Path.GetFileNameWithoutExtension(audioPath);
-                        MP3FilePath = Path.Combine($"Assets/{targetFolderPath}/{mp3Name}.wav");
-
-                        // Set the destination file path to the WAV file
-                        filePath = wavFilePath;
-                        fileExtension = ".wav"; // Update the extension to WAV
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.LogError($"Failed to convert MP3 to WAV: {ex.Message}");
-                        return; // If conversion fails, exit the method
-                    }
-                }
-
-                //Temporarily renames the file with _tmp to ensure its different to the source
-                oldFileName = Path.GetFileNameWithoutExtension(filePath);
-                destinationFileName = $"{oldFileName}_tmp{fileExtension}";
-                destinationPath = Path.Combine(targetPath, destinationFileName);
-                Debug.Log("named new file with tmp");
-
                 try
                 {
-                    // Ensure the file is completely free before copying
-                    System.Threading.Thread.Sleep(100); // Small delay
+                    wavFilePath = AudioConverter.ConvertMp3ToWav(filePath, targetPath);
+                    Debug.Log($"Converted MP3 to WAV: {wavFilePath}");
 
-                    // Copy the file without renaming
-                    File.Copy(filePath, destinationPath, true);
-                    Debug.Log($"File successfully copied: {destinationPath}");
+                    //Gets the original file name and creates a path to where it'll copy the file before converting || Used for deleting the file after
+                    string mp3Name = Path.GetFileNameWithoutExtension(filePath);
+                    MP3FilePath = Path.Combine($"Assets/{targetFolderPath}/{mp3Name}.wav");
 
-                    // Delete the original MP3 file
-                    if (File.Exists(MP3FilePath))
-                    {
-                        File.Delete(MP3FilePath);
-                    }
-
-                    //Renames the Activity back to normal and deletes the old one
-                    oldDestinationPath = destinationPath;
-                    destinationFileName = $"{oldFileName}{fileExtension}";
-                    destinationPath = Path.Combine(targetPath, destinationFileName);
-                    File.Copy(oldDestinationPath, destinationPath, true);
-
-                    Debug.Log($"Renamed file back to {Path.GetFileNameWithoutExtension(destinationPath)} in {destinationPath}");
-
-#if UNITY_EDITOR
-                    // Refresh the Asset Database so Unity detects the new file
-                    AssetDatabase.Refresh();
-#endif
-                    // Load the renamed AudioClip and add it to the list
-                    StartCoroutine(AddAudioClipToList(destinationFileName));
+                    // Set the destination file path to the WAV file
+                    filePath = wavFilePath;
+                    fileExtension = ".wav"; // Update the extension to WAV
                 }
                 catch (System.Exception ex)
                 {
-                    Debug.LogError($"Failed to copy file: {ex.Message}");
+                    Debug.LogError($"Failed to convert MP3 to WAV: {ex.Message}");
+                    return; // If conversion fails, exit the method
                 }
             }
-           
+
+            //Temporarily renames the file with _tmp to ensure its different to the source
+            oldFileName = Path.GetFileNameWithoutExtension(filePath);
+            destinationFileName = $"{oldFileName}_tmp{fileExtension}";
+            destinationPath = Path.Combine(targetPath, destinationFileName);
+            Debug.Log("named new file with tmp");
+
+            try
+            {
+                // Ensure the file is completely free before copying
+                System.Threading.Thread.Sleep(100); // Small delay
+
+                // Copy the file without renaming
+                File.Copy(filePath, destinationPath, true);
+                Debug.Log($"File successfully copied: {destinationPath}");
+
+                // Delete the original MP3 file
+                if (File.Exists(MP3FilePath))
+                {
+                    File.Delete(MP3FilePath);
+                }
+
+                //Renames the Activity back to normal and deletes the old one
+                oldDestinationPath = destinationPath;
+                destinationFileName = $"{oldFileName}{fileExtension}";
+                destinationPath = Path.Combine(targetPath, destinationFileName);
+                File.Copy(oldDestinationPath, destinationPath, true);
+
+                Debug.Log($"Renamed file back to {Path.GetFileNameWithoutExtension(destinationPath)} in {destinationPath}");
+
+                //Deletes the duplicate file
+                File.Delete(oldDestinationPath);
+
+#if UNITY_EDITOR
+                // Refresh the Asset Database so Unity detects the new file
+                AssetDatabase.Refresh();
+#endif
+                // Load the renamed AudioClip and add it to the list
+                StartCoroutine(AddAudioClipToList(destinationFileName));
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"Failed to copy file: {ex.Message}");
+            }
+
         }
 
         private IEnumerator AddAudioClipToList(string fileName)
