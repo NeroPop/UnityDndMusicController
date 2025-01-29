@@ -134,14 +134,13 @@ namespace MusicMixer.Actions
             {
                 destinationFileName = $"{OneshotName}_tmp{fileExtension}";
                 destinationPath = Path.Combine(targetPath, destinationFileName);
-                Debug.Log("named file with tmp");
+                Debug.Log("named new file with tmp");
             }
 
             try
             {
                 // Copy the file and rename it
                 File.Copy(filePath, destinationPath, true);
-                Debug.Log($"File successfully copied and renamed to: {destinationPath}");
 
                 // Delete the original MP3 file
                 if (File.Exists(MP3FilePath))
@@ -149,12 +148,7 @@ namespace MusicMixer.Actions
                     if (MP3FilePath != wavFilePath) //check to make sure the file name isnt the same otherwise it causes an error when deleted
                     {
                         File.Delete(MP3FilePath);
-                        Debug.Log($"Deleted original MP3 file: {MP3FilePath}");
                     }
-                }
-                else
-                {
-                    Debug.LogError($"File not found at {MP3FilePath}");
                 }
 
                 //If the action name is the same as the file name it renames the action back to normal and deletes the old one
