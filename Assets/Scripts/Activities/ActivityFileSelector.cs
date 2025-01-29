@@ -33,6 +33,14 @@ namespace MusicMixer.Activities
         [SerializeField] private GameObject ButtonDone;
         [SerializeField] private GameObject ButtonCancel;
 
+        private string MP3FilePath;
+        private string wavFilePath;
+        private string destinationFileName;
+        private string destinationPath;
+        private string oldDestinationPath;
+        private string oldFileName;
+        private bool sameName = false;
+
         public void OpenFileDialog() // Open the file inspector and select files
         {
             //Sets the activity name
@@ -47,7 +55,7 @@ namespace MusicMixer.Activities
             // Use a loop to allow selecting multiple files
             while (selectMoreFiles)
             {
-                string filePath = EditorUtility.OpenFilePanel("Select a WAV File", "", "wav");
+                string filePath = EditorUtility.OpenFilePanel("Select an Audio File", "", "wav,mp3");
                 if (!string.IsNullOrEmpty(filePath))
                 {
                     selectedFilePaths.Add(filePath);
@@ -57,21 +65,21 @@ namespace MusicMixer.Activities
                 selectMoreFiles = EditorUtility.DisplayDialog("Select More Files?", "Do you want to select another WAV file?", "Yes", "No");
             }
 #else
-    // Setup the audio folder path
-    targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities", ActivityName);
+            // Setup the audio folder path
+            targetFolderPath = Path.Combine(Application.streamingAssetsPath, "CustomAudio", SceneName, "Activities", ActivityName);
 
-    // Use System.Windows.Forms for standalone builds and select multiple wav files
-    using (var fileDialog = new System.Windows.Forms.OpenFileDialog())
-    {
-        fileDialog.Filter = "WAV Files (*.wav)|*.wav";
-        fileDialog.Title = "Select WAV Files";
-        fileDialog.Multiselect = true;
+            // Use System.Windows.Forms for standalone builds and select both WAV and MP3 files
+            using (var fileDialog = new System.Windows.Forms.OpenFileDialog())
+            {
+                fileDialog.Filter = "Audio Files (*.wav;*.mp3)|*.wav;*.mp3";
+                fileDialog.Title = "Select an Audio File";
+                fileDialog.Multiselect = true;
 
-        if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        {
-            selectedFilePaths.AddRange(fileDialog.FileNames);
-        }
-    }
+                if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    selectedFilePaths.AddRange(fileDialog.FileNames);
+                }
+            }
 #endif
 
             // If files are selected, copy them to the target folder
@@ -111,78 +119,117 @@ namespace MusicMixer.Activities
                 Directory.CreateDirectory(targetPath);
             }
 
-            // Get the original file name
-            string fileName = Path.GetFileName(filePath);
-            string destinationPath = Path.Combine(targetPath, fileName);
-
-            try
+            foreach (string audioPath in selectedFilePaths)
             {
-                // Copy the file without renaming
-                File.Copy(filePath, destinationPath, true);
-                Debug.Log($"File successfully copied: {destinationPath}");
+                // Get the extension of the original file (e.g., ".wav" or ".mp3")
+                string fileExtension = Path.GetExtension(audioPath);
+
+                // If it's an MP3, convert to WAV before copying
+                if (fileExtension.ToLower() == ".mp3")
+                {
+                    try
+                    {
+                        wavFilePath = AudioConverter.ConvertMp3ToWav(audioPath, targetPath);
+                        Debug.Log($"Converted MP3 to WAV: {wavFilePath}");
+
+                        //Gets the original file name and creates a path to where it'll copy the file before converting || Used for deleting the file after
+                        string mp3Name = Path.GetFileNameWithoutExtension(audioPath);
+                        MP3FilePath = Path.Combine($"Assets/{targetFolderPath}/{mp3Name}.wav");
+
+                        // Set the destination file path to the WAV file
+                        filePath = wavFilePath;
+                        fileExtension = ".wav"; // Update the extension to WAV
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Debug.LogError($"Failed to convert MP3 to WAV: {ex.Message}");
+                        return; // If conversion fails, exit the method
+                    }
+                }
+
+                //Temporarily renames the file with _tmp to ensure its different to the source
+                oldFileName = Path.GetFileNameWithoutExtension(filePath);
+                destinationFileName = $"{oldFileName}_tmp{fileExtension}";
+                destinationPath = Path.Combine(targetPath, destinationFileName);
+                Debug.Log("named new file with tmp");
+
+                try
+                {
+                    // Ensure the file is completely free before copying
+                    System.Threading.Thread.Sleep(100); // Small delay
+
+                    // Copy the file without renaming
+                    File.Copy(filePath, destinationPath, true);
+                    Debug.Log($"File successfully copied: {destinationPath}");
+
+                    // Delete the original MP3 file
+                    if (File.Exists(MP3FilePath))
+                    {
+                        File.Delete(MP3FilePath);
+                    }
+
+                    //Renames the Activity back to normal and deletes the old one
+                    oldDestinationPath = destinationPath;
+                    destinationFileName = $"{oldFileName}{fileExtension}";
+                    destinationPath = Path.Combine(targetPath, destinationFileName);
+                    File.Copy(oldDestinationPath, destinationPath, true);
+
+                    Debug.Log($"Renamed file back to {Path.GetFileNameWithoutExtension(destinationPath)} in {destinationPath}");
 
 #if UNITY_EDITOR
-                // Refresh the Asset Database so Unity detects the new file
-                AssetDatabase.Refresh();
+                    // Refresh the Asset Database so Unity detects the new file
+                    AssetDatabase.Refresh();
 #endif
-                // Load the AudioClip and add it to the list
-                StartCoroutine(AddAudioClipToList(fileName));
+                    // Load the renamed AudioClip and add it to the list
+                    StartCoroutine(AddAudioClipToList(destinationFileName));
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Failed to copy file: {ex.Message}");
+                }
             }
-            catch (System.Exception ex)
-            {
-                Debug.LogError($"Failed to copy file: {ex.Message}");
-            }
+           
         }
 
         private IEnumerator AddAudioClipToList(string fileName)
         {
-            string relativePath = Path.Combine("Assets", targetFolderPath, fileName);
+            string filePath = Path.Combine(Application.dataPath, targetFolderPath, fileName);
+            string fileUrl = "file:///" + filePath.Replace("\\", "/");
 
-#if UNITY_EDITOR
-            // Use the AssetDatabase in the editor to load the clip
-            AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(relativePath);
+            // Determine the audio type (WAV or MP3) based on file extension
+            string fileExtension = Path.GetExtension(fileName).ToLower();
+            AudioType audioType = fileExtension == ".mp3" ? AudioType.MPEG : AudioType.WAV;
 
-            if (clip != null)
+            // Load the audio clip using UnityWebRequest
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileUrl, audioType))
             {
-                // Assign the clip to the various other scripts
-                ActivityaudioClips.Add(clip);
-            }
-            else
-            {
-                Debug.LogWarning($"Failed to load AudioClip: {fileName} at {relativePath}. Ensure it is in the correct folder.");
-            }
-#else
-        // For builds, load the audio clip using UnityWebRequest
-        string filePath = Path.Combine(Application.streamingAssetsPath, targetFolderPath, fileName);
+                yield return www.SendWebRequest();
 
-        // Ensure the file path starts with file:// for UnityWebRequest
-        string fileUrl = "file:///" + filePath.Replace("\\", "/");
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                    if (clip != null)
+                    {
+                        ActivityaudioClips.Add(clip);
+                        Debug.Log($"AudioClip successfully added: {clip.name}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Failed to load AudioClip from path {filePath}. Ensure the file is in the correct folder.");
+                    }
+                }
 
-        UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileUrl, AudioType.WAV);
-        yield return www.SendWebRequest(); // Wait for the request to finish
-
-        if (www.result == UnityWebRequest.Result.Success)
-        {
-            AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-            if (clip != null)
-            {
-                clip.name = fileName; // Manually set the clip name
-
-                // Assign the clip to the various other scripts
-                ActivityaudioClips.Add(clip);
+                else
+                {
+                    Debug.LogError($"Error loading AudioClip: {www.error}");
+                }
             }
-            else
-            {
-                Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Ensure the file is in the correct folder.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"Failed to load AudioClip: {fileName} from path {filePath}. Error: {www.error}");
-        }
-#endif
+
+            // Force Garbage Collection to ensure file release
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+
             ControlCustomiseUI(false);
-            yield break; // Ensures the coroutine exits cleanly
         }
 
         public void NewActivityClipLoader()

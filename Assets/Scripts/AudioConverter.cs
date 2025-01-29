@@ -14,6 +14,11 @@ public static class AudioConverter
             pcmStream.CopyTo(waveWriter);
         }
 
+        // Explicitly dispose of streams to release file locks
+        System.GC.Collect();
+        System.GC.WaitForPendingFinalizers();
+
         return wavFilePath;
     }
 }
+
