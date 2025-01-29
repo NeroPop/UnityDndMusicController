@@ -10,6 +10,7 @@ using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine.Networking;
 using System.ComponentModel;
+using UnityEngine.EventSystems;
 
 namespace MusicMixer.Activities
 {
@@ -296,6 +297,8 @@ namespace MusicMixer.Activities
             //Ensure that on click it triggers the correct Activity
             buttonComponent.onClick.AddListener(() => PlayActivity(buttonIndex));
         }
+
+
 
         private void NewActivityGameObject()
         {
