@@ -143,13 +143,19 @@ namespace MusicMixer.Activities
                     Debug.LogError($"Failed to convert MP3 to WAV: {ex.Message}");
                     return; // If conversion fails, exit the method
                 }
-            }
 
-            //Temporarily renames the file with _tmp to ensure its different to the source
-            oldFileName = Path.GetFileNameWithoutExtension(filePath);
-            destinationFileName = $"{oldFileName}_tmp{fileExtension}";
-            destinationPath = Path.Combine(targetPath, destinationFileName);
-            Debug.Log("named new file with tmp");
+                //Temporarily renames the file with _tmp to ensure its different to the source
+                oldFileName = Path.GetFileNameWithoutExtension(filePath);
+                destinationFileName = $"{oldFileName}_tmp{fileExtension}";
+                destinationPath = Path.Combine(targetPath, destinationFileName);
+                Debug.Log("named new file with tmp");
+            }
+            else
+            {
+                // Get the original file name and set the path
+                destinationFileName = Path.GetFileName(filePath);
+                destinationPath = Path.Combine(targetPath, destinationFileName);
+            }
 
             try
             {
@@ -166,16 +172,18 @@ namespace MusicMixer.Activities
                     File.Delete(MP3FilePath);
                 }
 
-                //Renames the Activity back to normal and deletes the old one
-                oldDestinationPath = destinationPath;
-                destinationFileName = $"{oldFileName}{fileExtension}";
-                destinationPath = Path.Combine(targetPath, destinationFileName);
-                File.Copy(oldDestinationPath, destinationPath, true);
+                if (fileExtension.ToLower() == ".mp3")
+                {
+                    //Renames the Activity back to normal and deletes the old one
+                    oldDestinationPath = destinationPath;
+                    destinationFileName = $"{oldFileName}{fileExtension}";
+                    destinationPath = Path.Combine(targetPath, destinationFileName);
+                    File.Copy(oldDestinationPath, destinationPath, true);
 
-                Debug.Log($"Renamed file back to {Path.GetFileNameWithoutExtension(destinationPath)} in {destinationPath}");
-
-                //Deletes the duplicate file
-                File.Delete(oldDestinationPath);
+                    //Deletes the duplicate file
+                    File.Delete(oldDestinationPath);
+                    Debug.Log($"Renamed file back to normal and deleted old file");
+                }
 
 #if UNITY_EDITOR
                 // Refresh the Asset Database so Unity detects the new file
