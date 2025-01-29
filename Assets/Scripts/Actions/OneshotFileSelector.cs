@@ -34,6 +34,8 @@ namespace MusicMixer.Actions
         private string wavFilePath;
         private string destinationFileName;
         private string destinationPath;
+        private string oldDestinationPath;
+        private bool sameName = false;
 
         public void OpenFileDialog()
         {
@@ -154,13 +156,13 @@ namespace MusicMixer.Actions
                 //If the action name is the same as the file name it renames the action back to normal and deletes the old one
                 if (Path.GetFileNameWithoutExtension(filePath) == OneshotName)
                 {
-                    string oldDestinationPath = destinationPath;
+                    sameName = true;
+                    oldDestinationPath = destinationPath;
                     destinationFileName = $"{OneshotName}{fileExtension}";
                     destinationPath = Path.Combine(targetPath, destinationFileName);
 
                     File.Copy(oldDestinationPath, destinationPath, true);
-                    File.Delete(oldDestinationPath);
-
+                    
                     Debug.Log($"Renamed file back to {Path.GetFileNameWithoutExtension(destinationPath)} in {destinationPath}");
                 }
 
@@ -206,6 +208,12 @@ namespace MusicMixer.Actions
             else
             {
                 Debug.LogError($"Error loading AudioClip: {www.error}");
+            }
+
+            if (sameName)
+            {
+                File.Delete(oldDestinationPath);
+                sameName = false;
             }
 
             ControlCustomiseUI(false);
